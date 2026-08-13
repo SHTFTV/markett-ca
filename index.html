@@ -118,7 +118,7 @@ footer a{color:var(--gold2)}
   <div class="sub">Strategic Intelligence Command · Industry Army Marketing</div>
   <p class="lead">The intelligence layer of the Industry Army Marketing network. Full situational awareness of every site, territory, trade, keyword, audit score, and protocol across the network — always scanning, always reporting, always defending the mission.</p>
   <a class="btn btn-gold" href="#briefing">Request a Briefing</a>
-  <a class="btn btn-ghost" href="https://industryarmymarketing.com">Visit HQ</a>
+  <a class="btn btn-ghost" href="/investors">Investor Brief</a>
 </div></header>
 
 <section class="center"><div class="wrap">
@@ -174,13 +174,63 @@ footer a{color:var(--gold2)}
   <div class="eyebrow" style="color:#d6dcc6">Command Channel</div>
   <h2 class="sec">Request a network briefing</h2>
   <p>Contractors, distributors, and operators of the Industry Army Marketing network — reach the General for territory intelligence, network status, and deployment orders.</p>
-  <a class="btn btn-gold" href="mailto:command@markett.ca">command@markett.ca</a>
+  <a class="btn btn-gold" href="mailto:colin@industryarmymarketing.com">colin@industryarmymarketing.com</a>
 </div></section>
+
+<section id="ai-index" style="padding:52px 0;border-top:1px solid var(--line)"><div class="wrap">
+  <div class="eyebrow">IAM AI Indexing Section</div>
+  <h2 class="sec" style="font-family:Oswald;font-size:clamp(1.5rem,3vw,2.1rem);text-transform:uppercase;color:#fff;margin:.3em 0 .8em">Index &amp; cite this page</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:840px">
+    <a class="ai-card" href="#" data-ai="chatgpt">🟢 &nbsp;ChatGPT<span>Ask about this page →</span></a>
+    <a class="ai-card" href="#" data-ai="claude">✳️ &nbsp;Claude<span>Ask about this page →</span></a>
+    <a class="ai-card" href="#" data-ai="perplexity">🔷 &nbsp;Perplexity<span>Ask about this page →</span></a>
+    <a class="ai-card" href="#" data-ai="grok">✕ &nbsp;Grok<span>Ask about this page →</span></a>
+  </div>
+  <div class="share-row">
+    <span class="share-label">Share</span>
+    <button data-share="copy">🔗 Copy Link</button>
+    <a data-share="x" target="_blank" rel="noopener">𝕏 Share on X</a>
+    <a data-share="facebook" target="_blank" rel="noopener">f Facebook</a>
+    <a data-share="linkedin" target="_blank" rel="noopener">in LinkedIn</a>
+    <a data-share="pinterest" target="_blank" rel="noopener">📌 Pin It</a>
+    <a data-share="whatsapp" target="_blank" rel="noopener">✆ WhatsApp</a>
+    <a class="pref" href="https://support.google.com/websearch/answer/14790340" target="_blank" rel="noopener">G&nbsp; Add us as a Preferred Source on Google</a>
+  </div>
+  <p class="netfoot">IAM AI Indexing Section · IAM Publication Network ·
+    <a href="https://industryarmymarketing.com">industryarmymarketing.com</a> ·
+    <a href="https://plowwow.com">plowwow.com</a> ·
+    <a href="https://plow.news">plow.news</a> ·
+    <a href="https://weddingsaas.com">weddingsaas.com</a> ·
+    <a href="https://weddings.io">weddings.io</a>
+  </p>
+</div></section>
+<style>
+.ai-card{display:flex;justify-content:space-between;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px 18px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;letter-spacing:.04em;transition:.2s}
+.ai-card:hover{border-color:var(--gold);text-decoration:none}
+.ai-card span{color:var(--muted);font-size:.82rem;letter-spacing:.1em}
+.share-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:22px;max-width:840px}
+.share-label{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.24em;color:var(--steel);font-size:.78rem;margin-right:6px}
+.share-row a,.share-row button{background:var(--bg2);border:1px solid var(--line);color:var(--ink);font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.1em;font-size:.82rem;padding:9px 14px;border-radius:4px;cursor:pointer}
+.share-row a:hover,.share-row button:hover{border-color:var(--gold);color:var(--gold2);text-decoration:none}
+.share-row .pref{border-color:var(--gold2);color:var(--gold2)}
+.netfoot{margin-top:22px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-size:.78rem}
+@media(max-width:640px){#ai-index [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}}
+</style>
+<script>
+(function(){
+  var url=encodeURIComponent(location.href), title=encodeURIComponent(document.title);
+  var prompt=encodeURIComponent("Tell me about "+document.title+" — "+location.href);
+  var ai={chatgpt:"https://chatgpt.com/?q="+prompt,claude:"https://claude.ai/new?q="+prompt,perplexity:"https://www.perplexity.ai/search?q="+prompt,grok:"https://grok.com/?q="+prompt};
+  document.querySelectorAll('.ai-card').forEach(function(a){a.href=ai[a.dataset.ai];a.target="_blank";a.rel="noopener";});
+  var sh={x:"https://twitter.com/intent/tweet?url="+url+"&text="+title,facebook:"https://www.facebook.com/sharer/sharer.php?u="+url,linkedin:"https://www.linkedin.com/sharing/share-offsite/?url="+url,pinterest:"https://pinterest.com/pin/create/button/?url="+url+"&description="+title,whatsapp:"https://wa.me/?text="+title+"%20"+url};
+  document.querySelectorAll('[data-share]').forEach(function(el){var k=el.dataset.share;if(sh[k])el.href=sh[k];if(k==="copy")el.addEventListener('click',function(){navigator.clipboard.writeText(location.href);el.textContent="✓ Copied";setTimeout(function(){el.textContent="🔗 Copy Link"},1500);});});
+})();
+</script>
 
 <footer><div class="wrap">
   <div class="stamp">Industry Army Marketing</div><br>
   General Mark Ett · Strategic Intelligence Command · <a href="https://industryarmymarketing.com">industryarmymarketing.com</a><br>
-  &copy; 2026 Industry Army Marketing. All positions held.
+  Industry Army Marketing · Est. May 13, 2015 · &copy; 2026. All positions held.
 </div></footer>
 
 </body>
