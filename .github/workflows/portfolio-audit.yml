@@ -1,0 +1,42 @@
+name: Public portfolio audit
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/agents/**'
+      - '.github/workflows/portfolio-audit.yml'
+  schedule:
+    - cron: '23 14 * * *'
+  workflow_dispatch:
+    inputs:
+      batch:
+        description: Portfolio batch
+        type: choice
+        default: all
+        options: [all, insulation, mechanical, interiors]
+permissions:
+  contents: read
+concurrency:
+  group: portfolio-public-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test runner
+        run: node --test scripts/agents/audit.test.mjs
+      - name: Audit configured domains
+        env:
+          AUDIT_BATCH: ${{ inputs.batch || 'all' }}
+        run: node scripts/agents/audit.mjs "$AUDIT_BATCH" "$RUNNER_TEMP/portfolio-audit"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-audit-${{ github.run_id }}
+          path: ${{ runner.temp }}/portfolio-audit/
+          retention-days: 14
+          if-no-files-found: error
