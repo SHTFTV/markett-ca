@@ -77,8 +77,12 @@ export async function auditSite(domain, { page = requestPage, resolver = dns } =
       const values = await Promise.allSettled([
         deadline(() => resolver.resolveMx(domain)), deadline(() => resolver.resolveTxt(domain)),
       ]);
-      result.email.mx = values[0].status === 'fulfilled' ? values[0].value : null;
-      result.email.spf = values[1].status === 'fulfilled' ? values[1].value.map((parts) => parts.join('')).filter((record) => /^v=spf1(?:\s|$)/i.test(record)) : null;
+      result.email.mx = values[0].status === 'fulfilled'
+        ? [...values[0].value].sort((a, b) => a.priority - b.priority || a.exchange.localeCompare(b.exchange))
+        : null;
+      result.email.spf = values[1].status === 'fulfilled'
+        ? values[1].value.map((parts) => parts.join('')).filter((record) => /^v=spf1(?:\s|$)/i.test(record)).sort()
+        : null;
       result.email.dnsErrors = values.flatMap((v, i) => v.status === 'rejected' ? [`${i ? 'TXT' : 'MX'}: ${v.reason.code || v.reason.message}`] : []);
       result.email.mailRoutingAdvertised = Boolean(result.email.mx?.some((mx) => mx.exchange && mx.exchange !== '.'));
     })(),

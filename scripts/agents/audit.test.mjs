@@ -4,7 +4,13 @@ import http from 'node:http';
 import { once } from 'node:events';
 import { auditSite, publicAddress, mapBounded, deadline } from './audit.mjs';
 import { selectDomains } from './config.mjs';
-const resolver = { resolveMx: async () => [{ priority: 10, exchange: 'mail.example.com' }], resolveTxt: async () => [['v=spf1 ', '-all'], ['unrelated']] };
+const resolver = {
+  resolveMx: async () => [
+    { priority: 20, exchange: 'mx2.example.com' },
+    { priority: 10, exchange: 'mx1.example.com' },
+  ],
+  resolveTxt: async () => [['v=spf1 ', 'include:z.example.com -all'], ['unrelated'], ['v=spf1 ', 'include:a.example.com -all']],
+};
 test('local HTTP responses and DNS stubs: redirects, title, deduped mailto, no delivery claim', async () => {
   const server = http.createServer((req, res) => {
     if (req.url === '/') { res.writeHead(302, { location: '/home' }); res.end(); }
@@ -19,7 +25,15 @@ test('local HTTP responses and DNS stubs: redirects, title, deduped mailto, no d
     const site = await auditSite('example.com', { page, resolver });
     assert.equal(site.http.status, 200); assert.equal(site.http.redirects.length, 1);
     assert.equal(site.http.title, 'Test Site'); assert.deepEqual(site.http.mailto, ['hello@example.com']);
-    assert.deepEqual(site.email.spf, ['v=spf1 -all']); assert.equal(site.email.deliveryVerified, false);
+    assert.deepEqual(site.email.mx, [
+      { priority: 10, exchange: 'mx1.example.com' },
+      { priority: 20, exchange: 'mx2.example.com' },
+    ]);
+    assert.deepEqual(site.email.spf, [
+      'v=spf1 include:a.example.com -all',
+      'v=spf1 include:z.example.com -all',
+    ]);
+    assert.equal(site.email.deliveryVerified, false);
   } finally { server.closeAllConnections(); await new Promise((done) => server.close(done)); }
 });
 test('blocks unsafe destinations, invalid batch, and external redirect', async () => {
