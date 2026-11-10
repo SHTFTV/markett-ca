@@ -1,0 +1,31 @@
+name: search-verification
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/search-worker/**', '.github/workflows/search-verification.yml']
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: search-state-checkpoint
+  cancel-in-progress: false
+jobs:
+  worker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Verify recovery and watchdog behavior
+        run: node --test scripts/search-worker/core.test.mjs
+      - name: Execute bounded worker
+        run: node scripts/search-worker/run.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GOOGLE_ACCESS_TOKEN: ${{ secrets.SEARCH_GOOGLE_ACCESS_TOKEN }}
+          BING_API_KEY: ${{ secrets.SEARCH_BING_API_KEY }}
+          WORKER_MODE: worker
+          RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
