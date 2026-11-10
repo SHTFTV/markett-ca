@@ -150,10 +150,21 @@
     {
       "id": "builders.ltd",
       "domain": "builders.ltd",
-      "status": "queued",
+      "status": "blocked",
       "attempts": 0,
-      "gsc": null,
-      "bing": null
+      "gsc": {
+        "status": "checked",
+        "property": "sc-domain:builders.ltd",
+        "propertyVerified": false,
+        "checkedAt": "2026-11-10T23:22:55.903Z",
+        "providerStatus": "ownership-not-verified",
+        "source": "official-signed-in-console",
+        "sitemaps": []
+      },
+      "bing": null,
+      "blocker": "Google TXT challenge prepared; isolated registrar session signed out, native browser in active use. No DNS save or ownership verification claimed.",
+      "executionMode": "interactive-browser",
+      "checkedAt": "2026-11-10T23:22:55.903Z"
     },
     {
       "id": "buildershaus.com",
@@ -1115,5 +1126,10 @@
       "gsc": "existing-verified-sitemap-success",
       "bing": "verified-sitemap-processing"
     }
-  ]
+  ],
+  "onboardingActivation": {
+    "status": "approval-required",
+    "reason": "Automatic review rejected enabling future queue-wide onboarding mutations. Adapter deployed with ONBOARDING_ENABLED=false.",
+    "at": "2026-11-10T23:22:55.903Z"
+  }
 }
