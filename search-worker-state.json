@@ -47,10 +47,23 @@
     {
       "id": "barriergates.ca",
       "domain": "barriergates.ca",
-      "status": "running",
+      "status": "blocked",
       "attempts": 1,
-      "gsc": null,
-      "bing": null
+      "gsc": {
+        "status": "blocked",
+        "propertyVerified": null,
+        "checkedAt": "2026-11-10T22:18:10.594Z",
+        "reason": "Google API credential not configured"
+      },
+      "bing": {
+        "status": "blocked",
+        "propertyVerified": null,
+        "checkedAt": "2026-11-10T22:18:10.595Z",
+        "reason": "Bing API credential not configured"
+      },
+      "blocker": "Google: configure existing authorized read-only Search Console runtime access. Bing: configure existing authorized Webmaster API runtime access.",
+      "checkedAt": "2026-11-10T22:18:10.595Z",
+      "retryAt": "2026-11-11T04:18:09.576Z"
     },
     {
       "id": "brides.ltd",
@@ -900,18 +913,15 @@
     }
   ],
   "runtime": {
-    "status": "running",
+    "status": "blocked",
     "currentSite": "barriergates.ca",
     "action": "Read Google and Bing ownership and sitemap status",
     "startedAt": "2026-11-10T22:18:09.576Z",
-    "heartbeatAt": "2026-11-10T22:18:09.576Z",
+    "heartbeatAt": "2026-11-10T22:18:10.595Z",
     "runUrl": "https://github.com/SHTFTV/markett-ca/actions/runs/42913234704",
     "nextExpectedRunAt": "2026-11-10T22:30:00.000Z",
-    "lease": {
-      "id": "03e2867e-03ae-4ee3-b4b1-14334adf1616",
-      "expiresAt": "2026-11-10T22:21:09.576Z"
-    },
-    "blocker": null
+    "lease": null,
+    "blocker": "Google: configure existing authorized read-only Search Console runtime access. Bing: configure existing authorized Webmaster API runtime access."
   },
   "alerts": [
     {
