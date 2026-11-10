@@ -30,5 +30,6 @@ jobs:
           GOOGLE_CLIENT_ID: ${{ secrets.SEARCH_GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.SEARCH_GOOGLE_CLIENT_SECRET }}
           BING_API_KEY: ${{ secrets.SEARCH_BING_API_KEY }}
+          RUN_EVENT: ${{ github.event_name }}
           WORKER_MODE: worker
           RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}

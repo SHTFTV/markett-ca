@@ -27,5 +27,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           GOOGLE_ACCESS_TOKEN: ${{ secrets.SEARCH_GOOGLE_ACCESS_TOKEN }}
           BING_API_KEY: ${{ secrets.SEARCH_BING_API_KEY }}
+          RUN_EVENT: ${{ github.event_name }}
           WORKER_MODE: watchdog
           RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}

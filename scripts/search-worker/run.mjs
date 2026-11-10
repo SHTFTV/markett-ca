@@ -5,7 +5,7 @@ if(!repo||!token)throw Error('GitHub runtime authentication missing');
 async function gh(path,method='GET',data){const r=await fetch('https://api.github.com/repos/'+repo+'/'+path,{method,headers:{Authorization:'Bearer '+token,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},...(data?{body:JSON.stringify(data)}:{})});if(!r.ok){const e=Error('GitHub '+r.status+' '+path);e.status=r.status;throw e;}return r.status===204?null:r.json();}
 try{await gh('git/ref/heads/'+branch);}catch(e){if(e.status!==404)throw e;const base=await gh('git/ref/heads/main');await gh('git/refs','POST',{ref:'refs/heads/'+branch,sha:base.object.sha});}
 let sha,state;try{const f=await gh('contents/search-worker-state.json?ref='+branch);sha=f.sha;state=JSON.parse(Buffer.from(f.content,'base64').toString());}catch(e){if(e.status!==404)throw e;state=initial(searchEvidence.scope109);}
-state.runUrl=process.env.RUN_URL??null;
+state.runUrl=process.env.RUN_URL??null;state.scheduleEvidence??={worker:null,watchdog:null};if(process.env.RUN_EVENT==='schedule')state.scheduleEvidence[process.env.WORKER_MODE??'worker']={observedAt:iso(Date.now()),runUrl:state.runUrl,event:'schedule'};
 async function save(s){const r=await gh('contents/search-worker-state.json','PUT',{branch,message:'Checkpoint search verification '+(process.env.WORKER_MODE??'worker')+' [skip ci]',content:Buffer.from(JSON.stringify(s,null,2)+'\n').toString('base64'),...(sha?{sha}:{})});sha=r.content.sha;}
 const unavailable=reason=>({status:'blocked',propertyVerified:null,checkedAt:iso(Date.now()),reason});
 async function verify(domain){const result={};const blockers=[];
