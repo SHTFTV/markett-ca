@@ -31,5 +31,7 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.SEARCH_GOOGLE_CLIENT_SECRET }}
           BING_API_KEY: ${{ secrets.SEARCH_BING_API_KEY }}
           RUN_EVENT: ${{ github.event_name }}
+          ONBOARDING_ENABLED: 'false'
+          GODADDY_AUTHORIZATION: ${{ secrets.SEARCH_GODADDY_AUTHORIZATION }}
           WORKER_MODE: worker
           RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
