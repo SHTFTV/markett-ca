@@ -1,5 +1,6 @@
 // Public read-only projection. Fixed public sources; never load private operating records.
 const SOURCES=[
+ {site:'videographers.io',brand:'Videographers',url:'https://videographers.io/publication-results.json'},
  {site:'theminingminute.com',brand:'The Mining Minute',url:'https://theminingminute.com/publication-results.json'},
  {site:'plow.news',brand:'Plow News',url:'https://www.plow.news/publication-results.json'},
  {site:'loveourlistings.com',brand:'Love Our Listings',url:'https://www.loveourlistings.com/publication-results.json'},
