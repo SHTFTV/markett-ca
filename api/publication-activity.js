@@ -11,6 +11,12 @@ const SOURCES=[
  {site:'plowinstallations.com',brand:'Plow Installations',url:'https://www.plowinstallations.com/publication-results.json'},
 ];
 const timestamp=v=>typeof v==='string'&&Number.isFinite(Date.parse(v))&&Date.parse(v)<=Date.now()+300000?v:null;
+function miningReceipt(input){
+ const date=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Date.parse(v)<=Date.now()+300000?v:null;
+ let featuredImageUrl=null;try{const u=new URL(input.featuredImageUrl);if(u.protocol==='https:'&&u.hostname==='theminingminute.com'&&!u.username&&!u.password&&!u.port&&u.pathname.startsWith('/source-media/'))featuredImageUrl=u.href;}catch{}
+ const runUrl=typeof input.runUrl==='string'&&/^https:\/\/github\.com\/SHTFTV\/theminingminute\.com\/actions\/runs\/\d+$/.test(input.runUrl)?input.runUrl:null;
+ return {sourceDate:date(input.sourceDate),sourceEventDate:date(input.sourceEventDate),sourceEventDateStatus:date(input.sourceEventDate)?'Verified source event date':'Not independently established',featuredImageStatus:input.featuredImageStatus==='verified'&&featuredImageUrl?'verified':input.featuredImageStatus==='blocked'?'blocked':'unknown',featuredImageUrl,runUrl};
+}
 export function sanitizeEvent(source,input){
  if(!input||!['done','failed'].includes(input.status)||input.site!==source.site)return null;
  const title=String(input.title??'').replace(/<[^>]*>/g,'').replace(/[\u0000-\u001f]/g,' ').trim().slice(0,180);if(!title)return null;
@@ -19,7 +25,8 @@ export function sanitizeEvent(source,input){
   if(!publishedAt||!verifiedAt)return null;
   try{const u=new URL(input.url);if(u.protocol!=='https:'||u.username||u.password||u.port||u.hostname.replace(/^www\./,'')!==source.site)return null;url=u.href;}catch{return null;}
  }else if(!checkedAt)return null;
- return {id:source.site+':'+String(input.id??url??checkedAt).replace(/[\u0000-\u001f]/g,'').slice(0,220),site:source.site,brand:source.brand,title,publishedAt:input.status==='done'?publishedAt:null,verifiedAt:input.status==='done'?verifiedAt:null,checkedAt:checkedAt??verifiedAt,url,status:input.status};
+ const mining=source.site==='theminingminute.com'?miningReceipt(input):{};
+ return {...mining,id:source.site+':'+String(input.id??url??checkedAt).replace(/[\u0000-\u001f]/g,'').slice(0,220),site:source.site,brand:source.brand,title,publishedAt:input.status==='done'?publishedAt:null,verifiedAt:input.status==='done'?verifiedAt:null,checkedAt:checkedAt??verifiedAt,url,status:input.status};
 }
 async function json(source,fetcher){
  let url=source.url;for(let hop=0;hop<3;hop++){
@@ -37,3 +44,4 @@ export async function activity(fetcher=fetch){
  return {schemaVersion:1,live:true,checkedAt:new Date().toISOString(),counts:{done:events.filter(e=>e.status==='done').length,failed:events.filter(e=>e.status==='failed').length},events:events.slice(0,500),sources:results.map(({events,...s})=>s),privacy:'Public publication results only; no private SOPs, prompts, credentials, approval links or internal logs.'};
 }
 export default {async fetch(request){if(request.method!=='GET')return new Response('Method not allowed',{status:405,headers:{Allow:'GET'}});try{return Response.json(await activity(),{headers:{'Cache-Control':'public, max-age=0, s-maxage=10','X-Content-Type-Options':'nosniff'}});}catch{console.error('Public publication projection failed');return Response.json({live:false,error:'Publication status temporarily unavailable'},{status:503});}}};
+
