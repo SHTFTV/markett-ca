@@ -1,5 +1,7 @@
 // Public read-only projection. Fixed public sources; never load private operating records.
 const SOURCES=[
+ {site:'beewarm.ca',brand:'BeeWarm',url:'https://beewarm.ca/publication-results.json'},
+ {site:'plowwow.com',brand:'PlowWow',url:'https://www.plowwow.com/publication-results.json'},
  {site:'videographers.io',brand:'Videographers',url:'https://videographers.io/publication-results.json'},
  {site:'theminingminute.com',brand:'The Mining Minute',url:'https://theminingminute.com/publication-results.json'},
  {site:'plow.news',brand:'Plow News',url:'https://www.plow.news/publication-results.json'},
