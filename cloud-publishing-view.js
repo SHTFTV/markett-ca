@@ -1,6 +1,7 @@
 const root = document.getElementById('cloud-publishing-setup');
 const liveBoxes = new Map();
 if (root) {
+  root.style.overflowWrap = 'anywhere';
   const el = (tag, text) => { const n = document.createElement(tag); n.textContent = text; return n; };
   const fact = (box, title, value) => { const p=el('p','');p.append(el('strong',title+': '),document.createTextNode(value ?? 'Unknown'));box.append(p); };
   fetch('/cloud-publishing-status.json', {cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Setup evidence unavailable');return r.json();}).then(data=>{
