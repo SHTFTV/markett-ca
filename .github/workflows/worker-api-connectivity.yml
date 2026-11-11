@@ -1,0 +1,29 @@
+name: MarkEtt scoped writing API connectivity
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: markett-writing-api-connectivity
+  cancel-in-progress: false
+jobs:
+  one-bounded-request:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate probe safety with isolated fixtures
+        run: node --test scripts/operations/api-connectivity.test.mjs
+      - name: Test one existing-credit writing request
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: node scripts/operations/api-connectivity.mjs work/worker-api-connectivity.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sanitized-writing-api-connectivity
+          path: work/worker-api-connectivity.json
+          retention-days: 7
