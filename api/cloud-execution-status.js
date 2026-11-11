@@ -5,7 +5,7 @@ const sources=[
 ];
 const bounded=(value,max=120)=>typeof value==='string'?value.slice(0,max):null;
 const date=value=>typeof value==='string'&&Number.isFinite(Date.parse(value))?new Date(value).toISOString():null;
-const statuses=new Set(['success','failure','cancelled','timed_out','generation-failed','publication-failed','nothing-new','published','built-for-publication','blocked-property-publication','source-unavailable','unknown','prewriter-failed','writer-failed']);
+const statuses=new Set(['success','failure','cancelled','timed_out','generation-failed','publication-failed','nothing-new','published','published-and-verified','built-for-publication','blocked-property-publication','source-unavailable','unknown','prewriter-failed','writer-failed']);
 const events=new Set(['schedule','workflow_dispatch','push','repository_dispatch']);
 const safeStages=new Set(['Install browser and image verifier','Install matching verifier package (browsers and system dependencies are pinned in image)','One source-to-verified-publication transaction','Runtime regressions','Initialize containers','Run actions/checkout@v4','Run actions/setup-python@v5']);
 export function project(domain,data,observedAt){
