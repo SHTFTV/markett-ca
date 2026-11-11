@@ -3,12 +3,12 @@
   "trailingSlash": false,
   "framework": null,
   "buildCommand": null,
-  "installCommand": null,
+  "installCommand": "npm ci --ignore-scripts --no-audit --no-fund",
   "outputDirectory": ".",
-  "rewrites": [
-    {
-      "source": "/command",
-      "destination": "/command-center"
-    }
-  ]
+  "functions": {
+    "api/operations-stream.js": {"maxDuration": 300},
+    "api/operations-events.js": {"maxDuration": 30},
+    "api/operations-state.js": {"maxDuration": 30}
+  },
+  "rewrites": [{"source": "/command", "destination": "/command-center"}]
 }
