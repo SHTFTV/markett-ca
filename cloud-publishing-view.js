@@ -4,6 +4,7 @@ if (root) {
   const fact = (box, title, value) => { const p=el('p','');p.append(el('strong',title+': '),document.createTextNode(value ?? 'Unknown'));box.append(p); };
   fetch('/cloud-publishing-status.json', {cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Setup evidence unavailable');return r.json();}).then(data=>{
     root.replaceChildren(el('h2','Cloud publishing setup — first seven sites'),el('p',data.notice),el('p','Snapshot updated: '+data.updatedAt));
+    const queue=el('a','Open the full known-domain build and setup queue');queue.href='/site-setup-queue.html';root.append(queue);
     for (const site of data.sites) {
       const box=el('details','');box.style.cssText='border-top:1px solid #35434d;padding:18px 0;font-size:16px';
       const summary=el('summary','🔴 '+site.domain+' — '+(site.blocker?'action required':'verification required'));summary.style.cssText='font-size:20px;font-weight:700;cursor:pointer;color:#ffadb0';box.append(summary);
