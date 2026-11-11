@@ -37,8 +37,14 @@ async function json(source,fetcher){
   const data=new Uint8Array(bytes);let offset=0;for(const chunk of chunks){data.set(chunk,offset);offset+=chunk.byteLength;}return JSON.parse(new TextDecoder().decode(data));
  }throw new Error('unavailable');
 }
+export function miningMonitor(source,data,now=new Date()){
+ if(source.site!=='theminingminute.com')return null;
+ const observed=timestamp(data.monitor?.lastAutomaticRunAt),age=observed?(now.getTime()-Date.parse(observed))/60000:Infinity;
+ if(age<=20)return null;
+ return sanitizeEvent(source,{id:'monitor:automatic-discovery',site:source.site,status:'failed',checkedAt:now.toISOString(),title:observed?'Mining Minute automatic discovery stalled — no scheduled intake in 20 minutes; repair the existing GitHub workflow.':'Mining Minute automatic discovery has no verified heartbeat — inspect the existing GitHub workflow.',runUrl:data.monitor?.lastAutomaticRunUrl});
+}
 export async function activity(fetcher=fetch){
- const results=await Promise.all(SOURCES.map(async source=>{try{const data=await json(source,fetcher);const events=(Array.isArray(data.events)?data.events:[]).slice(-500).map(x=>sanitizeEvent(source,x)).filter(Boolean);return {site:source.site,brand:source.brand,status:'connected',checkedAt:new Date().toISOString(),events};}catch(e){console.warn('Public publication log',source.site,e.message==='not-connected'?'not-connected':'unavailable');return {site:source.site,brand:source.brand,status:e.message==='not-connected'?'not-connected':'unavailable',checkedAt:new Date().toISOString(),events:[]};}}));
+ const results=await Promise.all(SOURCES.map(async source=>{try{const data=await json(source,fetcher);const events=(Array.isArray(data.events)?data.events:[]).slice(-500).map(x=>sanitizeEvent(source,x)).filter(Boolean);const monitor=miningMonitor(source,data);if(monitor)events.push(monitor);return {site:source.site,brand:source.brand,status:'connected',checkedAt:new Date().toISOString(),events};}catch(e){console.warn('Public publication log',source.site,e.message==='not-connected'?'not-connected':'unavailable');return {site:source.site,brand:source.brand,status:e.message==='not-connected'?'not-connected':'unavailable',checkedAt:new Date().toISOString(),events:[]};}}));
  const unique=new Map();for(const source of results)for(const e of source.events)unique.set(e.id,e);
  const events=[...unique.values()].sort((a,b)=>Date.parse(b.verifiedAt??b.checkedAt)-Date.parse(a.verifiedAt??a.checkedAt));
  return {schemaVersion:1,live:true,checkedAt:new Date().toISOString(),counts:{done:events.filter(e=>e.status==='done').length,failed:events.filter(e=>e.status==='failed').length},events:events.slice(0,500),sources:results.map(({events,...s})=>s),privacy:'Public publication results only; no private SOPs, prompts, credentials, approval links or internal logs.'};
