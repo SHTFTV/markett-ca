@@ -6,9 +6,23 @@
   "installCommand": "npm ci --ignore-scripts --no-audit --no-fund",
   "outputDirectory": ".",
   "functions": {
-    "api/operations-stream.js": {"maxDuration": 300},
-    "api/operations-events.js": {"maxDuration": 30},
-    "api/operations-state.js": {"maxDuration": 30}
+    "api/operations-stream.js": {
+      "maxDuration": 300
+    },
+    "api/operations-events.js": {
+      "maxDuration": 30
+    },
+    "api/operations-state.js": {
+      "maxDuration": 30
+    },
+    "api/operations-audit.js": {
+      "maxDuration": 300
+    }
   },
-  "rewrites": [{"source": "/command", "destination": "/command-center"}]
+  "rewrites": [
+    {
+      "source": "/command",
+      "destination": "/command-center"
+    }
+  ]
 }
