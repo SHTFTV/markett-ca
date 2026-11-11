@@ -279,10 +279,38 @@
     {
       "id": "carpenters.ltd",
       "domain": "carpenters.ltd",
-      "status": "running",
+      "status": "blocked",
       "attempts": 1,
-      "gsc": null,
-      "bing": null
+      "gsc": {
+        "status": "blocked",
+        "propertyVerified": null,
+        "checkedAt": "2026-11-11T09:09:12.488Z",
+        "reason": "Google API credential not configured"
+      },
+      "bing": {
+        "status": "blocked",
+        "propertyVerified": null,
+        "checkedAt": "2026-11-11T09:09:12.488Z",
+        "reason": "Bing API credential not configured"
+      },
+      "latestAttempt": {
+        "at": "2026-11-11T09:09:12.488Z",
+        "gsc": {
+          "status": "blocked",
+          "propertyVerified": null,
+          "checkedAt": "2026-11-11T09:09:12.488Z",
+          "reason": "Google API credential not configured"
+        },
+        "bing": {
+          "status": "blocked",
+          "propertyVerified": null,
+          "checkedAt": "2026-11-11T09:09:12.488Z",
+          "reason": "Bing API credential not configured"
+        }
+      },
+      "blocker": "Google: configure existing authorized Search Console and Site Verification runtime access. Bing: configure existing authorized Webmaster API runtime access.",
+      "checkedAt": "2026-11-11T09:09:12.488Z",
+      "retryAt": "2026-11-11T15:09:11.502Z"
     },
     {
       "id": "caterers.pro",
@@ -1352,18 +1380,15 @@
     }
   ],
   "runtime": {
-    "status": "running",
+    "status": "blocked",
     "currentSite": "carpenters.ltd",
     "action": "Read Google and Bing ownership and sitemap status",
     "startedAt": "2026-11-11T09:09:11.502Z",
-    "heartbeatAt": "2026-11-11T09:09:11.502Z",
+    "heartbeatAt": "2026-11-11T09:09:12.488Z",
     "runUrl": "https://github.com/SHTFTV/markett-ca/actions/runs/42992729738",
     "nextExpectedRunAt": "2026-11-11T09:15:00.000Z",
-    "lease": {
-      "id": "4af399ce-8006-4657-ac0c-dff494020626",
-      "expiresAt": "2026-11-11T09:12:11.502Z"
-    },
-    "blocker": null
+    "lease": null,
+    "blocker": "Google: configure existing authorized Search Console and Site Verification runtime access. Bing: configure existing authorized Webmaster API runtime access."
   },
   "alerts": [
     {
