@@ -1,6 +1,6 @@
 const sources=[
  {domain:'theminingminute.com',url:'https://theminingminute.com/publishing-status.json'},
- {domain:'loveourlistings.com',url:'https://loveourlistings.com/publishing-status.json'},
+ {domain:'loveourlistings.com',url:'https://www.loveourlistings.com/publishing-status.json'},
  {domain:'industryarmymarketing.com',url:'https://www.industryarmymarketing.com/iam-publishing-status.json'},
 ];
 const bounded=(value,max=120)=>typeof value==='string'?value.slice(0,max):null;
