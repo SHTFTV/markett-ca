@@ -1,3 +1,4 @@
+import {registry} from '../../api/registry-data.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
@@ -43,3 +44,5 @@ test('bounded concurrency preserves order and deadline rejects', async () => {
   assert.equal(peak, 2); assert.deepEqual(results, [2, 4, 6, 8, 10]);
   await assert.rejects(deadline(() => new Promise(() => {}), 5), /Timed out/);
 });
+
+test('all follows the complete canonical registry rather than trade batches',()=>{const all=selectDomains('all');assert.equal(all.length,new Set(registry.filter(r=>!r.excluded).map(r=>r.domain)).size);for(const domain of ['abbotsford.io','parents.ltd','eyespyr.com'])assert(all.includes(domain),domain);});

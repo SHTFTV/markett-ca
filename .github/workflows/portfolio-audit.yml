@@ -29,14 +29,20 @@ jobs:
         with:
           node-version: '22'
       - name: Test runner
-        run: node --test scripts/agents/audit.test.mjs
+        run: node --test scripts/agents/audit.test.mjs scripts/agents/report-audit.test.mjs
       - name: Audit configured domains
         env:
           AUDIT_BATCH: ${{ inputs.batch || 'all' }}
         run: node scripts/agents/audit.mjs "$AUDIT_BATCH" "$RUNNER_TEMP/portfolio-audit"
+      - name: Persist actual per-site check receipts in the shared operations database
+        env:
+          MARKETT_OPERATIONS_EVENT_KEY: ${{ secrets.MARKETT_OPERATIONS_EVENT_KEY }}
+        run: node scripts/agents/report-audit.mjs "$RUNNER_TEMP/portfolio-audit/portfolio-audit.json"
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: portfolio-audit-${{ github.run_id }}
           path: ${{ runner.temp }}/portfolio-audit/
           retention-days: 14
           if-no-files-found: error
+
