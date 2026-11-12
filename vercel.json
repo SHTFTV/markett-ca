@@ -29,6 +29,12 @@
     },
     "api/vercel-inventory.js": {
       "maxDuration": 60
+    },
+    "api/portfolio-rollout.js": {
+      "maxDuration": 300
+    },
+    "api/portfolio-rollout-watchdog.js": {
+      "maxDuration": 120
     }
   },
   "rewrites": [
@@ -41,6 +47,14 @@
     {
       "path": "/api/vercel-inventory",
       "schedule": "*/15 * * * *"
+    },
+    {
+      "path": "/api/portfolio-rollout",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/portfolio-rollout-watchdog",
+      "schedule": "3-58/5 * * * *"
     }
   ]
 }
