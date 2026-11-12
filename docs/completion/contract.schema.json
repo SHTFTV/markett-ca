@@ -14,7 +14,10 @@
     "requirements",
     "requiredIntegrations",
     "minimalProductionFlow",
-    "workUnits"
+    "workUnits",
+    "pageQualityVersion",
+    "pageInventory",
+    "pageInventoryRef"
   ],
   "properties": {
     "standardVersion": {
@@ -660,6 +663,43 @@
           "kind",
           "sourceRef"
         ]
+      }
+    },
+    "pageQualityVersion": {
+      "const": 1
+    },
+    "pageInventoryRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pageInventory": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "url",
+          "pageType"
+        ],
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "pageType": {
+            "enum": [
+              "home",
+              "article",
+              "editorial-page",
+              "utility",
+              "privacy",
+              "form"
+            ]
+          },
+          "exemptionReason": {
+            "type": "string"
+          }
+        }
       }
     }
   }
