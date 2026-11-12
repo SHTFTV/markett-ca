@@ -1,6 +1,39 @@
 {
   "schemaVersion": 1,
-  "checkedAt": null,
-  "receipts": [],
-  "note": "No provider-confirmed deletion receipt has been ingested. A routed Vercel site is not evidence of Netlify project deletion."
+  "checkedAt": "2026-11-12T18:13:47.589609+00:00",
+  "receipts": [
+    {
+      "domain": "kitchencabinets.io",
+      "checkedAt": "2026-11-12T18:13:47.589609+00:00",
+      "evidenceUrl": "https://kitchencabinets.io/",
+      "verified": true,
+      "sourceReceiptSha256": "09901254f78890c1c9568e073afe0e977f6b2afa70187763c9d5e10264e73c92",
+      "id": "kitchencabinets-vercel-cutover-20261112",
+      "kind": "vercel-cutover",
+      "httpStatus": 200,
+      "vercelRouteVerified": true,
+      "productionReady": true
+    },
+    {
+      "domain": "kitchencabinets.io",
+      "checkedAt": "2026-11-12T18:13:47.589609+00:00",
+      "evidenceUrl": "https://kitchencabinets.io/",
+      "verified": true,
+      "sourceReceiptSha256": "09901254f78890c1c9568e073afe0e977f6b2afa70187763c9d5e10264e73c92",
+      "id": "kitchencabinets-netlify-deletion-20261112",
+      "kind": "netlify-deletion",
+      "providerAbsent": true,
+      "oldHostnameHttpStatus": 404
+    }
+  ],
+  "note": "Actual sole-owner provider deletion receipt matched to post-deletion public Vercel HTTPS checks; full private receipt retained separately.",
+  "providerCensus": {
+    "netlifyProjects": 77,
+    "netlifyProjectsCheckedAt": "2026-11-12T18:13:47.589609+00:00",
+    "netlifyServingDomains": 24,
+    "netlifyServingDomainsCheckedAt": "2026-11-12T18:08:59.047438+00:00",
+    "previousNetlifyServingDomains": 25,
+    "routeSampleSize": 25,
+    "definition": "Fresh routing recheck of the previously Netlify-serving owned-domain cohort; separate from all Netlify projects."
+  }
 }

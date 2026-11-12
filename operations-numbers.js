@@ -13,10 +13,12 @@ if(root){
    const cards=node('div','',root);cards.style.cssText='display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:14px';
    const scope=s.productionScope,account=s.search.accountInventory;
    const values=[
-    [scope.verifiedRoutedSites,'Vercel production sites','Canonical READY site + verified HTTP200 Vercel route · '+date(scope.routingCheckedAt)],
+    [scope.verifiedRoutedSites,'Vercel production sites','Canonical READY site + HTTP200 Vercel route; dated checks '+date(scope.routingOldestAt)+' to '+date(scope.routingCheckedAt)],
     [scope.rawProjects,'Raw Vercel projects','Includes preview/test projects; provider census '+date(scope.checkedAt)],
     [scope.readyAttachedCanonicalSites,'READY sites attached','Deployment + custom binding; routing is checked separately'],
     [scope.migrationBacklog,'Migration backlog','Registry records outside verified Vercel route scope; inspect the scope selector'],
+    [scope.migration.providerCensus?.netlifyServingDomains??'Unknown','Domains still serving on Netlify','Previously '+(scope.migration.providerCensus?.previousNetlifyServingDomains??'unknown')+'; checked '+date(scope.migration.providerCensus?.netlifyServingDomainsCheckedAt)+' · cohort '+(scope.migration.providerCensus?.routeSampleSize??'unknown')],
+    [scope.migration.providerCensus?.netlifyProjects??'Unknown','Netlify projects remaining','Separate provider census · '+date(scope.migration.providerCensus?.netlifyProjectsCheckedAt)],
     [scope.registryRecords,'All registry records','Separate inventory denominator; not operational sites'],
     [scope.migration.verifiedCutovers,'Receipted Vercel cutovers','Deduplicated verified cutover receipts; project creation does not increment'],
     [scope.migration.verifiedNetlifyDeletions,'Receipted Netlify deletions','Provider-confirmed absence only; Vercel routing does not prove deletion'],
