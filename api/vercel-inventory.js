@@ -1,3 +1,4 @@
+import wizardObservation from '../gsc-wizard-observation.json' with {type:'json'};
 import snapshot from '../vercel-provider-inventory.json' with {type:'json'};
 import {randomUUID,timingSafeEqual} from 'node:crypto';
 import {inventoryView,readProviderProjects,productionSites} from '../lib/vercel-inventory.mjs';
@@ -35,7 +36,7 @@ async function refreshInventory(request){
    const current=await readProviderProjects({token:token(),teamId:'team_kTW4N3LZceZMmT95CWJpgwhM'}),routes=await checkRoutes(current),safe=inventoryView(current,{refreshStatus:'provider-refreshed'});
    publicSnapshot={checkedAt:current.checkedAt,source:current.source,projectCount:safe.lastVerifiedProjectCount,projects:safe.projects,routeChecks:routes,pagination:current.pagination};status='provider-refreshed';summary={rawProjects:safe.lastVerifiedProjectCount,readyAttachedCanonicalSites:safe.canonicalProductionSiteCount,verifiedVercelRoutes:routes.filter(r=>r.httpStatus===200&&r.vercelRouteVerified).length,routeFailures:routes.filter(r=>r.httpStatus!==200).length};
   }catch{status='provider-unavailable';summary={reason:'Authenticated provider inventory read failed; prior complete snapshot retained. Inspect access/rate limits/provider response; not an approval wait.'};}
-  const receipt=await appendInventoryRun(db,{id,startedAt,status,trigger,snapshot:publicSnapshot,summary:{...summary,publicationArchive}});readCache=null;return Response.json({status,receipt,summary,nativeExecutionVerified:false},{status:status==='provider-refreshed'?200:503,headers:{'Cache-Control':'no-store'}});
+  const receipt=await appendInventoryRun(db,{id,startedAt,status,trigger,snapshot:publicSnapshot,summary:{...summary,publicationArchive,searchAccessAudit:{auditedAt:new Date().toISOString(),observationCheckedAt:wizardObservation.checkedAt,status:wizardObservation.status,stale:Date.now()-Date.parse(wizardObservation.checkedAt)>3600000,providerChecked:false,alertDelivered:false}}});readCache=null;return Response.json({status,receipt,summary,nativeExecutionVerified:false},{status:status==='provider-refreshed'?200:503,headers:{'Cache-Control':'no-store'}});
  }catch{return Response.json({status:'storage-unavailable',reason:'Refresh could not retain a durable receipt; no verified refresh claimed.'},{status:503});}finally{await db?.end?.();}
 }
 export default {async fetch(request){if(request.method!=='GET')return new Response('Method not allowed',{status:405});if(request.headers.has('authorization')){if(!cronAuthorized(request))return Response.json({error:'Unauthorized'},{status:401});return refreshInventory(request);}return Response.json(await getInventory(),{headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});}};
