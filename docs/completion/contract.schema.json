@@ -698,6 +698,31 @@
           },
           "exemptionReason": {
             "type": "string"
+          },
+          "formatExemption": {
+            "type": "object",
+            "required": [
+              "kind",
+              "approved",
+              "sourceRef",
+              "reason"
+            ],
+            "properties": {
+              "kind": {
+                "const": "mining-one-minute-brief"
+              },
+              "approved": {
+                "const": true
+              },
+              "sourceRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
           }
         }
       }
