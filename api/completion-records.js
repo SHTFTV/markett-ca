@@ -1,8 +1,8 @@
-// Sanitized production evidence only. Never store secrets or customer data here.
+// Sanitized production evidence only; no credentials or private customer data.
 export const completionRecords = [
   {
     "contract": {
-      "standardVersion": 1,
+      "standardVersion": 2,
       "site": "irrigation.ltd",
       "repository": "SHTFTV/irrigation.ltd",
       "sourceCommit": "961d4c128318710265c2dc8023da66cfc2b963a5",
@@ -18,6 +18,11 @@ export const completionRecords = [
             "generation",
             "media",
             "publishing"
+          ],
+          "requiredIntegrationIds": [
+            "runtime-state",
+            "publication-access",
+            "owner-alert-delivery"
           ]
         },
         {
@@ -26,6 +31,11 @@ export const completionRecords = [
           "sourceRef": "owner-build-brief:irrigation.ltd:2026-11-11",
           "checks": [
             "forms"
+          ],
+          "requiredIntegrationIds": [
+            "runtime-state",
+            "publication-access",
+            "owner-alert-delivery"
           ]
         },
         {
@@ -34,6 +44,11 @@ export const completionRecords = [
           "sourceRef": "owner-build-brief:irrigation.ltd:2026-11-11",
           "checks": [
             "connections"
+          ],
+          "requiredIntegrationIds": [
+            "runtime-state",
+            "publication-access",
+            "owner-alert-delivery"
           ]
         }
       ],
@@ -143,7 +158,61 @@ export const completionRecords = [
           "sourceRef": "owner-build-brief:irrigation.ltd:2026-11-11",
           "maxAgeHours": 24
         }
-      }
+      },
+      "requiredIntegrations": [
+        {
+          "id": "runtime-state",
+          "description": "Durable state, receipts and private promised intake storage",
+          "sourceRef": "owner-build-brief:irrigation.ltd:2026-11-11"
+        },
+        {
+          "id": "publication-access",
+          "description": "Actual scoped source publishing and deployment access required by this site program",
+          "sourceRef": "owner-build-brief:irrigation.ltd:2026-11-11"
+        },
+        {
+          "id": "owner-alert-delivery",
+          "description": "Independent owner failure notification and delivery receipts",
+          "sourceRef": "owner-build-brief:irrigation.ltd:2026-11-11"
+        }
+      ],
+      "minimalProductionFlow": {
+        "id": "site-program-smoke",
+        "description": "One minimal real production program workflow using required access, with durable receipt and verified result",
+        "sourceRef": "owner-build-brief:irrigation.ltd:2026-11-11"
+      },
+      "workUnits": [
+        {
+          "id": "independent-audit",
+          "description": "Read-only source/access inventory and isolated repair preparation",
+          "kind": "independent",
+          "sourceRef": "owner-build-brief:irrigation.ltd:2026-11-11"
+        },
+        {
+          "id": "source-production-link",
+          "description": "Verify the existing canonical source-to-production link",
+          "kind": "source-setup",
+          "sourceRef": "owner-build-brief:irrigation.ltd:2026-11-11"
+        },
+        {
+          "id": "connect-required-access",
+          "description": "Connect and production-test only required scoped program access after source link verification",
+          "kind": "access-setup",
+          "sourceRef": "owner-build-brief:irrigation.ltd:2026-11-11"
+        },
+        {
+          "id": "minimal-real-workflow",
+          "description": "Run only the declared minimal real production workflow after required access tests pass",
+          "kind": "minimal-production-test",
+          "sourceRef": "owner-build-brief:irrigation.ltd:2026-11-11"
+        },
+        {
+          "id": "dependent-content-ui",
+          "description": "Substantial dependent content/UI build or extension after all prior gates pass",
+          "kind": "dependent-build",
+          "sourceRef": "owner-build-brief:irrigation.ltd:2026-11-11"
+        }
+      ]
     },
     "evidence": [
       {
@@ -196,7 +265,7 @@ export const completionRecords = [
   },
   {
     "contract": {
-      "standardVersion": 1,
+      "standardVersion": 2,
       "site": "naturopaths.io",
       "repository": "SHTFTV/naturopaths.io",
       "sourceCommit": "f93b54b281329024b4688e388fac4502a9710b64",
@@ -212,6 +281,11 @@ export const completionRecords = [
             "generation",
             "media",
             "publishing"
+          ],
+          "requiredIntegrationIds": [
+            "runtime-state",
+            "publication-access",
+            "owner-alert-delivery"
           ]
         },
         {
@@ -220,6 +294,11 @@ export const completionRecords = [
           "sourceRef": "owner-build-brief:naturopaths.io:2026-11-11",
           "checks": [
             "forms"
+          ],
+          "requiredIntegrationIds": [
+            "runtime-state",
+            "publication-access",
+            "owner-alert-delivery"
           ]
         }
       ],
@@ -329,7 +408,61 @@ export const completionRecords = [
           "sourceRef": "owner-build-brief:naturopaths.io:2026-11-11",
           "maxAgeHours": 24
         }
-      }
+      },
+      "requiredIntegrations": [
+        {
+          "id": "runtime-state",
+          "description": "Durable state, receipts and private promised intake storage",
+          "sourceRef": "owner-build-brief:naturopaths.io:2026-11-11"
+        },
+        {
+          "id": "publication-access",
+          "description": "Actual scoped source publishing and deployment access required by this site program",
+          "sourceRef": "owner-build-brief:naturopaths.io:2026-11-11"
+        },
+        {
+          "id": "owner-alert-delivery",
+          "description": "Independent owner failure notification and delivery receipts",
+          "sourceRef": "owner-build-brief:naturopaths.io:2026-11-11"
+        }
+      ],
+      "minimalProductionFlow": {
+        "id": "site-program-smoke",
+        "description": "One minimal real production program workflow using required access, with durable receipt and verified result",
+        "sourceRef": "owner-build-brief:naturopaths.io:2026-11-11"
+      },
+      "workUnits": [
+        {
+          "id": "independent-audit",
+          "description": "Read-only source/access inventory and isolated repair preparation",
+          "kind": "independent",
+          "sourceRef": "owner-build-brief:naturopaths.io:2026-11-11"
+        },
+        {
+          "id": "source-production-link",
+          "description": "Verify the existing canonical source-to-production link",
+          "kind": "source-setup",
+          "sourceRef": "owner-build-brief:naturopaths.io:2026-11-11"
+        },
+        {
+          "id": "connect-required-access",
+          "description": "Connect and production-test only required scoped program access after source link verification",
+          "kind": "access-setup",
+          "sourceRef": "owner-build-brief:naturopaths.io:2026-11-11"
+        },
+        {
+          "id": "minimal-real-workflow",
+          "description": "Run only the declared minimal real production workflow after required access tests pass",
+          "kind": "minimal-production-test",
+          "sourceRef": "owner-build-brief:naturopaths.io:2026-11-11"
+        },
+        {
+          "id": "dependent-content-ui",
+          "description": "Substantial dependent content/UI build or extension after all prior gates pass",
+          "kind": "dependent-build",
+          "sourceRef": "owner-build-brief:naturopaths.io:2026-11-11"
+        }
+      ]
     },
     "evidence": [
       {
@@ -382,7 +515,7 @@ export const completionRecords = [
   },
   {
     "contract": {
-      "standardVersion": 1,
+      "standardVersion": 2,
       "site": "fireproofing.tv",
       "repository": "SHTFTV/fireproofing.tv",
       "sourceCommit": "c84e7a1c7bc791e8c07e2d5cee14e5edb8420668",
@@ -398,6 +531,11 @@ export const completionRecords = [
             "generation",
             "media",
             "publishing"
+          ],
+          "requiredIntegrationIds": [
+            "runtime-state",
+            "publication-access",
+            "owner-alert-delivery"
           ]
         },
         {
@@ -406,6 +544,11 @@ export const completionRecords = [
           "sourceRef": "owner-build-brief:fireproofing.tv:2026-11-11",
           "checks": [
             "forms"
+          ],
+          "requiredIntegrationIds": [
+            "runtime-state",
+            "publication-access",
+            "owner-alert-delivery"
           ]
         }
       ],
@@ -515,7 +658,61 @@ export const completionRecords = [
           "sourceRef": "owner-build-brief:fireproofing.tv:2026-11-11",
           "maxAgeHours": 24
         }
-      }
+      },
+      "requiredIntegrations": [
+        {
+          "id": "runtime-state",
+          "description": "Durable state, receipts and private promised intake storage",
+          "sourceRef": "owner-build-brief:fireproofing.tv:2026-11-11"
+        },
+        {
+          "id": "publication-access",
+          "description": "Actual scoped source publishing and deployment access required by this site program",
+          "sourceRef": "owner-build-brief:fireproofing.tv:2026-11-11"
+        },
+        {
+          "id": "owner-alert-delivery",
+          "description": "Independent owner failure notification and delivery receipts",
+          "sourceRef": "owner-build-brief:fireproofing.tv:2026-11-11"
+        }
+      ],
+      "minimalProductionFlow": {
+        "id": "site-program-smoke",
+        "description": "One minimal real production program workflow using required access, with durable receipt and verified result",
+        "sourceRef": "owner-build-brief:fireproofing.tv:2026-11-11"
+      },
+      "workUnits": [
+        {
+          "id": "independent-audit",
+          "description": "Read-only source/access inventory and isolated repair preparation",
+          "kind": "independent",
+          "sourceRef": "owner-build-brief:fireproofing.tv:2026-11-11"
+        },
+        {
+          "id": "source-production-link",
+          "description": "Verify the existing canonical source-to-production link",
+          "kind": "source-setup",
+          "sourceRef": "owner-build-brief:fireproofing.tv:2026-11-11"
+        },
+        {
+          "id": "connect-required-access",
+          "description": "Connect and production-test only required scoped program access after source link verification",
+          "kind": "access-setup",
+          "sourceRef": "owner-build-brief:fireproofing.tv:2026-11-11"
+        },
+        {
+          "id": "minimal-real-workflow",
+          "description": "Run only the declared minimal real production workflow after required access tests pass",
+          "kind": "minimal-production-test",
+          "sourceRef": "owner-build-brief:fireproofing.tv:2026-11-11"
+        },
+        {
+          "id": "dependent-content-ui",
+          "description": "Substantial dependent content/UI build or extension after all prior gates pass",
+          "kind": "dependent-build",
+          "sourceRef": "owner-build-brief:fireproofing.tv:2026-11-11"
+        }
+      ]
     },
     "evidence": [
       {
@@ -547,5 +744,1209 @@ export const completionRecords = [
       "vantage": "Irrigation independent default-resolver HTTPS; Naturopaths/Fireproofing assigned navigator normal TLS against verified authoritative address. Default resolver negative cache remains a separate observation.",
       "operatingSystemCompletion": false
     }
+  },
+  {
+    "contract": {
+      "standardVersion": 2,
+      "site": "theminingminute.com",
+      "repository": "SHTFTV/theminingminute.com",
+      "sourceCommit": "d3341516e57b1b485af5f34204d0699fd150ca02",
+      "sotRef": "https://github.com/SHTFTV/theminingminute.com/blob/d3341516e57b1b485af5f34204d0699fd150ca02/operations/site-sop.json",
+      "requirementsRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+      "promisedFlows": [
+        {
+          "id": "owner-program",
+          "description": "Required actual site program; precise promised intake/review/storage/publication scope awaits sole-owner contract",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "checks": [
+            "connections"
+          ],
+          "requiredIntegrationIds": []
+        }
+      ],
+      "requirements": {
+        "source": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "domain": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "editorial": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "desktop": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "phone": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "sot": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "bot": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "connections": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "unattended": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "state": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "recovery": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "alerts": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "google": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "bing": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "ingestion": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "generation": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "media": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "publishing": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "forms": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "indexing": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        },
+        "launch": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com",
+          "maxAgeHours": 24
+        }
+      },
+      "requiredIntegrations": [],
+      "minimalProductionFlow": {
+        "id": "owner-program-smoke",
+        "description": "Exact minimal real program workflow and required access inventory must be pinned by this site sole owner before dependent build",
+        "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com"
+      },
+      "workUnits": [
+        {
+          "id": "independent-audit",
+          "description": "Read-only source/access inventory and isolated repair preparation",
+          "kind": "independent",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com"
+        },
+        {
+          "id": "source-production-link",
+          "description": "Verify the existing canonical source-to-production link",
+          "kind": "source-setup",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com"
+        },
+        {
+          "id": "connect-required-access",
+          "description": "Connect and production-test only required scoped program access after source link verification",
+          "kind": "access-setup",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com"
+        },
+        {
+          "id": "minimal-real-workflow",
+          "description": "Run only the declared minimal real production workflow after required access tests pass",
+          "kind": "minimal-production-test",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com"
+        },
+        {
+          "id": "dependent-content-ui",
+          "description": "Substantial dependent content/UI build or extension after all prior gates pass",
+          "kind": "dependent-build",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:theminingminute.com"
+        }
+      ]
+    },
+    "evidence": [],
+    "auditNotes": [
+      "Read-only retrofit. Canonical repository/current inspected source path is separate from exact production linkage and runtime-access proof.",
+      "Required program access inventory/minimal production workflow remain unproven; substantial dependent build is gated. Independent inventory/preparation and existing healthy services may continue.",
+      "This incomplete contract neither expands the site program nor activates a publisher; the assigned sole site owner supplies actual flows and evidence."
+    ]
+  },
+  {
+    "contract": {
+      "standardVersion": 2,
+      "site": "loveourlistings.com",
+      "repository": "SHTFTV/loveourlistings.com",
+      "sourceCommit": "729c9805240ba7a51f274d7d0e9ba50ebca8e8fd",
+      "sotRef": "https://github.com/SHTFTV/loveourlistings.com/blob/729c9805240ba7a51f274d7d0e9ba50ebca8e8fd/operations/site-sop.json",
+      "requirementsRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+      "promisedFlows": [
+        {
+          "id": "owner-program",
+          "description": "Required actual site program; precise promised intake/review/storage/publication scope awaits sole-owner contract",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "checks": [
+            "connections"
+          ],
+          "requiredIntegrationIds": []
+        }
+      ],
+      "requirements": {
+        "source": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "domain": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "editorial": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "desktop": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "phone": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "sot": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "bot": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "connections": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "unattended": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "state": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "recovery": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "alerts": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "google": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "bing": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "ingestion": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "generation": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "media": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "publishing": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "forms": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "indexing": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        },
+        "launch": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com",
+          "maxAgeHours": 24
+        }
+      },
+      "requiredIntegrations": [],
+      "minimalProductionFlow": {
+        "id": "owner-program-smoke",
+        "description": "Exact minimal real program workflow and required access inventory must be pinned by this site sole owner before dependent build",
+        "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com"
+      },
+      "workUnits": [
+        {
+          "id": "independent-audit",
+          "description": "Read-only source/access inventory and isolated repair preparation",
+          "kind": "independent",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com"
+        },
+        {
+          "id": "source-production-link",
+          "description": "Verify the existing canonical source-to-production link",
+          "kind": "source-setup",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com"
+        },
+        {
+          "id": "connect-required-access",
+          "description": "Connect and production-test only required scoped program access after source link verification",
+          "kind": "access-setup",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com"
+        },
+        {
+          "id": "minimal-real-workflow",
+          "description": "Run only the declared minimal real production workflow after required access tests pass",
+          "kind": "minimal-production-test",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com"
+        },
+        {
+          "id": "dependent-content-ui",
+          "description": "Substantial dependent content/UI build or extension after all prior gates pass",
+          "kind": "dependent-build",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:loveourlistings.com"
+        }
+      ]
+    },
+    "evidence": [],
+    "auditNotes": [
+      "Read-only retrofit. Canonical repository/current inspected source path is separate from exact production linkage and runtime-access proof.",
+      "Required program access inventory/minimal production workflow remain unproven; substantial dependent build is gated. Independent inventory/preparation and existing healthy services may continue.",
+      "This incomplete contract neither expands the site program nor activates a publisher; the assigned sole site owner supplies actual flows and evidence."
+    ]
+  },
+  {
+    "contract": {
+      "standardVersion": 2,
+      "site": "weddings.io",
+      "repository": "SHTFTV/weddings.io",
+      "sourceCommit": "4f05989261b0f07c6659ba9aafe353a1e62e0e83",
+      "sotRef": "https://github.com/SHTFTV/weddings.io/blob/4f05989261b0f07c6659ba9aafe353a1e62e0e83/docs/WEDDINGS-IO-SOT.md",
+      "requirementsRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+      "promisedFlows": [
+        {
+          "id": "owner-program",
+          "description": "Required actual site program; precise promised intake/review/storage/publication scope awaits sole-owner contract",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "checks": [
+            "connections"
+          ],
+          "requiredIntegrationIds": []
+        }
+      ],
+      "requirements": {
+        "source": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "domain": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "editorial": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "desktop": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "phone": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "sot": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "bot": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "connections": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "unattended": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "state": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "recovery": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "alerts": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "google": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "bing": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "ingestion": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "generation": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "media": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "publishing": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "forms": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "indexing": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        },
+        "launch": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io",
+          "maxAgeHours": 24
+        }
+      },
+      "requiredIntegrations": [],
+      "minimalProductionFlow": {
+        "id": "owner-program-smoke",
+        "description": "Exact minimal real program workflow and required access inventory must be pinned by this site sole owner before dependent build",
+        "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io"
+      },
+      "workUnits": [
+        {
+          "id": "independent-audit",
+          "description": "Read-only source/access inventory and isolated repair preparation",
+          "kind": "independent",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io"
+        },
+        {
+          "id": "source-production-link",
+          "description": "Verify the existing canonical source-to-production link",
+          "kind": "source-setup",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io"
+        },
+        {
+          "id": "connect-required-access",
+          "description": "Connect and production-test only required scoped program access after source link verification",
+          "kind": "access-setup",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io"
+        },
+        {
+          "id": "minimal-real-workflow",
+          "description": "Run only the declared minimal real production workflow after required access tests pass",
+          "kind": "minimal-production-test",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io"
+        },
+        {
+          "id": "dependent-content-ui",
+          "description": "Substantial dependent content/UI build or extension after all prior gates pass",
+          "kind": "dependent-build",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:weddings.io"
+        }
+      ]
+    },
+    "evidence": [],
+    "auditNotes": [
+      "Read-only retrofit. Canonical repository/current inspected source path is separate from exact production linkage and runtime-access proof.",
+      "Required program access inventory/minimal production workflow remain unproven; substantial dependent build is gated. Independent inventory/preparation and existing healthy services may continue.",
+      "This incomplete contract neither expands the site program nor activates a publisher; the assigned sole site owner supplies actual flows and evidence."
+    ]
+  },
+  {
+    "contract": {
+      "standardVersion": 2,
+      "site": "industryarmymarketing.com",
+      "repository": "SHTFTV/industryarmymarketing.com",
+      "sourceCommit": "a429d79ddf0d5baa18729cf27e293de53e31108c",
+      "sotRef": "https://github.com/SHTFTV/industryarmymarketing.com/blob/a429d79ddf0d5baa18729cf27e293de53e31108c/operations/iam/policy.json",
+      "requirementsRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+      "promisedFlows": [
+        {
+          "id": "owner-program",
+          "description": "Required actual site program; precise promised intake/review/storage/publication scope awaits sole-owner contract",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "checks": [
+            "connections"
+          ],
+          "requiredIntegrationIds": []
+        }
+      ],
+      "requirements": {
+        "source": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "domain": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "editorial": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "desktop": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "phone": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "sot": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "bot": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "connections": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "unattended": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "state": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "recovery": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "alerts": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "google": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "bing": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "ingestion": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "generation": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "media": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "publishing": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "forms": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "indexing": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        },
+        "launch": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com",
+          "maxAgeHours": 24
+        }
+      },
+      "requiredIntegrations": [],
+      "minimalProductionFlow": {
+        "id": "owner-program-smoke",
+        "description": "Exact minimal real program workflow and required access inventory must be pinned by this site sole owner before dependent build",
+        "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com"
+      },
+      "workUnits": [
+        {
+          "id": "independent-audit",
+          "description": "Read-only source/access inventory and isolated repair preparation",
+          "kind": "independent",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com"
+        },
+        {
+          "id": "source-production-link",
+          "description": "Verify the existing canonical source-to-production link",
+          "kind": "source-setup",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com"
+        },
+        {
+          "id": "connect-required-access",
+          "description": "Connect and production-test only required scoped program access after source link verification",
+          "kind": "access-setup",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com"
+        },
+        {
+          "id": "minimal-real-workflow",
+          "description": "Run only the declared minimal real production workflow after required access tests pass",
+          "kind": "minimal-production-test",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com"
+        },
+        {
+          "id": "dependent-content-ui",
+          "description": "Substantial dependent content/UI build or extension after all prior gates pass",
+          "kind": "dependent-build",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:industryarmymarketing.com"
+        }
+      ]
+    },
+    "evidence": [],
+    "auditNotes": [
+      "Read-only retrofit. Canonical repository/current inspected source path is separate from exact production linkage and runtime-access proof.",
+      "Required program access inventory/minimal production workflow remain unproven; substantial dependent build is gated. Independent inventory/preparation and existing healthy services may continue.",
+      "This incomplete contract neither expands the site program nor activates a publisher; the assigned sole site owner supplies actual flows and evidence."
+    ]
+  },
+  {
+    "contract": {
+      "standardVersion": 2,
+      "site": "talc.tv",
+      "repository": "SHTFTV/talc.tv",
+      "sourceCommit": "53b408df3e71919771c17dea33d4e52b3469cb5a",
+      "sotRef": "unresolved-canonical-sot:talc.tv",
+      "requirementsRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+      "promisedFlows": [
+        {
+          "id": "owner-program",
+          "description": "Required actual site program; precise promised intake/review/storage/publication scope awaits sole-owner contract",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "checks": [
+            "connections"
+          ],
+          "requiredIntegrationIds": []
+        }
+      ],
+      "requirements": {
+        "source": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "domain": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "editorial": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "desktop": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "phone": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "sot": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "bot": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "connections": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "unattended": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "state": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "recovery": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "alerts": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "google": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "bing": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "ingestion": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "generation": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "media": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "publishing": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "forms": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "indexing": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        },
+        "launch": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv",
+          "maxAgeHours": 24
+        }
+      },
+      "requiredIntegrations": [],
+      "minimalProductionFlow": {
+        "id": "owner-program-smoke",
+        "description": "Exact minimal real program workflow and required access inventory must be pinned by this site sole owner before dependent build",
+        "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv"
+      },
+      "workUnits": [
+        {
+          "id": "independent-audit",
+          "description": "Read-only source/access inventory and isolated repair preparation",
+          "kind": "independent",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv"
+        },
+        {
+          "id": "source-production-link",
+          "description": "Verify the existing canonical source-to-production link",
+          "kind": "source-setup",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv"
+        },
+        {
+          "id": "connect-required-access",
+          "description": "Connect and production-test only required scoped program access after source link verification",
+          "kind": "access-setup",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv"
+        },
+        {
+          "id": "minimal-real-workflow",
+          "description": "Run only the declared minimal real production workflow after required access tests pass",
+          "kind": "minimal-production-test",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv"
+        },
+        {
+          "id": "dependent-content-ui",
+          "description": "Substantial dependent content/UI build or extension after all prior gates pass",
+          "kind": "dependent-build",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:talc.tv"
+        }
+      ]
+    },
+    "evidence": [],
+    "auditNotes": [
+      "Read-only retrofit. Canonical repository/current inspected source path is separate from exact production linkage and runtime-access proof.",
+      "Required program access inventory/minimal production workflow remain unproven; substantial dependent build is gated. Independent inventory/preparation and existing healthy services may continue.",
+      "This incomplete contract neither expands the site program nor activates a publisher; the assigned sole site owner supplies actual flows and evidence."
+    ]
+  },
+  {
+    "contract": {
+      "standardVersion": 2,
+      "site": "eyespyr.com",
+      "repository": "SHTFTV/eyespyr.com",
+      "sourceCommit": "ddaafa4a689cc879d6c0231c3f6f1dd034c1328e",
+      "sotRef": "unresolved-canonical-sot:eyespyr.com",
+      "requirementsRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+      "promisedFlows": [
+        {
+          "id": "owner-program",
+          "description": "Required actual site program; precise promised intake/review/storage/publication scope awaits sole-owner contract",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "checks": [
+            "connections"
+          ],
+          "requiredIntegrationIds": []
+        }
+      ],
+      "requirements": {
+        "source": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "domain": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "editorial": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "desktop": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "phone": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "sot": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "bot": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "connections": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "unattended": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "state": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "recovery": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "alerts": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "google": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "bing": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "ingestion": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "generation": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "media": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "publishing": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "forms": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "indexing": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        },
+        "launch": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com",
+          "maxAgeHours": 24
+        }
+      },
+      "requiredIntegrations": [],
+      "minimalProductionFlow": {
+        "id": "owner-program-smoke",
+        "description": "Exact minimal real program workflow and required access inventory must be pinned by this site sole owner before dependent build",
+        "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com"
+      },
+      "workUnits": [
+        {
+          "id": "independent-audit",
+          "description": "Read-only source/access inventory and isolated repair preparation",
+          "kind": "independent",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com"
+        },
+        {
+          "id": "source-production-link",
+          "description": "Verify the existing canonical source-to-production link",
+          "kind": "source-setup",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com"
+        },
+        {
+          "id": "connect-required-access",
+          "description": "Connect and production-test only required scoped program access after source link verification",
+          "kind": "access-setup",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com"
+        },
+        {
+          "id": "minimal-real-workflow",
+          "description": "Run only the declared minimal real production workflow after required access tests pass",
+          "kind": "minimal-production-test",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com"
+        },
+        {
+          "id": "dependent-content-ui",
+          "description": "Substantial dependent content/UI build or extension after all prior gates pass",
+          "kind": "dependent-build",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:eyespyr.com"
+        }
+      ]
+    },
+    "evidence": [],
+    "auditNotes": [
+      "Read-only retrofit. Canonical repository/current inspected source path is separate from exact production linkage and runtime-access proof.",
+      "Required program access inventory/minimal production workflow remain unproven; substantial dependent build is gated. Independent inventory/preparation and existing healthy services may continue.",
+      "This incomplete contract neither expands the site program nor activates a publisher; the assigned sole site owner supplies actual flows and evidence."
+    ]
+  },
+  {
+    "contract": {
+      "standardVersion": 2,
+      "site": "estimators.io",
+      "repository": "SHTFTV/estimators-io",
+      "sourceCommit": "793eebb8ac97c5698a46d6c3807e19c2e863e0f1",
+      "sotRef": "https://github.com/SHTFTV/estimators-io/blob/793eebb8ac97c5698a46d6c3807e19c2e863e0f1/docs/ESTIMATORS-IO-PRODUCT-SOT.md",
+      "requirementsRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+      "promisedFlows": [
+        {
+          "id": "owner-program",
+          "description": "Required actual site program; precise promised intake/review/storage/publication scope awaits sole-owner contract",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "checks": [
+            "connections"
+          ],
+          "requiredIntegrationIds": []
+        }
+      ],
+      "requirements": {
+        "source": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "domain": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "editorial": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "desktop": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "phone": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "sot": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "bot": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "connections": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "unattended": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "state": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "recovery": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "alerts": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "google": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "bing": {
+          "applicable": true,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "ingestion": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "generation": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "media": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "publishing": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "forms": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "indexing": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        },
+        "launch": {
+          "applicable": null,
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io",
+          "maxAgeHours": 24
+        }
+      },
+      "requiredIntegrations": [],
+      "minimalProductionFlow": {
+        "id": "owner-program-smoke",
+        "description": "Exact minimal real program workflow and required access inventory must be pinned by this site sole owner before dependent build",
+        "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io"
+      },
+      "workUnits": [
+        {
+          "id": "independent-audit",
+          "description": "Read-only source/access inventory and isolated repair preparation",
+          "kind": "independent",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io"
+        },
+        {
+          "id": "source-production-link",
+          "description": "Verify the existing canonical source-to-production link",
+          "kind": "source-setup",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io"
+        },
+        {
+          "id": "connect-required-access",
+          "description": "Connect and production-test only required scoped program access after source link verification",
+          "kind": "access-setup",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io"
+        },
+        {
+          "id": "minimal-real-workflow",
+          "description": "Run only the declared minimal real production workflow after required access tests pass",
+          "kind": "minimal-production-test",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io"
+        },
+        {
+          "id": "dependent-content-ui",
+          "description": "Substantial dependent content/UI build or extension after all prior gates pass",
+          "kind": "dependent-build",
+          "sourceRef": "owner-seven-site-rollout:2026-11-11:estimators.io"
+        }
+      ]
+    },
+    "evidence": [],
+    "auditNotes": [
+      "Read-only retrofit. Canonical repository/current inspected source path is separate from exact production linkage and runtime-access proof.",
+      "Required program access inventory/minimal production workflow remain unproven; substantial dependent build is gated. Independent inventory/preparation and existing healthy services may continue.",
+      "This incomplete contract neither expands the site program nor activates a publisher; the assigned sole site owner supplies actual flows and evidence."
+    ]
   }
 ];

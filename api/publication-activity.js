@@ -10,6 +10,8 @@ const SOURCES=[
  {site:'hotwatertankinstallation.ca',brand:'Hot Water Tank Installation',url:'https://hotwatertankinstallation.ca/publication-results.json'},
  {site:'plowinstallations.com',brand:'Plow Installations',url:'https://www.plowinstallations.com/publication-results.json'},
 ];
+const publicText=(v,max=300)=>typeof v==='string'&&!/sk-|bearer|token=|password=/i.test(v)?v.replace(/<[^>]*>/g,'').replace(/[\u0000-\u001f]/g,' ').trim().slice(0,max):null;
+const publicUrl=v=>{try{const u=new URL(v);return u.protocol==='https:'&&!u.username&&!u.password&&!u.port&&!u.search&&!u.hash?u.href:null;}catch{return null;}};
 const timestamp=v=>typeof v==='string'&&Number.isFinite(Date.parse(v))&&Date.parse(v)<=Date.now()+300000?v:null;
 function miningReceipt(input){
  const date=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Date.parse(v)<=Date.now()+300000?v:null;
@@ -18,7 +20,7 @@ function miningReceipt(input){
  return {sourceDate:date(input.sourceDate),sourceEventDate:date(input.sourceEventDate),sourceEventDateStatus:date(input.sourceEventDate)?'Verified source event date':'Not independently established',featuredImageStatus:input.featuredImageStatus==='verified'&&featuredImageUrl?'verified':input.featuredImageStatus==='blocked'?'blocked':'unknown',featuredImageUrl,runUrl};
 }
 export function sanitizeEvent(source,input){
- if(!input||!['done','failed'].includes(input.status)||input.site!==source.site)return null;
+ if(!input||input.withdrawn===true||input.correction===true||input.contentType==='correction'||input.publicationStatus==='withdrawn'||!['done','failed'].includes(input.status)||input.site!==source.site)return null;
  const title=String(input.title??'').replace(/<[^>]*>/g,'').replace(/[\u0000-\u001f]/g,' ').trim().slice(0,180);if(!title)return null;
  const publishedAt=timestamp(input.publishedAt),verifiedAt=timestamp(input.verifiedAt),checkedAt=timestamp(input.checkedAt??input.verifiedAt);let url=null;
  if(input.status==='done'){
@@ -26,7 +28,8 @@ export function sanitizeEvent(source,input){
   try{const u=new URL(input.url);if(u.protocol!=='https:'||u.username||u.password||u.port||u.hostname.replace(/^www\./,'')!==source.site)return null;url=u.href;}catch{return null;}
  }else if(!checkedAt)return null;
  const mining=source.site==='theminingminute.com'?miningReceipt(input):{};
- return {...mining,id:source.site+':'+String(input.id??url??checkedAt).replace(/[\u0000-\u001f]/g,'').slice(0,220),site:source.site,brand:source.brand,title,publishedAt:input.status==='done'?publishedAt:null,verifiedAt:input.status==='done'?verifiedAt:null,checkedAt:checkedAt??verifiedAt,url,status:input.status};
+ const rawId=String(input.id??url??checkedAt).replace(/[\u0000-\u001f]/g,'').slice(0,220),id=rawId.startsWith(source.site+':')?rawId:source.site+':'+rawId;
+ return {...mining,id,site:source.site,brand:source.brand,title,publishedAt:input.status==='done'?publishedAt:null,verifiedAt:input.status==='done'?verifiedAt:null,checkedAt:checkedAt??verifiedAt,url,status:input.status,cause:publicText(input.cause,400),impact:publicText(input.impact,300),owner:publicText(input.owner,100),nextAction:publicText(input.nextAction,500),blockedSince:timestamp(input.blockedSince),claimedRecoveryAt:timestamp(input.resolvedAt),resolvedAt:null,recoveryVerified:false,sourceUrl:publicUrl(input.sourceUrl),runUrl:publicUrl(input.runUrl)??mining.runUrl??null};
 }
 async function json(source,fetcher){
  let url=source.url;for(let hop=0;hop<3;hop++){

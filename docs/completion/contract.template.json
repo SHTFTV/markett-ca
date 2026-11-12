@@ -1,5 +1,5 @@
 {
-  "standardVersion": 1,
+  "standardVersion": 2,
   "site": "REQUIRED_SITE",
   "repository": "REQUIRED_VERIFIED_REPOSITORY",
   "sourceCommit": "REQUIRED_EXACT_40_HEX_SHA",
@@ -112,5 +112,41 @@
       "sourceRef": "",
       "maxAgeHours": 24
     }
-  }
+  },
+  "requiredIntegrations": [
+    {
+      "id": "runtime-state",
+      "description": "Durable state, receipts and private promised intake storage",
+      "sourceRef": "REQUIRED_OWNER_REQUIREMENTS_REF"
+    },
+    {
+      "id": "publication-access",
+      "description": "Actual scoped source publishing and deployment access required by this site program",
+      "sourceRef": "REQUIRED_OWNER_REQUIREMENTS_REF"
+    },
+    {
+      "id": "owner-alert-delivery",
+      "description": "Independent owner failure notification and delivery receipts",
+      "sourceRef": "REQUIRED_OWNER_REQUIREMENTS_REF"
+    }
+  ],
+  "minimalProductionFlow": {
+    "id": "site-program-smoke",
+    "description": "One minimal real production program workflow using required access, with durable receipt and verified result",
+    "sourceRef": "REQUIRED_OWNER_REQUIREMENTS_REF"
+  },
+  "workUnits": [
+    {
+      "id": "independent-audit",
+      "description": "Read-only source/access inventory and isolated repair preparation",
+      "kind": "independent",
+      "sourceRef": "REQUIRED_OWNER_REQUIREMENTS_REF"
+    },
+    {
+      "id": "dependent-content-ui",
+      "description": "Substantial dependent content/UI build or extension",
+      "kind": "dependent-build",
+      "sourceRef": "REQUIRED_OWNER_REQUIREMENTS_REF"
+    }
+  ]
 }

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://markett-ca.vercel.app/schemas/completion-contract-v1",
-  "title": "MarkEtt operational completion contract v1",
+  "$id": "https://markett-ca.vercel.app/schemas/completion-contract-v2",
+  "title": "MarkEtt staged operating contract v2",
   "type": "object",
   "required": [
     "standardVersion",
@@ -11,11 +11,14 @@
     "sotRef",
     "requirementsRef",
     "promisedFlows",
-    "requirements"
+    "requirements",
+    "requiredIntegrations",
+    "minimalProductionFlow",
+    "workUnits"
   ],
   "properties": {
     "standardVersion": {
-      "const": 1
+      "const": 2
     },
     "site": {
       "type": "string",
@@ -624,6 +627,39 @@
             }
           }
         }
+      }
+    },
+    "requiredIntegrations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "description",
+          "sourceRef"
+        ]
+      }
+    },
+    "minimalProductionFlow": {
+      "type": "object",
+      "required": [
+        "id",
+        "description",
+        "sourceRef"
+      ]
+    },
+    "workUnits": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "description",
+          "kind",
+          "sourceRef"
+        ]
       }
     }
   }

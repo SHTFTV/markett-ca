@@ -2,7 +2,7 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {evaluateCompletion} from '../../lib/operational-completion.mjs';
-export function auditCompletion(records,options){return {standardVersion:1,sites:records.map(r=>evaluateCompletion(r.contract,r.evidence,options))};}
+export function auditCompletion(records,options){return {standardVersion:2,sites:records.map(r=>evaluateCompletion(r.contract,r.evidence,options))};}
 export async function main(args=process.argv.slice(2)){
  const [input,output]=args;if(!input||!output)throw Error('Usage: node scripts/completion/report.mjs records.json output-directory [--require-complete]');
  const report=auditCompletion(JSON.parse(await readFile(input,'utf8')));await mkdir(output,{recursive:true});
