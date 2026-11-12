@@ -2,7 +2,7 @@ const $=id=>document.getElementById(id),node=(tag,text,parent,cls)=>{const n=doc
 const time=v=>v&&Number.isFinite(Date.parse(v))?new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',dateStyle:'medium',timeStyle:'short'}).format(new Date(v)):'Unknown';
 let data,onlyRed=false;
 const workState=r=>r.operationTasks?.some(t=>['blocked','failed','approval-held'].includes(t.status))?'blocked':r.status==='red'?'attention':r.automaticReceipt?'verified':r.operationTasks?.length?'unknown':'not-started';
-const imageCache=new Map();
+const imageCache=new Map(),pageEvidence=new Map();
 function publicationCard(parent,r){
  const p=r.lastPublication;
  if(!p?.url){node('p','Latest published post unknown',parent);node('small','Featured image unavailable · no verified publication receipt',parent);return;}
@@ -16,7 +16,7 @@ function publicationCard(parent,r){
  const key=r.domain+'|'+p.url;
  if(!imageCache.has(key))imageCache.set(key,fetch('/api/latest-post-image?site='+encodeURIComponent(r.domain),{cache:'no-store'}).then(x=>{if(!x.ok)throw Error();return x.json();}).catch(()=>({status:'unavailable'})));
  imageCache.get(key).then(result=>{
-  if(!picture.isConnected)return;
+  if(result.pageMetadata)pageEvidence.set(p.url,{...result.pageMetadata,checkedAt:result.checkedAt});if(!picture.isConnected)return;
   if(result.articleUrl!==p.url||!result.imageUrl){picture.textContent='Featured image unavailable / unverified';return;}
   picture.replaceChildren();const img=node('img',null,picture);img.alt='Featured image on '+(p.title??r.domain);img.loading='lazy';img.referrerPolicy='no-referrer';img.onerror=()=>{picture.textContent='Featured image unavailable · image failed to load';};img.src=result.imageUrl;
   node('small','Image read from actual article metadata · compliance not certified',parent);
@@ -41,6 +41,13 @@ function showRoles(site){
  $('ops-attention-title').textContent=site.domain+' · Four Roles';const root=$('ops-attention-body');root.replaceChildren();
  node('p','Green requires all four roles to have fresh verified runtime evidence for this site. Configured infrastructure does not establish execution.',root);
  for(const role of fourRoles(site)){node('h3',(role.ok?'🟢 ':'🔴 ')+role.name,root);node('p',role.detail,root);node('p','Last verified check / run: '+time(role.at),root);node('p','Next action: '+role.next,root);if(role.url){const a=node('a','Inspect runtime evidence ↗',root);a.href=role.url;}}
+ node('h3','Source of truth & quality evidence',root);
+ node('p','Pinned source commit: '+(site.completion?.sourceCommit??'unknown'),root);
+ node('p','SOT version: '+(site.sopVersion??'unknown')+' · version/hash loaded by last actual job: unknown; no matching public load receipt',root);
+ for(const check of (site.completion?.matrix??[]).filter(c=>['sot','editorial','desktop','phone','media'].includes(c.id))){node('p',check.id+': '+check.status+' · '+check.reason,root);if(check.proofRef){const a=node('a','Inspect '+check.id+' proof',root);a.href=check.proofRef;}}
+ const meta=pageEvidence.get(site.lastPublication?.url);
+ node('p','Latest-article metadata checked: '+time(meta?.checkedAt)+'; all-page quality coverage remains unknown.',root);
+ if(meta){for(const [key,label]of [['ogTitle','OG title'],['ogDescription','OG description'],['ogImage','OG image'],['twitterTitle','Twitter title'],['twitterDescription','Twitter description'],['twitterImage','Twitter image'],['canonical','Canonical'],['favicon','Favicon']])node('p',label+': '+(meta[key]?'present · '+meta[key]:'missing / unknown'),root);node('p','Canonical matches this article: '+(meta.canonicalMatches===true?'yes':meta.canonicalMatches===false?'FAIL':'unknown'),root);node('p','Per-page unique preview: '+meta.perPageUniqueness+' · relevance: '+meta.imageRelevance,root);node('p','Readability/content: '+meta.readability,root);}else node('p','OG/Twitter image, title, description, canonical, favicon, per-page uniqueness and readability: unknown; connect exact-page quality receipt.',root);
  $('ops-attention-dialog').showModal();
 }
 function attention(site){$('ops-attention-title').textContent=site.domain+' · attention';const root=$('ops-attention-body');root.replaceChildren();for(const issue of site.issues){node('h3',issue.title,root);node('p','Observed '+time(issue.checkedAt),root);node('p','Recovery: '+issue.recovery,root);node('p','Next action: '+issue.nextAction,root);}node('p',data.notificationDelivery,root);$('ops-attention-dialog').showModal();}

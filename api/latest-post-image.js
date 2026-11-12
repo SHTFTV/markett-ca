@@ -9,6 +9,14 @@ export function featuredImage(html,article){
  }
  return null;
 }
+export function pageMetadata(html,article){
+ const attrs=tag=>Object.fromEntries([...tag.matchAll(/([\w:-]+)\s*=\s*(["'])(.*?)\2/gs)].map(m=>[m[1].toLowerCase(),decode(m[3])]));
+ const metas=(html.match(/<meta\b[^>]*>/gi)??[]).map(attrs),links=(html.match(/<link\b[^>]*>/gi)??[]).map(attrs);
+ const value=name=>metas.find(a=>(a.property??a.name)?.toLowerCase()===name)?.content?.slice(0,600)??null;
+ const url=v=>{try{const u=new URL(v,article);return v&&u.protocol==='https:'&&!u.username&&!u.password?u.href:null;}catch{return null;}};
+ const canonical=url(links.find(a=>a.rel?.toLowerCase()==='canonical')?.href),favicon=url(links.find(a=>a.rel?.split(/\s+/).includes('icon'))?.href);
+ return {articleUrl:article,ogTitle:value('og:title'),ogDescription:value('og:description'),ogImage:url(value('og:image')),twitterTitle:value('twitter:title'),twitterDescription:value('twitter:description'),twitterImage:url(value('twitter:image')),canonical,favicon,canonicalMatches:canonical?new URL(canonical).pathname.replace(/\/$/,'')===new URL(article).pathname.replace(/\/$/,'')&&new URL(canonical).hostname.replace(/^www\./,'')===new URL(article).hostname.replace(/^www\./,''):null,perPageUniqueness:'unknown — all-page comparison not performed',imageRelevance:'unknown — editorial visual check required',readability:'unknown — exact-page desktop/phone content check required'};
+}
 export async function inspectArticle(url,domain,fetcher=fetch){
  let current=new URL(url);
  for(let hop=0;hop<4;hop++){
@@ -18,7 +26,7 @@ export async function inspectArticle(url,domain,fetcher=fetch){
   if(!r.ok||!r.headers.get('content-type')?.includes('text/html'))throw Error('Article unavailable');
   const reader=r.body.getReader();let size=0,html='';const decoder=new TextDecoder();
   while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>2097152){await reader.cancel();throw Error('Article too large');}html+=decoder.decode(value,{stream:true});}
-  return {imageUrl:featuredImage(html,current),articleUrl:url,checkedAt:new Date().toISOString()};
+  return {pageMetadata:pageMetadata(html,current.href),imageUrl:featuredImage(html,current),articleUrl:url,checkedAt:new Date().toISOString()};
  }throw Error('Redirect limit');
 }
 let snapshot;
