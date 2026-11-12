@@ -1,3 +1,5 @@
+import {FOUR_ROLES} from '../../lib/four-role-evidence.mjs';
+import {checkPublication} from './publication-freshness.mjs';
 import {matchPullDelivery} from './pull-delivery.mjs';
 import {projectReceipt} from './receipt-projection.mjs';
 import {readFile,writeFile} from 'node:fs/promises';
@@ -8,6 +10,7 @@ import {syncQueue,claim,finish,stamp,PRIORITY} from '../../lib/portfolio-rollout
 const path='portfolio-rollout-status.json',watchdogPath='portfolio-rollout-watchdog.json';
 const read=async(p,fallback)=>{try{return JSON.parse(await readFile(p,'utf8'));}catch(e){if(e.code==='ENOENT')return fallback;throw e;}};
 let sharedRoleEvaluator=null;try{sharedRoleEvaluator=(await import('../../lib/four-role-evidence.mjs')).evaluateFourRoles;}catch(e){if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;}
+const connectionFacts=await read('docs/rollout/connection-registry.json',{});
 const adapters=await read('docs/rollout/adapters.json',{}),coverage=await read('docs/completion/sot-coverage.json',{});
 const now=Date.now(),runId=process.env.GITHUB_RUN_ID??'local-preparation',trigger=process.env.GITHUB_EVENT_NAME??'local-preparation',runUrl=process.env.GITHUB_RUN_ID?'https://github.com/'+process.env.GITHUB_REPOSITORY+'/actions/runs/'+runId:null;
 const save=async(p,data)=>writeFile(p,JSON.stringify(data,null,2)+'\n');
@@ -21,13 +24,21 @@ let state=syncQueue(registry,await read(path,{}),now);
 const sourceSha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
 state.registryDigest=createHash('sha256').update(JSON.stringify(registry.map(r=>r.domain))).digest('hex');
 state.coordinator={runId,runUrl,trigger,sourceCommit:sourceSha,startedAt:new Date(now).toISOString(),completedAt:null,status:'running',scope:'Portfolio management and evidence adapters; never a replacement site publisher or a fifth site role.'};
-for(const row of state.rows){const site=coverage.sites?.find(s=>s.domain===row.domain);row.source={repository:site?.canonicalRepository??null,sourceCommit:site?.sourceCommit??null,sotPath:site?.canonicalSotPath??null,requiredRuleVersion:site?.requiredRuleVersion??null};}
+for(const row of state.rows){const site=coverage.sites?.find(s=>s.domain===row.domain),known=connectionFacts.sites?.[row.domain];row.source={repository:known?.repository??site?.canonicalRepository??null,sourceCommit:site?.sourceCommit??known?.sourceCommit??null,sotPath:site?.canonicalSotPath??known?.sotRef??null,requiredRuleVersion:site?.requiredRuleVersion??null};row.connectionRegistryRef=connectionFacts.canonicalRef??null;row.owner=known?.owner??adapters.sites?.[row.domain]?.ownerThread??site?.owner??null;}
 if(process.argv.includes('--initialize')){state.coordinator.status='prepared-not-executed';state.coordinator.completedAt=null;await save(path,state);await save(watchdogPath,{schemaVersion:1,status:'missing',checkedAt:null});console.log(JSON.stringify({inventory:state.rows.length,approved:0,runtimeExecuted:false}));process.exit(0);}
+// Publication checks use a separate clock/queue so a blocked role does not postpone them for six hours.
+const publicationPath='publication-freshness.json',publication=await read(publicationPath,{rows:[]});const publicationMap=new Map((publication.rows??[]).map(r=>[r.domain,r]));
+const publicationDue=[...state.rows].filter(r=>!publicationMap.get(r.domain)?.checkedAt||Date.now()-Date.parse(publicationMap.get(r.domain).checkedAt)>1800000).sort((a,b)=>Date.parse(publicationMap.get(a.domain)?.checkedAt??'1970-01-01')-Date.parse(publicationMap.get(b.domain)?.checkedAt??'1970-01-01')).slice(0,12);let publicationCursor=0;
+async function publicationWorker(){while(publicationCursor<publicationDue.length){const row=publicationDue[publicationCursor++];publicationMap.set(row.domain,await checkPublication(row.domain));}}
+await Promise.all(Array.from({length:6},publicationWorker));if(publicationDue.length){await save(publicationPath,{schemaVersion:1,checkedAt:new Date().toISOString(),thresholdSeconds:7200,source:'Bounded actual live feeds/articles; no heartbeat or lastmod substitution',rows:state.rows.map(r=>publicationMap.get(r.domain)??{domain:r.domain,checkedAt:null,lastPublication:null,blocker:'Actual publication audit pending'})});persist([publicationPath],'Retain actual two-hour publication observations separately from role heartbeats');}
+// Connect an already-running standard public callback; never start a publisher from discovery.
+let adapterChanged=false;for(const row of publicationDue){if(adapters.sites?.[row.domain]?.roleEvidenceUrl||!connectionFacts.sites?.[row.domain]?.repository)continue;try{const url='https://'+row.domain+'/four-roles.json',packet=await get(url,row.domain),expected=connectionFacts.sites[row.domain].repository;if(packet.site!==row.domain||!Array.isArray(packet.receipts)||!packet.receipts.some(r=>r.site===row.domain&&r.repository===expected&&FOUR_ROLES.some(role=>r.check==='role:'+role)))continue;adapters.sites??={};adapters.sites[row.domain]={...(adapters.sites[row.domain]??{}),roleEvidenceUrl:url,format:'shared-role-receipts-v1',connectionObservedAt:new Date().toISOString(),connectionScope:'Actual standard public callback read; source/provider verification and full role acceptance remain separate.'};adapterChanged=true;}catch{}}
+if(adapterChanged){await save('docs/rollout/adapters.json',adapters);persist(['docs/rollout/adapters.json'],'Connect discovered existing standard role callbacks without creating writers');}
 // Claim before doing work: persisted leases survive process termination/restart.
 const selected=[];
 const candidates=[...state.rows].sort((a,b)=>{const rank=r=>PRIORITY.includes(r.domain)?PRIORITY.indexOf(r.domain):999;return rank(a)-rank(b)||Number(!a.roles.some(t=>t.attempts===0))-Number(!b.roles.some(t=>t.attempts===0))||Date.parse(a.lastCheckAt??'1970-01-01')-Date.parse(b.lastCheckAt??'1970-01-01');});
 const batchLimit=trigger==='push'?250:30;
-for(const row of candidates){if(selected.length>=batchLimit)break;const claimed=row.roles.filter(t=>claim(row,t.role,runId,now));if(claimed.length)selected.push({row,tasks:claimed});}
+for(const row of candidates){if(selected.length>=batchLimit)break;const claimed=row.roles.filter(t=>claim(row,t.role,runId,Date.now()));if(claimed.length)selected.push({row,tasks:claimed});}
 await save(path,state);persist([path],'Lease bounded portfolio rollout batch');
 async function verifyRun(receipt){
  const m=/^https:\/\/github\.com\/(SHTFTV\/[A-Za-z0-9_.-]+)\/actions\/runs\/(\d+)$/.exec(receipt.runRef??'');if(!m||m[1]!==receipt.repository)throw Error('RUNTIME_PROVIDER_VERIFICATION_MISSING');
