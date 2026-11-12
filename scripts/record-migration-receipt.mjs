@@ -1,0 +1,10 @@
+import fs from 'node:fs/promises';
+import {migrationCounts} from '../lib/production-scope.mjs';
+const [inputPath]=process.argv.slice(2);if(!inputPath)throw Error('Usage: node scripts/record-migration-receipt.mjs actual-verified-public-receipt.json');
+const r=JSON.parse(await fs.readFile(inputPath,'utf8'));
+if(!/^[a-z0-9][a-z0-9.-]+\.[a-z]{2,}$/.test(r.domain??'')||!/^[a-zA-Z0-9:-]{1,160}$/.test(r.id??'')||!['vercel-cutover','netlify-deletion'].includes(r.kind)||r.verified!==true||!Number.isFinite(Date.parse(r.checkedAt))||Date.parse(r.checkedAt)>Date.now())throw Error('Incomplete actual verified receipt');
+const u=new URL(r.evidenceUrl);if(u.protocol!=='https:'||u.username||u.password||u.search||u.hash)throw Error('Public evidence URL must not contain private query parameters');
+const keys=['id','domain','kind','checkedAt','evidenceUrl','verified','httpStatus','vercelRouteVerified','productionReady','providerAbsent'];const safe=Object.fromEntries(keys.filter(k=>r[k]!==undefined).map(k=>[k,r[k]]));
+const proof=migrationCounts([safe]);if(proof.verifiedCutovers+proof.verifiedNetlifyDeletions!==1)throw Error('Required cutover/deletion proof assertions missing');
+const path=new URL('../migration-receipts.json',import.meta.url),ledger=JSON.parse(await fs.readFile(path,'utf8'));
+const old=ledger.receipts.find(x=>x.id===safe.id);if(old&&JSON.stringify(old)!==JSON.stringify(safe))throw Error('Receipt ID conflict');if(!old)ledger.receipts.push(safe);ledger.checkedAt=new Date().toISOString();await fs.writeFile(path,JSON.stringify(ledger,null,2)+'\n');console.log(JSON.stringify(migrationCounts(ledger.receipts)));

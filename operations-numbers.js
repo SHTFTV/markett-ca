@@ -11,23 +11,34 @@ if(root){
    root.replaceChildren();node('h2','Portfolio numbers',root);node('p',s.counts.knownSites+' reconciled domain records · '+date(s.assembledAt)+' · publication day uses Pacific time. Dated audit evidence is separate from cloud event connectivity.',root);
    const rows=s.rows,taskRows=state?.sites?.flatMap(x=>x.tasks??[])??null,build=k=>rows.filter(x=>x.build?.status===k).length,known=s.counts.knownSites;
    const cards=node('div','',root);cards.style.cssText='display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:14px';
+   const scope=s.productionScope,account=s.search.accountInventory;
    const values=[
-[197,'Registrar account-listed domains','178 confirmed Active;5 attention;14 status unknown'],[73,'Vercel route + project binding','197-domain audit; not fully operating sites'],[53,'Domains responding elsewhere','Dated baseline; not evidence of unbuilt sites'],[39,'Parked domains','Dated197-domain audit'],[28,'Unresolved web DNS','Not assumed unbuilt'],[4,'Hosting unknown','Actual audit gaps'],[2,'Seven-site unattended loops','Dated audit: Mining + Listings; both degraded'],[0,'Fully operational in seven-site audit','End-to-end acceptance not established'],[s.countDefinitions?.search?.actualAccount?.counts?.uniqueVerifiedDomains??'Unknown','Google verified domains','Actual signed-in account; distinct from properties'],[s.countDefinitions?.search?.actualAccount?.counts?.verifiedProperties??'Unknown','Google verified properties','Multiple properties can represent one domain'],[s.countDefinitions?.search?.actualAccount?.counts?.notVerifiedProperties??'Unknown','Google unverified properties','Not indexing or sitemap status'],
-    [s.countDefinitions?.ownedAccounts?.goDaddyDomains??'Unknown','GoDaddy account domains','178 Active;5 attention states'],[s.countDefinitions?.ownedAccounts?.namesProDomains??'Unknown','NamesPro account domains','Complete signed-in export; status not exported'],[s.countDefinitions?.ownedAccounts?.combinedUniqueOwnedDomains??'Unknown','Combined owned domains','197 unique account-listed; zero overlap; not all active'],[known,'Registry domain records','Includes8 historical domains outside current registrar union'],[vercel?.lastVerifiedProjectCount??'Unknown','Vercel projects · last provider check',vercel?date(vercel.checkedAt)+' · '+vercel.freshness+' · '+vercel.refresh.status:'Provider evidence unavailable; current count unknown'],[hosting?.projectInventory?.customDomainTotal??'Unknown','Vercel custom domains','No complete unique-domain census claimed'],[hosting?.projectInventory?.verifiedLiveSiteTotal??'Unknown','Fully verified live sites','HTTP/build/deployment counts are separate'],[rows.filter(x=>x.httpCheck?.at).length,'Homepage checks','Dated actual requests / '+known],
-    [s.frontendCounts?.live??'Unknown','Frontends observed live','Dated content/HTTPS evidence; not full operation'],[s.frontendCounts?.notLive??'Unknown','Confirmed not live','Only positive no-site evidence; not DNS failures'],[s.frontendCounts?.unknown??'Unknown','Frontend state unknown','Missing/stale content proof is not zero or not-live'],[s.counts.httpResponding,'HTTP200 responses','Includes parking/holding pages'],[build('built-and-live'),'Frontend builds served','Frontend observations; not newly built/full working sites'],
-    [build('genuinely-unbuilt'),'Confirmed unbuilt','Only positive recovery evidence'],[build('unknown'),'Build status unknown','Includes parking and failed checks'],
-    [hosting?.netlifyHosted??'Unknown','Netlify-hosted','Dated sample of '+(hosting?.namedDomainScope??'?')+' named domains'],[hosting?.vercelHosted??'Unknown','Vercel-hosted','Same dated hosting sample; not all-site completion'],
-    [state?.knownSites??'Unknown','Cloud DB domains','Enrolled; not publisher activation'],[state?state.sites.filter(x=>x.lastEvent).length:'Unknown','Domains with saved events','Event receipt does not prove continuous operation'],
-    [s.counts.continuousBotsVerified,'Continuous workers proven','Requires execution evidence'],[s.counts.automaticPublishersWithReceipts,'Native auto publishers proven','Matched scheduled publication receipts'],
-    [s.counts.publicationsToday,'Verified posts today','Distinct live publication receipts'],[s.counts.needsAttention,'Sites needing attention','Known issues; unknowns kept separate'],[taskRows?taskRows.filter(x=>['queued','running','blocked','failed','unknown'].includes(x.status)).length:'Unknown','Open cloud tasks','Persisted task states only'],[taskRows?taskRows.filter(x=>['blocked','failed'].includes(x.status)).length:'Unknown','Blocked cloud tasks','Unknown prerequisites remain separate'],
-    [s.countDefinitions?.search?.retainedOwnershipVerified??'Unknown','Retained Google ownership','Verified within '+known+' domains'],[s.countDefinitions?.search?.retainedSitemapSuccess??'Unknown','Retained Google sitemap Success','Submission/discovery is not indexing'],
-    [rows.filter(x=>x.bing?.propertyVerified===true).length,'Bing ownership','Verified within '+known+' domains'],[rows.filter(x=>x.bing?.sitemap?.status==='Success').length,'Bing sitemap Success','Separate from ownership and indexing'],
-    [s.search.indexedSites??'Unknown','Actually indexed sites',s.search.indexCoverageKnownSites+' sites have index-count evidence'],
-    [rows.every(x=>Number.isFinite(x.gsc?.indexing?.indexedPages))?rows.reduce((n,x)=>n+x.gsc.indexing.indexedPages,0):'Unknown','Indexed pages','Never substitute sitemap URL counts'],
-    [rows.filter(x=>x.pseo?.deployedInfrastructureVerified).length,'pSEO infrastructure evidenced','Health and indexing remain separate']
+    [scope.verifiedRoutedSites,'Vercel production sites','Canonical READY site + verified HTTP200 Vercel route · '+date(scope.routingCheckedAt)],
+    [scope.rawProjects,'Raw Vercel projects','Includes preview/test projects; provider census '+date(scope.checkedAt)],
+    [scope.readyAttachedCanonicalSites,'READY sites attached','Deployment + custom binding; routing is checked separately'],
+    [scope.migrationBacklog,'Migration backlog','Registry records outside verified Vercel route scope; inspect the scope selector'],
+    [scope.registryRecords,'All registry records','Separate inventory denominator; not operational sites'],
+    [scope.migration.verifiedCutovers,'Receipted Vercel cutovers','Deduplicated verified cutover receipts; project creation does not increment'],
+    [scope.migration.verifiedNetlifyDeletions,'Receipted Netlify deletions','Provider-confirmed absence only; Vercel routing does not prove deletion'],
+    [s.countDefinitions?.ownedAccounts?.combinedUniqueOwnedDomains??'Unknown','Registrar account domains','Dated account inventory · '+date(s.countDefinitions?.ownedAccounts?.checkedAt)],
+    [s.counts.httpResponding,'Production HTTP200','Within the verified Vercel scope'],
+    [s.counts.automaticPublishersWithReceipts,'Native auto publishers proven','Matched scheduled publication receipts; configuration is separate'],
+    [s.counts.continuousBotsVerified,'Continuous workers proven','Requires actual current runtime evidence'],
+    [s.counts.publicationsToday,'Verified posts today','Distinct live URLs in production scope · Pacific day'],
+    [s.counts.needsAttention,'Production sites needing attention','Search setup is displayed separately and does not block launch'],
+    [s.search.gscVerified,'Google verified production sites','Correct production-host coverage · '+date(scope.searchCheckedAt)],
+    [s.search.bingVerified,'Bing verified production sites','Exact site inventory · '+date(scope.searchCheckedAt)],
+    [s.search.gscPending,'Google setup pending','Hostname mismatch/unverified/missing; inspect each yellow button'],
+    [s.search.bingPending,'Bing setup pending','Unverified or absent from inspected account; not indexing'],
+    [s.search.sitemapSuccess,'Historical Google sitemap Success','Dated retained evidence; current report sweep unchecked'],
+    [rows.filter(x=>x.bing?.historicalSitemap?.status==='Success').length,'Historical Bing sitemap Success','Retained receipt, not a fresh sitemap check'],
+    [s.search.indexedSites??'Unknown','Actually indexed sites','Numeric index evidence for '+s.search.indexCoverageKnownSites+' production sites; discovery is separate'],
+    [rows.every(x=>Number.isFinite(x.gsc?.indexing?.indexedPages))?rows.reduce((n,x)=>n+x.gsc.indexing.indexedPages,0):'Unknown','Total indexed pages','Never infer zero or use sitemap URL counts'],
+    [rows.filter(x=>x.pseo?.deployedInfrastructureVerified).length,'pSEO infrastructure evidenced','Infrastructure is separate from health and indexing'],
+    [state?.knownSites??'Unknown','Cloud DB enrolled domains','Registry enrollment; separate from operational denominator']
    ];
    for(const [value,label,note]of values){const card=node('article','',cards);card.style.cssText='padding:18px;border:1px solid #547e6c;border-radius:8px;background:#142027;color:#edf2ee';const strong=node('strong',String(value),card);strong.style.cssText='display:block;font-size:38px;line-height:1.15';node('h3',label,card).style.cssText='font-size:16px;margin:12px 0';node('p',note,card).style.cssText='font-size:13px;line-height:1.5';}
-   node('p','Homepage checks '+date(s.websiteAuditSnapshotAt??s.registrySnapshotAt)+' · build evidence '+date(s.registrySnapshotAt)+' · hosting sample '+date(hosting?.checkedAt)+' · Google/Bing '+date(s.search.latestGscAttempt)+'. Registrar union complete:197 unique; hosting and unattended publisher evidence remain separate.',root);
+   node('p','Provider refresh: '+(scope.providerRefresh?.status??'unknown')+'. '+(scope.providerRefresh?.nextAction??'Inspect current runtime credential and native receipt.')+' No unattended refresh or alert delivery is inferred from the saved schedule.',root);
    node('h3','Posts today by site',root);const tableWrap=node('div','',root);tableWrap.style.cssText='max-width:100%;overflow-x:auto';const table=node('table','',tableWrap);table.style.cssText='width:100%;text-align:left';const body=node('tbody','',table);let sites=0;
    for(const row of rows){const seen=new Map();for(const e of row.history??[])if(e.status==='done'&&e.url&&e.publishedAt&&day(e.publishedAt)===day(s.assembledAt))seen.set(e.url,e);if(!seen.size)continue;sites++;const tr=node('tr','',body);node('th',row.domain,tr);node('td',String(seen.size),tr);const td=node('td','',tr);for(const e of seen.values()){const a=node('a',e.title??'Verified article',td);a.href=e.url;a.style.display='block';}}
    if(!sites)node('p','0 verified publication receipts today in this feed.',root);
@@ -37,3 +48,4 @@ if(root){
  }
  window.addEventListener('durable-operations-change',refresh);refresh();setInterval(refresh,30000);
 }
+
