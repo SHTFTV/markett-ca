@@ -39,9 +39,9 @@ export default {async fetch(request){
  const params=new URL(request.url).searchParams,domain=params.get('site'),requested=params.get('article');
  try{
   const row=(await currentRows(request)).find(r=>r.domain===domain);
-  const article=requested??row?.lastPublication?.url;
-  const permitted=article&&(row?.lastPublication?.url===article||row?.history?.some(e=>e.status==='done'&&e.url===article));
-  if(!permitted)return Response.json({status:'unknown',imageUrl:null,reason:'No matching verified publication receipt; arbitrary URLs are not fetched.'});
+  const article=requested??row?.latestObservedPublication?.url??row?.lastPublication?.url;
+  const permitted=article&&(row?.latestObservedPublication?.url===article||row?.lastPublication?.url===article||row?.history?.some(e=>e.status==='done'&&e.url===article));
+  if(!permitted)return Response.json({status:'unknown',imageUrl:null,reason:'No matching retained publication or actually inspected article; arbitrary URLs are not fetched.'});
   const result=await inspectArticle(article,domain);
   return Response.json({...result,status:result.imageUrl?'article-metadata':'unavailable'},{headers:{'Cache-Control':'no-store'}});
  }catch{return Response.json({status:'unavailable',imageUrl:null},{headers:{'Cache-Control':'no-store'}});}
