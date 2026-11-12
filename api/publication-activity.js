@@ -1,5 +1,6 @@
 // Public read-only projection. Fixed public sources; never load private operating records.
 const SOURCES=[
+ {site:'kitchencabinets.io',brand:'KitchenCabinets.io',url:'https://kitchencabinets.io/operations/editorial-release.json',format:'kitchen-editorial-v1'},
  {site:'industryarmymarketing.com',brand:'Industry Army Marketing',url:'https://www.industryarmymarketing.com/publication-results.json'},
  {site:'beewarm.ca',brand:'BeeWarm',url:'https://beewarm.ca/publication-results.json'},
  {site:'plowwow.com',brand:'PlowWow',url:'https://www.plowwow.com/publication-results.json'},
@@ -34,6 +35,14 @@ export function sanitizeEvent(source,input){
  const rawId=String(input.id??url??checkedAt).replace(/[\u0000-\u001f]/g,'').slice(0,220),id=rawId.startsWith(source.site+':')?rawId:source.site+':'+rawId;
  return {...receipt,...mining,id,site:source.site,brand:source.brand,title,publishedAt:input.status==='done'?publishedAt:null,verifiedAt:input.status==='done'?verifiedAt:null,checkedAt:checkedAt??verifiedAt,url,status:input.status,cause:publicText(input.cause,400),impact:publicText(input.impact,300),owner:publicText(input.owner,100),nextAction:publicText(input.nextAction,500),blockedSince:timestamp(input.blockedSince),claimedRecoveryAt:timestamp(input.resolvedAt),resolvedAt:null,recoveryVerified:false,sourceUrl:publicUrl(input.sourceUrl),runUrl:source.site==='theminingminute.com'?mining.runUrl:publicUrl(input.runUrl)};
 }
+export function kitchenEditorialEvents(source,data){
+ if(source.site!=='kitchencabinets.io'||data?.schemaVersion!==1||data.site!==source.site||!Array.isArray(data.posts))return [];
+ return data.posts.filter(p=>p.state==='published-manual'&&p.publicationTrigger==='authorized-manual-launch'&&p.canonicalUrl===p.url&&/^kitchencabinets\.io:original:[a-z0-9-]+$/.test(p.id)&&/^[a-f0-9]{64}$/.test(p.contentHash)&&/^https:\/\/github\.com\/SHTFTV\/kitchencabinets\.io\/commit\/[a-f0-9]{40}$/.test(p.runRef)).map(p=>{
+  const image=publicUrl(p.imageUrl);if(!image||new URL(image).hostname!==source.site||!new URL(image).pathname.startsWith('/images/editorial/'))return null;
+  const e=sanitizeEvent(source,{id:p.id,site:source.site,title:p.title,url:p.url,status:'done',publishedAt:p.publishedAt,verifiedAt:p.verifiedAt,featuredImageUrl:image,featuredImageCredit:p.imageCredit,featuredImageType:p.imageType==='original-labelled-planning-illustration'?'illustration':'unknown',featuredImageStatus:'unknown',sotVersion:data.siteSotRevision,policyVersion:data.sharedStandardVersion,runTrigger:'user-authorized-manual',runUrl:p.runRef,receiptState:'source-reported-manual-launch'});
+  return e?{...e,sourceUrl:source.url,contentHash:p.contentHash,nativeScheduleVerified:false,centralReaderDeliveryVerified:false,sharedStandardLiveBindingVerified:false}:null;
+ }).filter(Boolean);
+}
 async function json(source,fetcher){
  let url=source.url;for(let hop=0;hop<3;hop++){
   const response=await fetcher(url,{redirect:'manual',signal:AbortSignal.timeout(7000),headers:{accept:'application/json'}});
@@ -64,7 +73,7 @@ export async function iamLatest(fetcher=fetch){
  }catch{return {...source,status:'unavailable',checkedAt,events:[]};}
 }
 export async function activity(fetcher=fetch,{includeArchive=true,limit=500}={}){
- const results=await Promise.all(SOURCES.map(async source=>{try{const data=await json(source,fetcher);const events=(Array.isArray(data.events)?data.events:[]).slice(-500).map(x=>sanitizeEvent(source,x)).filter(Boolean);const monitor=miningMonitor(source,data);if(monitor)events.push(monitor);return {site:source.site,brand:source.brand,status:'connected',checkedAt:new Date().toISOString(),events};}catch(e){console.warn('Public publication log',source.site,e.message==='not-connected'?'not-connected':'unavailable');return {site:source.site,brand:source.brand,status:e.message==='not-connected'?'not-connected':'unavailable',checkedAt:new Date().toISOString(),events:[]};}}));
+ const results=await Promise.all(SOURCES.map(async source=>{try{const data=await json(source,fetcher);const events=source.format==='kitchen-editorial-v1'?kitchenEditorialEvents(source,data):(Array.isArray(data.events)?data.events:[]).slice(-500).map(x=>sanitizeEvent(source,x)).filter(Boolean);const monitor=miningMonitor(source,data);if(monitor)events.push(monitor);return {site:source.site,brand:source.brand,status:'connected',checkedAt:new Date().toISOString(),events};}catch(e){console.warn('Public publication log',source.site,e.message==='not-connected'?'not-connected':'unavailable');return {site:source.site,brand:source.brand,status:e.message==='not-connected'?'not-connected':'unavailable',checkedAt:new Date().toISOString(),events:[]};}}));
  if(!results.some(s=>s.site==='industryarmymarketing.com'&&s.status==='connected'))results.push(await iamLatest(fetcher));
  let archive={connected:false,events:[]};if(includeArchive&&fetcher===fetch){try{archive=await (await import('../lib/publication-receipt-store.mjs')).readPublications({limit});}catch{}}
  const unique=new Map();for(const e of archive.events??[]){const source=SOURCES.find(s=>s.site===e.site);const clean=source&&sanitizeEvent(source,e);if(clean)unique.set(clean.site+'|'+clean.url,clean);}
@@ -79,3 +88,4 @@ export default {async fetch(request){
  if(request.method!=='GET')return new Response('Method not allowed',{status:405,headers:{Allow:'GET'}});
  try{const cursor=new URL(request.url).searchParams.get('before');if(cursor){const {readPublications,decodePublicationCursor}=await import('../lib/publication-receipt-store.mjs');try{decodePublicationCursor(cursor);}catch{return Response.json({error:'Invalid publication cursor'},{status:400});}const archive=await readPublications({limit:200,cursor});if(!archive.connected)return Response.json({error:'Publication archive unavailable'},{status:503});const events=archive.events.map(e=>{const source=SOURCES.find(s=>s.site===e.site);return source?sanitizeEvent(source,e):null;}).filter(Boolean);return Response.json({schemaVersion:2,checkedAt:new Date().toISOString(),publications:events,events,sources:[],nextPublicationCursor:archive.nextCursor,scope:'durable-archive-page'},{headers:{'Cache-Control':'no-store'}});}return Response.json(await activity(),{headers:{'Cache-Control':'public, max-age=0, s-maxage=10','X-Content-Type-Options':'nosniff'}});}catch{console.error('Public publication projection failed');return Response.json({live:false,error:'Publication status temporarily unavailable'},{status:503});}
 }};
+
