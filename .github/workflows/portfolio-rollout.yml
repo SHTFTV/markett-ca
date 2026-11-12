@@ -1,38 +1,14 @@
-name: Portfolio Four Roles coordinator
+name: Portfolio rollout regression checks (runtime moved to Vercel)
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/rollout/**'
-      - 'docs/rollout/adapters.json'
-      - '.github/workflows/portfolio-rollout.yml'
-  schedule:
-    - cron: '2-57/5 * * * *'
   workflow_dispatch:
 permissions:
-  contents: write
-concurrency:
-  group: portfolio-four-roles-state
-  cancel-in-progress: false
+  contents: read
 jobs:
-  reconcile:
+  check:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Configure repository-scoped durable queue writer
-        run: |
-          git config user.name 'markett-rollout-bot'
-          git config user.email 'markett-rollout-bot@users.noreply.github.com'
-      - name: Verify queue and stamp invariants
-        run: node --test scripts/rollout/*.test.mjs
-      - name: Lease, execute bounded adapters, retain blockers and checkpoint
-        env:
-          ROLLOUT_COMMIT: 'true'
-          GITHUB_TOKEN: ${{ github.token }}
-        run: node scripts/rollout/run.mjs
+      - run: node --test scripts/rollout/*.test.mjs
