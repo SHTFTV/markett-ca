@@ -1,0 +1,33 @@
+name: Retained Irrigation HTTP audit replay
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/agents/replay-irrigation-audit.mjs', '.github/workflows/irrigation-audit-replay.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: retained-irrigation-http-audit
+  cancel-in-progress: false
+jobs:
+  replay-original-event:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify exact-domain scopes and retained replay behavior
+        run: node --test scripts/completion/irrigation-audit-scope.test.mjs scripts/completion/replay-retained.test.mjs
+      - name: Replay original retained event once; preserve failure until durably accepted
+        env:
+          MARKETT_OPERATIONS_EVENT_KEY: ${{ secrets.MARKETT_OPERATIONS_EVENT_KEY }}
+        run: node scripts/agents/replay-irrigation-audit.mjs docs/completion/retained-irrigation-http-event.json "$RUNNER_TEMP/irrigation-replay"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: irrigation-original-event-replay-${{ github.run_id }}
+          path: ${{ runner.temp }}/irrigation-replay/
+          retention-days: 14
+          if-no-files-found: warn
