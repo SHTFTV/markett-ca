@@ -27,3 +27,7 @@ This repo's Vercel output directory is `.`. Keep `scripts/`, `docs/`, `.github/`
 ## Follow-up work
 
 HTTP success alone cannot classify a site as finished. Content review, forms, email delivery, and actual backend jobs remain separate checks. This runner supplies evidence for that work and a repeatable baseline, without claiming autonomous fixes or publishing.
+
+## Whole-site completion
+
+Use [the canonical operating standard](completion/OPERATING-STANDARD.md) and `npm run check:completion` before claiming a site DONE. HTTP/task success remains scoped; the command-center API applies the same fail-closed evaluator. Contract templates and current audited records are under `docs/completion/`.

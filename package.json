@@ -1,1 +1,14 @@
-{"name":"markett-command-center","version":"1.0.0","private":true,"type":"module","dependencies":{"pg":"8.23.1"}}
+{
+  "name": "markett-command-center",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "pg": "8.23.1"
+  },
+  "scripts": {
+    "test:completion": "node --test scripts/completion/*.test.mjs",
+    "report:completion": "node scripts/completion/report.mjs docs/completion/current-records.json /tmp/markett-completion",
+    "check:completion": "node scripts/completion/report.mjs docs/completion/current-records.json /tmp/markett-completion --require-complete"
+  }
+}

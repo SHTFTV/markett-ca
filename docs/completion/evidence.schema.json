@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Actual production completion evidence v1",
+  "type": "object",
+  "required": [
+    "site",
+    "repository",
+    "sourceCommit",
+    "check",
+    "status",
+    "environment",
+    "synthetic",
+    "observedAt",
+    "observer",
+    "proofRef",
+    "assertions"
+  ],
+  "properties": {
+    "site": {
+      "type": "string"
+    },
+    "repository": {
+      "type": "string"
+    },
+    "sourceCommit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "check": {
+      "anyOf": [
+        {
+          "enum": [
+            "source",
+            "domain",
+            "editorial",
+            "desktop",
+            "phone",
+            "sot",
+            "bot",
+            "connections",
+            "unattended",
+            "state",
+            "recovery",
+            "alerts",
+            "google",
+            "bing",
+            "ingestion",
+            "generation",
+            "media",
+            "publishing",
+            "forms",
+            "indexing",
+            "launch"
+          ]
+        },
+        {
+          "type": "string",
+          "pattern": "^flow:[a-z0-9][a-z0-9-]{0,79}$"
+        }
+      ]
+    },
+    "status": {
+      "enum": [
+        "passed",
+        "failed",
+        "blocked",
+        "unknown"
+      ]
+    },
+    "environment": {
+      "const": "production"
+    },
+    "synthetic": {
+      "const": false
+    },
+    "observedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "observer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "proofRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "assertions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    }
+  }
+}

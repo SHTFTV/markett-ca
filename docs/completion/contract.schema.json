@@ -1,0 +1,630 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://markett-ca.vercel.app/schemas/completion-contract-v1",
+  "title": "MarkEtt operational completion contract v1",
+  "type": "object",
+  "required": [
+    "standardVersion",
+    "site",
+    "repository",
+    "sourceCommit",
+    "sotRef",
+    "requirementsRef",
+    "promisedFlows",
+    "requirements"
+  ],
+  "properties": {
+    "standardVersion": {
+      "const": 1
+    },
+    "site": {
+      "type": "string",
+      "minLength": 1
+    },
+    "repository": {
+      "type": "string",
+      "pattern": "^SHTFTV/[\\w.-]+$"
+    },
+    "sourceCommit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "sotRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requirementsRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "promisedFlows": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "description",
+          "sourceRef",
+          "checks"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sourceRef": {
+            "type": "string",
+            "minLength": 1
+          },
+          "checks": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "enum": [
+                "source",
+                "domain",
+                "editorial",
+                "desktop",
+                "phone",
+                "sot",
+                "bot",
+                "connections",
+                "unattended",
+                "state",
+                "recovery",
+                "alerts",
+                "google",
+                "bing",
+                "ingestion",
+                "generation",
+                "media",
+                "publishing",
+                "forms",
+                "indexing",
+                "launch"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "requirements": {
+      "type": "object",
+      "required": [
+        "source",
+        "domain",
+        "editorial",
+        "desktop",
+        "phone",
+        "sot",
+        "bot",
+        "connections",
+        "unattended",
+        "state",
+        "recovery",
+        "alerts",
+        "google",
+        "bing",
+        "ingestion",
+        "generation",
+        "media",
+        "publishing",
+        "forms",
+        "indexing",
+        "launch"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "domain": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "editorial": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "desktop": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "phone": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "sot": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "bot": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "connections": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "unattended": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "state": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "recovery": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "alerts": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "google": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "bing": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "ingestion": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "generation": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "media": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "publishing": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "forms": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "indexing": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        },
+        "launch": {
+          "type": "object",
+          "required": [
+            "applicable",
+            "sourceRef"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string"
+            },
+            "maxAgeHours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 168
+            }
+          }
+        }
+      }
+    }
+  }
+}
