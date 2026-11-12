@@ -1,10 +1,11 @@
+import {connectionButton} from './automation-connection-view.js';
 import {stamp} from './lib/portfolio-rollout.mjs';
 const $=id=>document.getElementById(id),node=(tag,text,parent,cls)=>{const n=document.createElement(tag);if(text!=null)n.textContent=text;if(cls)n.className=cls;parent.append(n);return n;};
 const time=v=>v&&Number.isFinite(Date.parse(v))?new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',dateStyle:'medium',timeStyle:'short'}).format(new Date(v)):'Unknown';
 let data,onlyRed=false,providerInventory=null;
 const workState=r=>r.operationTasks?.some(t=>['blocked','failed','approval-held'].includes(t.status))?'blocked':r.status==='red'?'attention':r.automaticReceipt?'verified':r.operationTasks?.length?'unknown':'not-started';
 const imageCache=new Map(),pageEvidence=new Map();
-function publicationCard(parent,r){
+function publicationCard(parent,r){connectionButton(parent,r);
  const p=r.lastPublication;
  if(!p?.url){node('p','Latest published post unknown',parent);node('small','Featured image unavailable · no verified publication receipt',parent);return;}
  const card=node('a',null,parent,'latest-post-card');card.href=p.url;card.target='_blank';card.rel='noopener';card.setAttribute('aria-label','Open latest verified post for '+r.domain+': '+p.title);
