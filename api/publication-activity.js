@@ -20,7 +20,7 @@ function miningReceipt(input){
  return {sourceDate:date(input.sourceDate),sourceEventDate:date(input.sourceEventDate),sourceEventDateStatus:date(input.sourceEventDate)?'Verified source event date':'Not independently established',featuredImageStatus:input.featuredImageStatus==='verified'&&featuredImageUrl?'verified':input.featuredImageStatus==='blocked'?'blocked':'unknown',featuredImageUrl,runUrl};
 }
 export function sanitizeEvent(source,input){
- if(!input||!['done','failed'].includes(input.status)||input.site!==source.site)return null;
+ if(!input||input.withdrawn===true||input.correction===true||input.contentType==='correction'||input.publicationStatus==='withdrawn'||!['done','failed'].includes(input.status)||input.site!==source.site)return null;
  const title=String(input.title??'').replace(/<[^>]*>/g,'').replace(/[\u0000-\u001f]/g,' ').trim().slice(0,180);if(!title)return null;
  const publishedAt=timestamp(input.publishedAt),verifiedAt=timestamp(input.verifiedAt),checkedAt=timestamp(input.checkedAt??input.verifiedAt);let url=null;
  if(input.status==='done'){
