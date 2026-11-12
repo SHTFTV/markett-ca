@@ -1,5 +1,5 @@
 const root=document.getElementById('vercel-inventory-status');
-let provider,overview;
+let provider,overview;if(root)root.style.overflowWrap='anywhere';
 const add=(tag,text,parent=root)=>{const n=document.createElement(tag);if(text!=null)n.textContent=text;parent.append(n);return n;};
 const date=value=>value&&Number.isFinite(Date.parse(value))?new Date(value).toLocaleString('en-US',{timeZone:'America/Los_Angeles'})+' Pacific':'unknown';
 function render(){if(!root)return;root.replaceChildren();
