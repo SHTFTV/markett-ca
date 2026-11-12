@@ -1,5 +1,11 @@
 name: Portfolio Four Roles coordinator
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/rollout/**'
+      - 'docs/rollout/adapters.json'
+      - '.github/workflows/portfolio-rollout.yml'
   schedule:
     - cron: '2-57/5 * * * *'
   workflow_dispatch:
