@@ -17,3 +17,5 @@ test('pipeline completion requires same-run per-feed/per-item isolation proof',(
 test('HTTP receipt cannot stand in for rendered phone QA',()=>{const x=complete();delete x.evidence.find(e=>e.check==='phone').renderRef;assert.equal(evaluateCompletion(x.contract,x.evidence,{now}).operationally_complete,false);});
 
 test('loaded local or old SOT and different-run isolation proof fail closed',()=>{for(const change of [{check:'sot',loadedRevision:'v3'},{check:'sot',loadedHash:'e'.repeat(64)},{check:'recovery',healthyRunId:'different-run'}]){const x=complete();Object.assign(x.evidence.find(e=>e.check===change.check),change);assert.equal(evaluateCompletion(x.contract,x.evidence,{now}).operationally_complete,false);}});
+
+test('missing proof yields unknown operational substates rather than claiming the frontend is down',()=>{const x=complete();const r=evaluateCompletion(x.contract,[],{now});assert.equal(r.frontend_live,null);assert.equal(r.deployed,null);assert.equal(r.configured,null);assert.equal(r.enabled,null);assert.equal(r.operationally_complete,false);});
