@@ -1,3 +1,4 @@
+import {projectReceipt} from './receipt-projection.mjs';
 import {readFile,writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
@@ -37,10 +38,10 @@ async function verifyRun(receipt){
 async function get(url,domain){const u=new URL(url);if(u.protocol!=='https:'||u.hostname.replace(/^www\./,'')!==domain||u.username||u.password||u.port)throw Error('ADAPTER_SCOPE_INVALID');const r=await fetch(u,{redirect:'error',signal:AbortSignal.timeout(12000),headers:{Accept:'application/json'}});if(!r.ok)throw Error('SOURCE_HTTP_'+r.status);const raw=await r.text();if(raw.length>500000)throw Error('SOURCE_TOO_LARGE');return JSON.parse(raw);}
 // Serial site processing preserves explicit priority. Per-site exceptions never stop others.
 for(const {row,tasks} of selected){const adapter=adapters.sites?.[row.domain];let packet=null,probeError=null;
- try{if(adapter?.publisherStatusUrl){const p=await get(adapter.publisherStatusUrl,row.domain);row.probe={checkedAt:new Date().toISOString(),sourceUrl:adapter.publisherStatusUrl,status:p.status??'unknown',trigger:p.event??p.sotLoad?.trigger??null,runUrl:p.runUrl??null,scope:'Actual publisher status only; does not certify any role.'};}
+ try{if(adapter?.publisherStatusUrl){const p=await get(adapter.publisherStatusUrl,row.domain);row.probe={checkedAt:new Date().toISOString(),sourceUrl:adapter.publisherStatusUrl,status:typeof p.status==='string'&&/^[a-z-]{1,60}$/.test(p.status)?p.status:'unknown',trigger:['schedule','push','workflow_dispatch'].includes(p.event??p.sotLoad?.trigger)?(p.event??p.sotLoad?.trigger):null,runUrl:/^https:\/\/github\.com\/SHTFTV\/[A-Za-z0-9_.-]+\/actions\/runs\/\d+$/.test(p.runUrl??'')?p.runUrl:null,scope:'Actual publisher status only; does not certify any role.'};}
  if(adapter?.roleEvidenceUrl)packet=await get(adapter.roleEvidenceUrl,row.domain);
  }catch(e){probeError=/^[A-Z0-9_]{1,64}$/.test(e.message)?e.message:'ROLE_SOURCE_UNAVAILABLE';}
- for(const task of tasks){let receipt=packet?.receipts?.find(r=>r.check==='role:'+task.role&&r.site===row.domain)??null;
+ for(const task of tasks){let receipt=projectReceipt(packet?.receipts?.find(r=>r.check==='role:'+task.role&&r.site===row.domain)??null);
  let attestationError=null;if(receipt&&!sharedRoleEvaluator)attestationError='SHARED_ROLE_VALIDATOR_NOT_YET_RELEASED';if(receipt&&sharedRoleEvaluator){const assessment=sharedRoleEvaluator({site:row.domain,repository:row.source.repository,sourceCommit:row.source.sourceCommit},packet.receipts);if(assessment.matrix.find(r=>r.role===task.role)?.status!=='passed')attestationError='CANONICAL_ROLE_STANDARD_NOT_PASSED';}if(receipt&&!attestationError){try{receipt={...receipt,runtimeAttestation:await verifyRun(receipt)};}catch(e){attestationError=e.message;}}
  const blocker=attestationError??probeError??(!row.source.repository?'Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.':!adapter?.roleEvidenceUrl?'Existing site owner must connect actual '+task.role+' execution adapter; no replacement publisher or activation attempted.':!receipt?'Actual '+task.role+' receipt missing from site adapter.':null);
  finish(task,{runId,blocker,receipt},Date.now());}
