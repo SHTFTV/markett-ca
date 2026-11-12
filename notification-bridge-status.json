@@ -1,12 +1,17 @@
 {
   "schemaVersion": 1,
-  "relayAuthorization": "blocked-by-automatic-approval-review",
-  "requiredAction": "Direct human authorization for concise portfolio alerts to the named coordinating chat is required in this chat. No underlying site action is approved by authorizing alert delivery.",
+  "relayAuthorization": "authorized-direct-owner-confirmation",
+  "requiredAction": null,
   "localReader": {
     "configured": true,
     "intervalMinutes": 2,
     "executionVerified": false,
     "requiresRunningAppAndComputer": true
   },
-  "directCloudWakeSupported": false
+  "directCloudWakeSupported": false,
+  "cloudInboxTest": {
+    "durableQueueVerified": true,
+    "coordinatorReceived": true,
+    "humanDeviceDeliveryVerified": false
+  }
 }
