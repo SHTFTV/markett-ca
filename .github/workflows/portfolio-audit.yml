@@ -4,6 +4,10 @@ on:
     branches: [main]
     paths:
       - 'scripts/agents/**'
+      - 'scripts/completion/**'
+      - 'lib/*completion*'
+      - 'docs/completion/**'
+      - 'api/completion-records.js'
       - '.github/workflows/portfolio-audit.yml'
   schedule:
     - cron: '23 14 * * *'
@@ -30,6 +34,10 @@ jobs:
           node-version: '22'
       - name: Test runner
         run: node --test scripts/agents/audit.test.mjs scripts/agents/report-audit.test.mjs
+      - name: Test operational completion gate
+        run: node --test scripts/completion/*.test.mjs
+      - name: Emit completion matrix without upgrading partial sites
+        run: node scripts/completion/report.mjs docs/completion/current-records.json "$RUNNER_TEMP/portfolio-audit"
       - name: Audit configured domains
         env:
           AUDIT_BATCH: ${{ inputs.batch || 'all' }}
