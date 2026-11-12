@@ -50,7 +50,13 @@
             "publishing",
             "forms",
             "indexing",
-            "launch"
+            "launch",
+            "page-quality",
+            "publication-transaction",
+            "role:worker",
+            "role:visual-checker",
+            "role:supervisor",
+            "role:independent-watchdog"
           ]
         },
         {
@@ -116,6 +122,22 @@
     },
     "schedulerIdentity": {
       "type": "string"
+    },
+    "runtimeSourceCommit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "deploymentSourceCommit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "observerSourceCommit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "observerRunHeadSha": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
     }
   }
 }

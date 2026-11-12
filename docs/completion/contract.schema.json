@@ -17,7 +17,8 @@
     "workUnits",
     "pageQualityVersion",
     "pageInventory",
-    "pageInventoryRef"
+    "pageInventoryRef",
+    "roleSotRefs"
   ],
   "properties": {
     "standardVersion": {
@@ -723,8 +724,60 @@
                 "minLength": 1
               }
             }
+          },
+          "deploymentSourceCommit": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{40}$"
           }
         }
+      }
+    },
+    "runtimeSourceCommit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "deploymentSourceCommit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "publicationMode": {
+      "enum": [
+        "source-writing",
+        "api-content",
+        "none"
+      ]
+    },
+    "publicationWritePaths": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "runtimeProtectedPaths": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "vercelProjectId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "roleSotRefs": {
+      "type": "object",
+      "required": [
+        "worker",
+        "visual-checker",
+        "supervisor",
+        "independent-watchdog"
+      ],
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
       }
     }
   }
