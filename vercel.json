@@ -26,12 +26,21 @@
     },
     "api/command-center-status.js": {
       "maxDuration": 60
+    },
+    "api/vercel-inventory.js": {
+      "maxDuration": 60
     }
   },
   "rewrites": [
     {
       "source": "/command",
       "destination": "/command-center"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/vercel-inventory",
+      "schedule": "*/15 * * * *"
     }
   ]
 }
