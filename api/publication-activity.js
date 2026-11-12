@@ -1,5 +1,6 @@
 // Public read-only projection. Fixed public sources; never load private operating records.
 const SOURCES=[
+ {site:'gasfitter.ca',brand:'Gasfitter.ca',url:'https://www.gasfitter.ca/publication-results.json'},
  {site:'kitchencabinets.io',brand:'KitchenCabinets.io',url:'https://kitchencabinets.io/operations/editorial-release.json',format:'kitchen-editorial-v1'},
  {site:'industryarmymarketing.com',brand:'Industry Army Marketing',url:'https://www.industryarmymarketing.com/publication-results.json'},
  {site:'beewarm.ca',brand:'BeeWarm',url:'https://beewarm.ca/publication-results.json'},
