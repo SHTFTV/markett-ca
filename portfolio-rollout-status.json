@@ -24,10 +24,14 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 3,
           "nextAttemptAt": "2026-11-12T06:52:50.090Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Producer worker reports verified. Shared current source/runtime evidence contract remains incomplete.",
           "producerObservation": {
             "reportedStatus": "verified",
@@ -46,10 +50,14 @@
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 3,
           "nextAttemptAt": "2026-11-12T06:52:50.091Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Producer visual-checker reports attention. 53 page card/icon/canonical checks failed; 13 existing source briefs remain below native1600x900; no upscale permitted",
           "producerObservation": {
             "reportedStatus": "attention",
@@ -71,10 +79,14 @@
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 3,
           "nextAttemptAt": "2026-11-12T06:52:50.091Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Producer supervisor reports verified. Shared current source/runtime evidence contract remains incomplete.",
           "producerObservation": {
             "reportedStatus": "verified",
@@ -93,10 +105,14 @@
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 3,
           "nextAttemptAt": "2026-11-12T06:52:50.091Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Producer independent-watchdog reports attention. External-provider silence detection unverified; this is an internal GitHub watchdog check only; External Vercel watchdog unavailable: HTTPError Same GitHub provider cannot prove external detection of GitHub scheduler silence.",
           "producerObservation": {
             "reportedStatus": "attention",
@@ -116,68 +132,7 @@
           "lastAttemptAt": "2026-11-12T06:44:50.091Z",
           "receipt": null
         }
-      ],
-      "ownerDelivery": {
-        "status": "unverified",
-        "route": "authorized-command-center-pull-reader",
-        "observedAt": "2026-11-12T06:44:50.089Z",
-        "deliveryRef": null,
-        "incidentId": null,
-        "probeRunId": null,
-        "expectedIds": [
-          "theminingminute.com:role-canary:sot-26",
-          "theminingminute.com:role-canary:sot-27",
-          "theminingminute.com:role-canary:sot-28",
-          "theminingminute.com:role-alert:visual",
-          "theminingminute.com:role-alert:watchdog"
-        ],
-        "deliveredIds": [
-          "theminingminute.com:role-canary:sot-26",
-          "theminingminute.com:role-canary:sot-27",
-          "theminingminute.com:role-canary:sot-28",
-          "theminingminute.com:role-alert:visual",
-          "theminingminute.com:role-alert:watchdog"
-        ],
-        "matchedEvents": [
-          {
-            "id": "theminingminute.com:role-canary:sot-26",
-            "status": "failed",
-            "runUrl": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43164164906",
-            "title": "Monitoring canary: stale/missing heartbeat detected; test only, publisher continues",
-            "sourceAt": "2026-11-12T05:53:06.312874+00:00"
-          },
-          {
-            "id": "theminingminute.com:role-canary:sot-27",
-            "status": "failed",
-            "runUrl": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43166854062",
-            "title": "Monitoring canary: stale/missing heartbeat detected; test only, publisher continues",
-            "sourceAt": "2026-11-12T06:16:48.862919+00:00"
-          },
-          {
-            "id": "theminingminute.com:role-canary:sot-28",
-            "status": "failed",
-            "runUrl": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43168945431",
-            "title": "Monitoring canary: stale/missing heartbeat detected; test only, publisher continues",
-            "sourceAt": "2026-11-12T06:34:46.441247+00:00"
-          },
-          {
-            "id": "theminingminute.com:role-alert:visual",
-            "status": "failed",
-            "runUrl": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43169839914",
-            "title": "Visual checker: 53 page card/icon/canonical checks failed; 13 existing source briefs remain below native1600x900; no upscale permitted",
-            "sourceAt": "2026-11-12T06:42:27.394381+00:00"
-          },
-          {
-            "id": "theminingminute.com:role-alert:watchdog",
-            "status": "failed",
-            "runUrl": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43169842709",
-            "title": "Independent watchdog: External-provider silence detection unverified; this is an internal GitHub watchdog check only; External Vercel watchdog unavailable: HTTPError",
-            "sourceAt": "2026-11-12T06:42:27.394381+00:00"
-          }
-        ],
-        "ownerReadVerified": false,
-        "scope": "Actual normalized source alerts matched in the authorized Command Center reader; no owner-read or push-channel assertion."
-      }
+      ]
     },
     {
       "domain": "loveourlistings.com",
@@ -201,10 +156,14 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 3,
           "nextAttemptAt": "2026-11-12T06:52:50.916Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Canonical role proof incomplete. No usable exact-source featured photo: Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; No usable exact-source featured photo: Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; No usable exact-source featured photo: Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Original labeled illustration preview prepared; actual desktop and phone visual QA required before publication; No usable exact-source featured photo: Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Source expressly restricts reproduction; review required",
           "lastAttemptAt": "2026-11-12T06:44:50.916Z",
           "receipt": {
@@ -268,10 +227,14 @@
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 3,
           "nextAttemptAt": "2026-11-12T06:52:50.916Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Canonical role proof incomplete. desktop/home: visible-property-photo-native-below1600x900",
           "lastAttemptAt": "2026-11-12T06:44:50.916Z",
           "receipt": {
@@ -333,10 +296,14 @@
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 3,
           "nextAttemptAt": "2026-11-12T06:52:50.916Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Canonical role proof incomplete. publisher-publication-failed; some-source-feeds-failed; visual-check-failed-stale-or-missing",
           "lastAttemptAt": "2026-11-12T06:44:50.916Z",
           "receipt": {
@@ -397,10 +364,14 @@
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 3,
           "nextAttemptAt": "2026-11-12T06:52:50.916Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Canonical role proof incomplete. supervisor-reports-unresolved-failures; actual-owner-alert-delivery-unverified",
           "lastAttemptAt": "2026-11-12T06:44:50.916Z",
           "receipt": {
@@ -458,41 +429,7 @@
             "scope": "Producer-reported actual role result; failed/held/stale/source-mismatched evidence stays red."
           }
         }
-      ],
-      "ownerDelivery": {
-        "status": "delivered",
-        "route": "authorized-command-center-pull-reader",
-        "observedAt": "2026-11-12T06:44:50.914Z",
-        "deliveryRef": "command-center-pull:e9879e6f749d8efec5d05ebe18f2c5793d95ebb035a1621a6a87a4edc31f5a5d",
-        "incidentId": "loveourlistings.com:four-roles:6a71bd726c0f3b023019a700",
-        "probeRunId": "d3060bf7-0354-4afc-8e6a-96b38d92e882",
-        "expectedIds": [
-          "loveourlistings.com:role-alert:watchdog:loveourlistings.com:four-roles:6a71bd726c0f3b023019a700",
-          "loveourlistings.com:role-canary:d3060bf7-0354-4afc-8e6a-96b38d92e882"
-        ],
-        "deliveredIds": [
-          "loveourlistings.com:role-alert:watchdog:loveourlistings.com:four-roles:6a71bd726c0f3b023019a700",
-          "loveourlistings.com:role-canary:d3060bf7-0354-4afc-8e6a-96b38d92e882"
-        ],
-        "matchedEvents": [
-          {
-            "id": "loveourlistings.com:role-alert:watchdog:loveourlistings.com:four-roles:6a71bd726c0f3b023019a700",
-            "status": "failed",
-            "runUrl": "https://vercel.com/colins-projects-208e3ca1/loveourlistings-com/logs",
-            "title": "Watchdog: supervisor-reports-unresolved-failures; actual-owner-alert-delivery-unverified",
-            "sourceAt": "2026-11-12T06:30:37.262Z"
-          },
-          {
-            "id": "loveourlistings.com:role-canary:d3060bf7-0354-4afc-8e6a-96b38d92e882",
-            "status": "failed",
-            "runUrl": "https://vercel.com/colins-projects-208e3ca1/loveourlistings-com/logs",
-            "title": "Monitoring canary: controlled heartbeat silence detected and restored; test only, publisher continues",
-            "sourceAt": "2026-11-12T06:30:37.262Z"
-          }
-        ],
-        "ownerReadVerified": false,
-        "scope": "Actual normalized source alerts matched in the authorized Command Center reader; no owner-read or push-channel assertion."
-      }
+      ]
     },
     {
       "domain": "weddings.io",
@@ -509,40 +446,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 3,
           "nextAttemptAt": "2026-11-12T06:52:50.920Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Existing site owner must connect actual worker execution adapter; no replacement publisher or activation attempted.",
           "lastAttemptAt": "2026-11-12T06:44:50.920Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 3,
           "nextAttemptAt": "2026-11-12T06:52:50.920Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Existing site owner must connect actual visual-checker execution adapter; no replacement publisher or activation attempted.",
           "lastAttemptAt": "2026-11-12T06:44:50.920Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 3,
           "nextAttemptAt": "2026-11-12T06:52:50.920Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Existing site owner must connect actual supervisor execution adapter; no replacement publisher or activation attempted.",
           "lastAttemptAt": "2026-11-12T06:44:50.920Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 3,
           "nextAttemptAt": "2026-11-12T06:52:50.920Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Existing site owner must connect actual independent-watchdog execution adapter; no replacement publisher or activation attempted.",
           "lastAttemptAt": "2026-11-12T06:44:50.920Z",
           "receipt": null
@@ -2049,40 +2002,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.923Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.923Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.923Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.923Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.923Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.923Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.923Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.923Z",
           "receipt": null
@@ -2104,40 +2073,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.927Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.927Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.927Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.927Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.927Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.927Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.927Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.927Z",
           "receipt": null
@@ -2159,40 +2144,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.929Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.929Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.929Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.929Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.929Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.929Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.929Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.929Z",
           "receipt": null
@@ -2214,40 +2215,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.931Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.931Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.931Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.931Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.931Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.931Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.931Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.931Z",
           "receipt": null
@@ -2269,40 +2286,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.934Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.934Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.934Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.934Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.934Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.934Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.934Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.934Z",
           "receipt": null
@@ -2324,40 +2357,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.936Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.936Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.936Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.936Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.936Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.936Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.936Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.936Z",
           "receipt": null
@@ -2379,40 +2428,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.938Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.938Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.938Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.938Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.938Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.938Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.938Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.938Z",
           "receipt": null
@@ -2434,40 +2499,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.941Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.941Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.941Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.941Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.941Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.941Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.941Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.941Z",
           "receipt": null
@@ -2489,40 +2570,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.944Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.944Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.944Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.944Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.944Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.944Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.944Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.944Z",
           "receipt": null
@@ -2544,40 +2641,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.946Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.946Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.946Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.946Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.946Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.946Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.946Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.946Z",
           "receipt": null
@@ -2599,40 +2712,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.948Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.948Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.948Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.948Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.948Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.948Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.948Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.948Z",
           "receipt": null
@@ -2654,40 +2783,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.951Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.951Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.951Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.951Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.951Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.951Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.951Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.951Z",
           "receipt": null
@@ -2709,40 +2854,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.953Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.953Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.953Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.953Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.953Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.953Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.953Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.953Z",
           "receipt": null
@@ -2764,40 +2925,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.955Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.955Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.955Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.955Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.955Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.955Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.955Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.955Z",
           "receipt": null
@@ -2819,40 +2996,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.957Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.957Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.957Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.957Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.957Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.957Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.957Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.957Z",
           "receipt": null
@@ -2874,40 +3067,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.960Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.960Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.960Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.960Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.960Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.960Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.960Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.960Z",
           "receipt": null
@@ -2929,40 +3138,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.962Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.962Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.962Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.962Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.962Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.962Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.962Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.962Z",
           "receipt": null
@@ -2984,40 +3209,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.964Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.964Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.964Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.964Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.964Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.964Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.964Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.964Z",
           "receipt": null
@@ -3039,40 +3280,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.967Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.967Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.967Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.967Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.967Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.967Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.967Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.967Z",
           "receipt": null
@@ -3094,40 +3351,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.969Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.969Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.969Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.969Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.969Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.969Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.969Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.969Z",
           "receipt": null
@@ -3149,40 +3422,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.972Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.972Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.972Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.972Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.972Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.972Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.972Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.972Z",
           "receipt": null
@@ -3204,40 +3493,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.974Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.974Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.974Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.974Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.974Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.974Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.974Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.974Z",
           "receipt": null
@@ -3259,40 +3564,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.976Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.976Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.976Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.976Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.976Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.976Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.976Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.976Z",
           "receipt": null
@@ -3314,40 +3635,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.979Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Existing site owner must connect actual worker execution adapter; no replacement publisher or activation attempted.",
           "lastAttemptAt": "2026-11-12T06:44:50.979Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.979Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Existing site owner must connect actual visual-checker execution adapter; no replacement publisher or activation attempted.",
           "lastAttemptAt": "2026-11-12T06:44:50.979Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.979Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Existing site owner must connect actual supervisor execution adapter; no replacement publisher or activation attempted.",
           "lastAttemptAt": "2026-11-12T06:44:50.979Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.979Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Existing site owner must connect actual independent-watchdog execution adapter; no replacement publisher or activation attempted.",
           "lastAttemptAt": "2026-11-12T06:44:50.979Z",
           "receipt": null
@@ -3369,40 +3706,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.982Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.982Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.982Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.982Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.982Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.982Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.982Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.982Z",
           "receipt": null
@@ -3424,40 +3777,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.991Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Existing site owner must connect actual worker execution adapter; no replacement publisher or activation attempted.",
           "lastAttemptAt": "2026-11-12T06:44:50.991Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.991Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Existing site owner must connect actual visual-checker execution adapter; no replacement publisher or activation attempted.",
           "lastAttemptAt": "2026-11-12T06:44:50.991Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.991Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Existing site owner must connect actual supervisor execution adapter; no replacement publisher or activation attempted.",
           "lastAttemptAt": "2026-11-12T06:44:50.991Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.991Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Existing site owner must connect actual independent-watchdog execution adapter; no replacement publisher or activation attempted.",
           "lastAttemptAt": "2026-11-12T06:44:50.991Z",
           "receipt": null
@@ -3479,40 +3848,56 @@
       "roles": [
         {
           "role": "worker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.994Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.994Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.994Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.994Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.994Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.994Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "blocked",
+          "status": "running",
           "attempts": 2,
           "nextAttemptAt": "2026-11-12T06:48:50.994Z",
-          "lease": null,
+          "lease": {
+            "runId": "43243148531",
+            "claimedAt": "2026-11-12T15:00:49.368Z",
+            "expiresAt": "2026-11-12T15:10:49.368Z"
+          },
           "blocker": "Recover canonical site SOT/source, required integrations and sole runtime owner; registry ownership is not a built site.",
           "lastAttemptAt": "2026-11-12T06:44:50.994Z",
           "receipt": null
@@ -11670,15 +12055,14 @@
   "retired": [],
   "registryDigest": "a6f6ca145cb5debcce1cf8678f891bdb8605390d6db064074645a822f443d205",
   "coordinator": {
-    "runId": "43170278269",
-    "runUrl": "https://github.com/SHTFTV/markett-ca/actions/runs/43170278269",
-    "trigger": "push",
-    "sourceCommit": "2957427f764c74873c0d6ff822a49121954271ff",
-    "startedAt": "2026-11-12T06:44:48.235Z",
-    "completedAt": "2026-11-12T06:44:51.635Z",
-    "status": "completed-with-evidence-gaps",
-    "scope": "Portfolio management and evidence adapters; never a replacement site publisher or a fifth site role.",
-    "processedSites": 205
+    "runId": "43243148531",
+    "runUrl": "https://github.com/SHTFTV/markett-ca/actions/runs/43243148531",
+    "trigger": "schedule",
+    "sourceCommit": "f5b6021021a3879d720b66e38a20f488300d557c",
+    "startedAt": "2026-11-12T15:00:49.368Z",
+    "completedAt": null,
+    "status": "running",
+    "scope": "Portfolio management and evidence adapters; never a replacement site publisher or a fifth site role."
   },
   "summary": {
     "inventory": 205,
