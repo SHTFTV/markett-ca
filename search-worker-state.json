@@ -459,10 +459,38 @@
     {
       "id": "cleaners.io",
       "domain": "cleaners.io",
-      "status": "running",
+      "status": "blocked",
       "attempts": 1,
-      "gsc": null,
-      "bing": null
+      "gsc": {
+        "status": "blocked",
+        "propertyVerified": null,
+        "checkedAt": "2026-11-12T20:29:02.705Z",
+        "reason": "Google API credential not configured"
+      },
+      "bing": {
+        "status": "blocked",
+        "propertyVerified": null,
+        "checkedAt": "2026-11-12T20:29:02.705Z",
+        "reason": "Bing API credential not configured"
+      },
+      "latestAttempt": {
+        "at": "2026-11-12T20:29:02.705Z",
+        "gsc": {
+          "status": "blocked",
+          "propertyVerified": null,
+          "checkedAt": "2026-11-12T20:29:02.705Z",
+          "reason": "Google API credential not configured"
+        },
+        "bing": {
+          "status": "blocked",
+          "propertyVerified": null,
+          "checkedAt": "2026-11-12T20:29:02.705Z",
+          "reason": "Bing API credential not configured"
+        }
+      },
+      "blocker": "Google: configure existing authorized Search Console and Site Verification runtime access. Bing: configure existing authorized Webmaster API runtime access.",
+      "checkedAt": "2026-11-12T20:29:02.705Z",
+      "retryAt": "2026-11-13T02:29:01.673Z"
     },
     {
       "id": "criticalmineralmines.com",
@@ -1492,18 +1520,15 @@
     }
   ],
   "runtime": {
-    "status": "running",
+    "status": "blocked",
     "currentSite": "cleaners.io",
     "action": "Read Google and Bing ownership and sitemap status",
     "startedAt": "2026-11-12T20:29:01.673Z",
-    "heartbeatAt": "2026-11-12T20:29:01.673Z",
+    "heartbeatAt": "2026-11-12T20:29:02.705Z",
     "runUrl": "https://github.com/SHTFTV/markett-ca/actions/runs/43300714771",
     "nextExpectedRunAt": "2026-11-12T20:30:00.000Z",
-    "lease": {
-      "id": "bf4d8246-4a2f-4df8-b483-ca81d7e48d1a",
-      "expiresAt": "2026-11-12T20:32:01.673Z"
-    },
-    "blocker": null
+    "lease": null,
+    "blocker": "Google: configure existing authorized Search Console and Site Verification runtime access. Bing: configure existing authorized Webmaster API runtime access."
   },
   "alerts": [
     {
