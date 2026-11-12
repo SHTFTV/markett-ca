@@ -1,0 +1,11 @@
+const add=(tag,value,parent)=>{const n=document.createElement(tag);n.textContent=value;parent.append(n);return n;};
+const time=x=>x?new Date(x).toLocaleString('en-US',{timeZone:'America/Los_Angeles'})+' Pacific':'unknown';
+const number=x=>x==null?'unknown':String(x);
+export function sourceCoverageView(parent,row){const c=row?.sourceCoverage,box=add('details','',parent);box.className='source-coverage';box.style.cssText='margin:12px 0;padding:12px;border:1px solid #607d86;border-radius:8px;overflow-wrap:anywhere;max-width:100%;';
+ add('summary',c?.listed!=null?'Sources: '+c.working+' working / '+c.connected+' connected / '+c.enabled+' enabled / '+c.listed+' listed · open list':'Sources: registry / successful fetch evidence unverified · open',box);
+ if(!c){add('p','Source coverage unavailable. No zero count or working connection inferred.',box);return;}
+ add('p','Unique creators: '+number(c.creators?.listed)+' listed · '+number(c.creators?.connected)+' connected · '+number(c.creators?.working)+' recently working',box);if(c.creators?.reason)add('p',c.creators.reason,box);
+ add('p',c.reason,box);if(c.listed!=null)add('p',c.missing+' listed sources without a proven connection · '+c.failed+' latest fetch failures. Registry checked '+time(c.registryCheckedAt)+' · run evidence '+time(c.observationAt),box);
+ if(c.liveRead)add('p',c.liveRead,box);if(row.publicationTarget)add('p','Publication target: every '+row.publicationTarget.minutes+' minutes. Actual target achievement unverified; polling and two-hour inspection are separate.',box);
+ for(const s of c.sources??[]){const item=add('div','',box);item.style.cssText='padding:12px 0;border-top:1px solid #607d86';add('strong',(s.status==='working'?'🟢 ':s.status==='planned'?'🟡 ':'🔴 ')+s.name+' · '+s.status,item);add('p',s.platform+' · last check '+time(s.lastCheckAt)+' · last successful fetch '+time(s.lastSuccessfulFetchAt),item);add('p','Items ingested in receipt: '+number(s.itemsIngested)+' · item validation holds: '+number(s.itemHoldCount),item);if(s.url){const a=add('a','Open source ↗',item);a.href=s.url;a.target='_blank';a.rel='noopener noreferrer';}if(s.reason)add('p',s.reason,item);add('p','Next: '+s.nextAction,item);}
+}

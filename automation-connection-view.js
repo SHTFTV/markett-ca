@@ -1,3 +1,4 @@
+import {sourceCoverageView} from './source-coverage-view.js';
 const fresh=(at,now,ttl=1200000)=>Number.isFinite(Date.parse(at))&&now-Date.parse(at)>=-300000&&now-Date.parse(at)<=ttl;
 export function automationConnection(row,now=Date.now()){
  const q=row?.fourRolesQueue,roles=row?.fourRoles?.roles??[],delivery=q?.ownerDelivery;
@@ -13,6 +14,7 @@ export function automationConnection(row,now=Date.now()){
 const time=v=>v&&Number.isFinite(Date.parse(v))?new Date(v).toLocaleString('en-US',{timeZone:'America/Los_Angeles'})+' Pacific':'unknown';
 const node=(tag,value,p)=>{const n=document.createElement(tag);n.textContent=value;p.append(n);return n;};
 export function connectionButton(parent,row){
+ sourceCoverageView(parent,row);
  const state=automationConnection(row),wrap=node('div','',parent),button=node('button',(state.green?'● Fully connected for automation':'● Automation needs attention')+' · inspect',wrap);button.style.cssText='display:block;margin:12px 0;padding:12px;font-size:16px;border:2px solid '+(state.green?'#8fe3ae':'#ff939b')+';color:'+(state.green?'#8fe3ae':'#ff939b');button.type='button';button.setAttribute('aria-expanded','false');
  const body=node('div','',wrap);body.hidden=true;button.onclick=()=>{body.hidden=!body.hidden;button.setAttribute('aria-expanded',String(!body.hidden));};
  node('p','Connection evaluated '+time(state.checkedAt)+'. Receipt freshness cap:20 minutes. Green requires all four roles, canonical SOT, dependencies and actual alert delivery.',body);
