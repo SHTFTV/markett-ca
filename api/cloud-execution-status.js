@@ -24,8 +24,8 @@ export function project(domain,data,observedAt){
   verifiedPublicationCount:count,
   scheduledExecutionObserved:data.scheduledExecutionObserved===true&&event==='schedule'&&!!runUrl,
   automaticPublicationVerified:data.automaticPublicationVerified===true&&event==='schedule'&&status==='success'&&count>0&&data.writerExecuted===true&&!!runUrl,
-  unattendedRecoveryExecutionVerified:data.unattendedRecoveryExecutionVerified===true&&event==='workflow_dispatch'&&status==='success'&&!!runUrl,
-  verifiedRecoveryPublication:data.verifiedRecoveryPublication===true&&count>0&&data.writerExecuted===true&&status==='success',
+  unattendedRecoveryExecutionVerified:data.unattendedRecoveryExecutionVerified===true&&event==='workflow_dispatch'&&(status==='success'||(status==='unknown'&&jobStatus==='success'))&&!!runUrl,
+  verifiedRecoveryPublication:data.verifiedRecoveryPublication===true&&count>0&&data.writerExecuted===true&&(status==='success'||(status==='unknown'&&jobStatus==='success')),
   independentAlertDeliveryVerified:data.independentAlertDeliveryVerified===true,
   failedSteps:errors};
 }
