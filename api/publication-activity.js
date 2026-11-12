@@ -1,5 +1,6 @@
 // Public read-only projection. Fixed public sources; never load private operating records.
 const SOURCES=[
+ {site:'industryarmymarketing.com',brand:'Industry Army Marketing',url:'https://www.industryarmymarketing.com/publication-results.json'},
  {site:'beewarm.ca',brand:'BeeWarm',url:'https://beewarm.ca/publication-results.json'},
  {site:'plowwow.com',brand:'PlowWow',url:'https://www.plowwow.com/publication-results.json'},
  {site:'videographers.io',brand:'Videographers',url:'https://videographers.io/publication-results.json'},
@@ -20,16 +21,18 @@ function miningReceipt(input){
  return {sourceDate:date(input.sourceDate),sourceEventDate:date(input.sourceEventDate),sourceEventDateStatus:date(input.sourceEventDate)?'Verified source event date':'Not independently established',featuredImageStatus:input.featuredImageStatus==='verified'&&featuredImageUrl?'verified':input.featuredImageStatus==='blocked'?'blocked':'unknown',featuredImageUrl,runUrl};
 }
 export function sanitizeEvent(source,input){
- if(!input||input.withdrawn===true||input.correction===true||input.contentType==='correction'||input.publicationStatus==='withdrawn'||!['done','failed'].includes(input.status)||input.site!==source.site)return null;
+ if(!input||input.withdrawn===true||input.correction===true||input.contentType==='correction'||['withdrawn','draft','held','blocked'].includes(input.publicationStatus)||!['done','failed'].includes(input.status)||input.site!==source.site)return null;
  const title=String(input.title??'').replace(/<[^>]*>/g,'').replace(/[\u0000-\u001f]/g,' ').trim().slice(0,180);if(!title)return null;
  const publishedAt=timestamp(input.publishedAt),verifiedAt=timestamp(input.verifiedAt),checkedAt=timestamp(input.checkedAt??input.verifiedAt);let url=null;
  if(input.status==='done'){
-  if(!publishedAt||!verifiedAt)return null;
-  try{const u=new URL(input.url);if(u.protocol!=='https:'||u.username||u.password||u.port||u.hostname.replace(/^www\./,'')!==source.site)return null;url=u.href;}catch{return null;}
+  if(!publishedAt||!verifiedAt||Date.parse(publishedAt)>Date.now())return null;
+  try{const u=new URL(input.url);if(u.protocol!=='https:'||u.username||u.password||u.port||u.hostname.replace(/^www\./,'')!==source.site||u.search||u.hash)return null;url=u.href;}catch{return null;}
  }else if(!checkedAt)return null;
+ const image=publicUrl(input.featuredImageUrl??input.imageUrl),imageType=['source-photo','photo','website-screenshot','ai-illustration','illustration'].includes(input.featuredImageType)?input.featuredImageType:'unknown';
+ const receipt={featuredImageUrl:image,featuredImageCredit:publicText(input.featuredImageCredit??input.imageCredit,600),featuredImageType:imageType,featuredImageStatus:input.featuredImageStatus==='verified'&&image?'verified':input.featuredImageStatus==='blocked'?'blocked':'unknown',sotVersion:publicText(String(input.sotVersion??''),40)||null,policyVersion:publicText(String(input.policyVersion??''),40)||null,runTrigger:['schedule','push','workflow_dispatch','user-authorized-manual'].includes(input.runTrigger)?input.runTrigger:'unknown',receiptState:publicText(input.receiptState,100)??'publisher-reported-verification'};
  const mining=source.site==='theminingminute.com'?miningReceipt(input):{};
  const rawId=String(input.id??url??checkedAt).replace(/[\u0000-\u001f]/g,'').slice(0,220),id=rawId.startsWith(source.site+':')?rawId:source.site+':'+rawId;
- return {...mining,id,site:source.site,brand:source.brand,title,publishedAt:input.status==='done'?publishedAt:null,verifiedAt:input.status==='done'?verifiedAt:null,checkedAt:checkedAt??verifiedAt,url,status:input.status,cause:publicText(input.cause,400),impact:publicText(input.impact,300),owner:publicText(input.owner,100),nextAction:publicText(input.nextAction,500),blockedSince:timestamp(input.blockedSince),claimedRecoveryAt:timestamp(input.resolvedAt),resolvedAt:null,recoveryVerified:false,sourceUrl:publicUrl(input.sourceUrl),runUrl:source.site==='theminingminute.com'?mining.runUrl:publicUrl(input.runUrl)};
+ return {...receipt,...mining,id,site:source.site,brand:source.brand,title,publishedAt:input.status==='done'?publishedAt:null,verifiedAt:input.status==='done'?verifiedAt:null,checkedAt:checkedAt??verifiedAt,url,status:input.status,cause:publicText(input.cause,400),impact:publicText(input.impact,300),owner:publicText(input.owner,100),nextAction:publicText(input.nextAction,500),blockedSince:timestamp(input.blockedSince),claimedRecoveryAt:timestamp(input.resolvedAt),resolvedAt:null,recoveryVerified:false,sourceUrl:publicUrl(input.sourceUrl),runUrl:source.site==='theminingminute.com'?mining.runUrl:publicUrl(input.runUrl)};
 }
 async function json(source,fetcher){
  let url=source.url;for(let hop=0;hop<3;hop++){
@@ -60,12 +63,19 @@ export async function iamLatest(fetcher=fetch){
   return {...source,status:'connected',checkedAt,events:[event]};
  }catch{return {...source,status:'unavailable',checkedAt,events:[]};}
 }
-export async function activity(fetcher=fetch){
+export async function activity(fetcher=fetch,{includeArchive=true,limit=500}={}){
  const results=await Promise.all(SOURCES.map(async source=>{try{const data=await json(source,fetcher);const events=(Array.isArray(data.events)?data.events:[]).slice(-500).map(x=>sanitizeEvent(source,x)).filter(Boolean);const monitor=miningMonitor(source,data);if(monitor)events.push(monitor);return {site:source.site,brand:source.brand,status:'connected',checkedAt:new Date().toISOString(),events};}catch(e){console.warn('Public publication log',source.site,e.message==='not-connected'?'not-connected':'unavailable');return {site:source.site,brand:source.brand,status:e.message==='not-connected'?'not-connected':'unavailable',checkedAt:new Date().toISOString(),events:[]};}}));
- results.push(await iamLatest(fetcher));
- const unique=new Map();for(const source of results)for(const e of source.events)unique.set(e.id,e);
- const events=[...unique.values()].sort((a,b)=>Date.parse(b.verifiedAt??b.checkedAt)-Date.parse(a.verifiedAt??a.checkedAt));
- return {schemaVersion:1,live:true,checkedAt:new Date().toISOString(),counts:{done:events.filter(e=>e.status==='done').length,failed:events.filter(e=>e.status==='failed').length},events:events.slice(0,500),sources:results.map(({events,...s})=>s),privacy:'Public publication results only; no private SOPs, prompts, credentials, approval links or internal logs.'};
+ if(!results.some(s=>s.site==='industryarmymarketing.com'&&s.status==='connected'))results.push(await iamLatest(fetcher));
+ let archive={connected:false,events:[]};if(includeArchive&&fetcher===fetch){try{archive=await (await import('../lib/publication-receipt-store.mjs')).readPublications({limit});}catch{}}
+ const unique=new Map();for(const e of archive.events??[]){const source=SOURCES.find(s=>s.site===e.site);const clean=source&&sanitizeEvent(source,e);if(clean)unique.set(clean.site+'|'+clean.url,clean);}
+ for(const source of results)for(const e of source.events){const key=e.status==='done'?e.site+'|'+e.url:e.id;const old=unique.get(key);if(!old||Date.parse(e.verifiedAt??e.checkedAt)>=Date.parse(old.verifiedAt??old.checkedAt))unique.set(key,e);}
+ const all=[...unique.values()],publications=all.filter(e=>e.status==='done').sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt)||a.site.localeCompare(b.site)||a.url.localeCompare(b.url)).slice(0,limit),attempts=all.filter(e=>e.status==='failed').sort((a,b)=>Date.parse(b.checkedAt)-Date.parse(a.checkedAt)).slice(0,limit);
+ const events=[...publications,...attempts].sort((a,b)=>Date.parse(b.verifiedAt??b.checkedAt)-Date.parse(a.verifiedAt??a.checkedAt));
+ let nextPublicationCursor=null;if(publications.length===limit){try{nextPublicationCursor=(await import('../lib/publication-receipt-store.mjs')).publicationCursor(publications.at(-1));}catch{}}
+ return {schemaVersion:2,live:true,checkedAt:new Date().toISOString(),counts:{done:publications.length,failed:attempts.length},events,publications,nextPublicationCursor,archive:{connected:archive.connected,scope:'Append-only source publication receipts; source publication and image verification remain distinct.'},sources:results.map(({events,...s})=>s),privacy:'Public publication results only; no private SOPs, prompts, credentials, approval links or internal logs.'};
 }
-export default {async fetch(request){if(request.method!=='GET')return new Response('Method not allowed',{status:405,headers:{Allow:'GET'}});try{return Response.json(await activity(),{headers:{'Cache-Control':'public, max-age=0, s-maxage=10','X-Content-Type-Options':'nosniff'}});}catch{console.error('Public publication projection failed');return Response.json({live:false,error:'Publication status temporarily unavailable'},{status:503});}}};
 
+export default {async fetch(request){
+ if(request.method!=='GET')return new Response('Method not allowed',{status:405,headers:{Allow:'GET'}});
+ try{const cursor=new URL(request.url).searchParams.get('before');if(cursor){const {readPublications,decodePublicationCursor}=await import('../lib/publication-receipt-store.mjs');try{decodePublicationCursor(cursor);}catch{return Response.json({error:'Invalid publication cursor'},{status:400});}const archive=await readPublications({limit:200,cursor});if(!archive.connected)return Response.json({error:'Publication archive unavailable'},{status:503});const events=archive.events.map(e=>{const source=SOURCES.find(s=>s.site===e.site);return source?sanitizeEvent(source,e):null;}).filter(Boolean);return Response.json({schemaVersion:2,checkedAt:new Date().toISOString(),publications:events,events,sources:[],nextPublicationCursor:archive.nextCursor,scope:'durable-archive-page'},{headers:{'Cache-Control':'no-store'}});}return Response.json(await activity(),{headers:{'Cache-Control':'public, max-age=0, s-maxage=10','X-Content-Type-Options':'nosniff'}});}catch{console.error('Public publication projection failed');return Response.json({live:false,error:'Publication status temporarily unavailable'},{status:503});}
+}};

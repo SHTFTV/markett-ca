@@ -15,7 +15,7 @@ export function pageMetadata(html,article){
  const value=name=>metas.find(a=>(a.property??a.name)?.toLowerCase()===name)?.content?.slice(0,600)??null;
  const url=v=>{try{const u=new URL(v,article);return v&&u.protocol==='https:'&&!u.username&&!u.password?u.href:null;}catch{return null;}};
  const canonical=url(links.find(a=>a.rel?.toLowerCase()==='canonical')?.href),favicon=url(links.find(a=>a.rel?.split(/\s+/).includes('icon'))?.href);
- return {articleUrl:article,ogTitle:value('og:title'),ogDescription:value('og:description'),ogImage:url(value('og:image')),twitterTitle:value('twitter:title'),twitterDescription:value('twitter:description'),twitterImage:url(value('twitter:image')),canonical,favicon,canonicalMatches:canonical?new URL(canonical).pathname.replace(/\/$/,'')===new URL(article).pathname.replace(/\/$/,'')&&new URL(canonical).hostname.replace(/^www\./,'')===new URL(article).hostname.replace(/^www\./,''):null,perPageUniqueness:'unknown — all-page comparison not performed',imageRelevance:'unknown — editorial visual check required',readability:'unknown — exact-page desktop/phone content check required'};
+ return {articleUrl:article,ogImageAlt:value('og:image:alt'),twitterImageAlt:value('twitter:image:alt'),ogTitle:value('og:title'),ogDescription:value('og:description'),ogImage:url(value('og:image')),twitterTitle:value('twitter:title'),twitterDescription:value('twitter:description'),twitterImage:url(value('twitter:image')),canonical,favicon,canonicalMatches:canonical?new URL(canonical).pathname.replace(/\/$/,'')===new URL(article).pathname.replace(/\/$/,'')&&new URL(canonical).hostname.replace(/^www\./,'')===new URL(article).hostname.replace(/^www\./,''):null,perPageUniqueness:'unknown — all-page comparison not performed',imageRelevance:'unknown — editorial visual check required',readability:'unknown — exact-page desktop/phone content check required'};
 }
 export async function inspectArticle(url,domain,fetcher=fetch){
  let current=new URL(url);
@@ -31,16 +31,19 @@ export async function inspectArticle(url,domain,fetcher=fetch){
 }
 let snapshot;
 async function currentRows(request){
- if(!snapshot||Date.now()-snapshot.at>30000)snapshot={at:Date.now(),promise:import('./command-center-status.js').then(({default:overview})=>overview.fetch(new Request(new URL('/api/command-center-status',request.url)))).then(async r=>{if(!r.ok)throw Error();return (await r.json()).rows;})};
+ if(!snapshot||Date.now()-snapshot.at>30000)snapshot={at:Date.now(),promise:import('./command-center-status.js').then(({default:overview})=>overview.fetch(new Request(new URL('/api/command-center-status',request.url)))).then(async r=>{if(!r.ok)throw Error();const data=await r.json();return [...data.rows,...(data.migrationBacklog??[])];})};
  return snapshot.promise;
 }
 export default {async fetch(request){
  if(request.method!=='GET')return new Response('Method not allowed',{status:405});
- const domain=new URL(request.url).searchParams.get('site');
+ const params=new URL(request.url).searchParams,domain=params.get('site'),requested=params.get('article');
  try{
   const row=(await currentRows(request)).find(r=>r.domain===domain);
-  if(!row?.lastPublication?.url)return Response.json({status:'unknown',imageUrl:null});
-  const result=await inspectArticle(row.lastPublication.url,domain);
+  const article=requested??row?.lastPublication?.url;
+  const permitted=article&&(row?.lastPublication?.url===article||row?.history?.some(e=>e.status==='done'&&e.url===article));
+  if(!permitted)return Response.json({status:'unknown',imageUrl:null,reason:'No matching verified publication receipt; arbitrary URLs are not fetched.'});
+  const result=await inspectArticle(article,domain);
   return Response.json({...result,status:result.imageUrl?'article-metadata':'unavailable'},{headers:{'Cache-Control':'no-store'}});
  }catch{return Response.json({status:'unavailable',imageUrl:null},{headers:{'Cache-Control':'no-store'}});}
 }};
+

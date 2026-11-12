@@ -2,6 +2,8 @@ import snapshot from '../vercel-provider-inventory.json' with {type:'json'};
 import {randomUUID,timingSafeEqual} from 'node:crypto';
 import {inventoryView,readProviderProjects,productionSites} from '../lib/vercel-inventory.mjs';
 import {requestPage} from '../lib/operations-site-audit.mjs';
+import {retainPublications} from '../lib/publication-receipt-store.mjs';
+import {activity} from './publication-activity.js';
 import {readInventoryStore,openInventoryStore,appendInventoryRun} from '../lib/inventory-refresh-store.mjs';
 let readCache;
 async function checkRoutes(current){
@@ -26,13 +28,14 @@ async function refreshInventory(request){
  let db;const id=randomUUID(),startedAt=new Date().toISOString(),trigger=request.headers.get('user-agent')?.startsWith('vercel-cron/')?'authenticated-cron-request':'manual-verification';
  try{
   db=await openInventoryStore();const lock=await db.query("select pg_try_advisory_lock(hashtextextended('markett-inventory-refresh',0)) as acquired");if(!lock.rows[0]?.acquired)return Response.json({status:'existing-refresh-running'},{status:409});
+  let publicationArchive;try{const observed=await activity(fetch,{includeArchive:false,limit:5000});publicationArchive=await retainPublications(db,observed.events);}catch{publicationArchive={durable:false,status:'publication-archive-write-failed'};}
   let status,publicSnapshot=null,summary;
   if(!token()){status='blocked-no-runtime-read-credential';summary={reason:'Production inventory API credential not configured; direct browser access is separate.'};}
   else try{
    const current=await readProviderProjects({token:token(),teamId:'team_kTW4N3LZceZMmT95CWJpgwhM'}),routes=await checkRoutes(current),safe=inventoryView(current,{refreshStatus:'provider-refreshed'});
    publicSnapshot={checkedAt:current.checkedAt,source:current.source,projectCount:safe.lastVerifiedProjectCount,projects:safe.projects,routeChecks:routes,pagination:current.pagination};status='provider-refreshed';summary={rawProjects:safe.lastVerifiedProjectCount,readyAttachedCanonicalSites:safe.canonicalProductionSiteCount,verifiedVercelRoutes:routes.filter(r=>r.httpStatus===200&&r.vercelRouteVerified).length,routeFailures:routes.filter(r=>r.httpStatus!==200).length};
   }catch{status='provider-unavailable';summary={reason:'Authenticated provider inventory read failed; prior complete snapshot retained. Inspect access/rate limits/provider response; not an approval wait.'};}
-  const receipt=await appendInventoryRun(db,{id,startedAt,status,trigger,snapshot:publicSnapshot,summary});readCache=null;return Response.json({status,receipt,summary,nativeExecutionVerified:false},{status:status==='provider-refreshed'?200:503,headers:{'Cache-Control':'no-store'}});
+  const receipt=await appendInventoryRun(db,{id,startedAt,status,trigger,snapshot:publicSnapshot,summary:{...summary,publicationArchive}});readCache=null;return Response.json({status,receipt,summary,nativeExecutionVerified:false},{status:status==='provider-refreshed'?200:503,headers:{'Cache-Control':'no-store'}});
  }catch{return Response.json({status:'storage-unavailable',reason:'Refresh could not retain a durable receipt; no verified refresh claimed.'},{status:503});}finally{await db?.end?.();}
 }
 export default {async fetch(request){if(request.method!=='GET')return new Response('Method not allowed',{status:405});if(request.headers.has('authorization')){if(!cronAuthorized(request))return Response.json({error:'Unauthorized'},{status:401});return refreshInventory(request);}return Response.json(await getInventory(),{headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});}};
