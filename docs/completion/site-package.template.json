@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "prebuild": "node scripts/completion/authorize-build.mjs operations/completion-record.json dependent-content-ui",
+    "build": "REPLACE_WITH_EXISTING_SITE_BUILD_COMMAND",
+    "audit:independent": "node scripts/completion/authorize-build.mjs operations/completion-record.json independent-audit",
+    "check:done": "node scripts/completion/report.mjs operations/completion-records.json work/completion --require-complete"
+  },
+  "note": "Vendor reviewed canonical v2 validator and source-preserving template into the existing site build entrypoint. Do not deploy this literal placeholder or replace existing site-specific build commands. Existing services remain active; this gates future dependent build work."
+}

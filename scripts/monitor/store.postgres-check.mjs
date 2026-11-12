@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import {randomUUID,createHash} from 'node:crypto';
+import {readMonitor,saveMonitor,recordDelivery} from '../../lib/operations-monitor-store.mjs';import {assessWorkers,applyIncidentState} from '../../lib/operations-monitor-model.mjs';
+if(!process.env.PGLITE_MODULE_PATH)throw Error('Set PGLITE_MODULE_PATH to an isolated pinned @electric-sql/pglite ESM module; never use a production database for this check');
+const {PGlite}=await import(process.env.PGLITE_MODULE_PATH),db=new PGlite();const sql=await readFile(new URL('../../docs/monitor/schema.sql',import.meta.url),'utf8');
+try{
+ await db.exec('CREATE ROLE anon; CREATE ROLE authenticated; CREATE ROLE markett_event_runtime;');await db.exec(sql);
+ await db.exec('SET ROLE anon');await assert.rejects(()=>db.query('SELECT * FROM portfolio_monitor.incidents'),/permission denied/);await db.exec('RESET ROLE');await db.exec('SET ROLE markett_event_runtime');
+ const now=Date.parse('2026-11-12T01:00:00Z'),e={domain:'markett.ca',actorId:'private-synthetic-worker',type:'task_blocked',status:'blocked',taskKey:'private-synthetic-item',issueCode:'verification',observedAt:new Date(now).toISOString(),cursor:'private-synthetic'};
+ const failed=applyIncidentState([],assessWorkers({events:[e],contracts:[],holds:[],now}),{now,synthetic:true});const run={id:randomUUID(),observedAt:new Date(now).toISOString(),synthetic:true,status:'private-synthetic-failure'};
+ const notification=await saveMonitor(db,failed,run,{synthetic:true});await recordDelivery(db,notification.id,{status:'blocked',errorCode:'PRIVATE_TEST_NO_REAL_DELIVERY'});
+ assert.equal((await readMonitor(db,{synthetic:false})).incidents.length,0);assert.equal((await readMonitor(db,{synthetic:true})).incidents[0].status,'open');
+ const retained=applyIncidentState([{...failed[0],acknowledgedAt:new Date(now+1).toISOString()}],{issues:[],recoveries:[]},{now:now+1,synthetic:true});assert.equal(retained[0].status,'open');
+ const verified=assessWorkers({events:[{...e,type:'task_completed',status:'verified',observedAt:new Date(now+1000).toISOString()}],contracts:[],holds:[],now:now+1000});const recovered=applyIncidentState(retained,verified,{now:now+1000,synthetic:true});assert.equal(recovered[0].status,'recovered');
+ const second=await saveMonitor(db,recovered,{id:randomUUID(),observedAt:new Date(now+1000).toISOString(),synthetic:true,status:'private-synthetic-recovery'},{synthetic:true});await recordDelivery(db,second.id,{status:'blocked',errorCode:'PRIVATE_TEST_NO_REAL_DELIVERY'});
+ assert.equal((await readMonitor(db,{synthetic:true})).incidents[0].status,'recovered');assert.equal((await db.query('SELECT count(*)::int n FROM portfolio_monitor.notifications')).rows[0].n,2);assert.equal((await db.query('SELECT count(*)::int n FROM portfolio_monitor.delivery_attempts')).rows[0].n,2);
+ await assert.rejects(()=>db.query('DELETE FROM portfolio_monitor.delivery_attempts'),/permission denied/);await assert.rejects(()=>db.query('DELETE FROM portfolio_monitor.incidents'),/permission denied/);
+ console.log(JSON.stringify({testDatabase:'isolated-in-memory-PostgreSQL-PGlite-0.3.14',migrationSha256:createHash('sha256').update(sql).digest('hex'),schemaApplied:true,anonDenied:true,runtimeWritesScoped:true,runtimeDeleteDenied:true,privateSyntheticFailurePersisted:true,acknowledgementDidNotRecover:true,matchingRecoveryPersisted:true,publicProjectionExcludedSynthetic:true,bothDeliveryAttemptsRetained:true,productionDatabaseTouched:false,realNotificationDeliveryClaimed:false},null,2));
+}finally{await db.close();}

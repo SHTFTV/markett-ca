@@ -9,6 +9,8 @@
   "scripts": {
     "test:completion": "node --test scripts/completion/*.test.mjs",
     "report:completion": "node scripts/completion/report.mjs docs/completion/current-records.json /tmp/markett-completion",
-    "check:completion": "node scripts/completion/report.mjs docs/completion/current-records.json /tmp/markett-completion --require-complete"
+    "check:completion": "node scripts/completion/report.mjs docs/completion/current-records.json /tmp/markett-completion --require-complete",
+    "test:monitor": "node --test scripts/monitor/*.test.mjs",
+    "authorize:build": "node scripts/completion/authorize-build.mjs"
   }
 }
