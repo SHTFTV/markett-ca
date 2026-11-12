@@ -31,7 +31,8 @@ async function refreshInventory(request){
  try{
   db=await openInventoryStore();const lock=await db.query("select pg_try_advisory_lock(hashtextextended('markett-inventory-refresh',0)) as acquired");if(!lock.rows[0]?.acquired)return Response.json({status:'existing-refresh-running'},{status:409});
   let publicationArchive;try{const observed=await activity(fetch,{includeArchive:false,limit:5000});publicationArchive=await retainPublications(db,observed.events);}catch{publicationArchive={durable:false,status:'publication-archive-write-failed'};}
-  let notificationMonitor={status:'disabled'};if(process.env.MARKETT_DURABLE_MONITOR_ENABLED==='true'){try{notificationMonitor=await reconcileMonitor(db,{publicReceipts:await collect(),records:completionRecords});}catch{notificationMonitor={status:'monitor-reconciliation-failed',ownerDeliveryVerified:false};}}\n  let status,publicSnapshot=null,summary;
+  let notificationMonitor={status:'disabled'};if(process.env.MARKETT_DURABLE_MONITOR_ENABLED==='true'){try{notificationMonitor=await reconcileMonitor(db,{publicReceipts:await collect(),records:completionRecords});}catch{notificationMonitor={status:'monitor-reconciliation-failed',ownerDeliveryVerified:false};}}
+  let status,publicSnapshot=null,summary;
   if(!token()){status='blocked-no-runtime-read-credential';summary={reason:'Production inventory API credential not configured; direct browser access is separate.'};}
   else try{
    const current=await readProviderProjects({token:token(),teamId:'team_kTW4N3LZceZMmT95CWJpgwhM'}),routes=await checkRoutes(current),safe=inventoryView(current,{refreshStatus:'provider-refreshed'});
