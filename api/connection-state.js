@@ -1,7 +1,4 @@
-import workflows from '../docs/rollout/workflow-connections.json' with {type:'json'};
-import facts from '../docs/rollout/connection-registry.json' with {type:'json'};
-import coverage from '../docs/completion/sot-coverage.json' with {type:'json'};
-import adapters from '../docs/rollout/adapters.json' with {type:'json'};
+import {workflowConnections as workflows,connectionFacts as facts,sotCoverage as coverage,connectionAdapters as adapters} from './connection-data.js';
 import {registry} from './registry-data.js';import {completionRecords} from './completion-records.js';
 import {connectionState} from '../lib/connection-registry.mjs';
 export default {fetch(request){if(request.method!=='GET')return new Response('Method not allowed',{status:405});const site=new URL(request.url).searchParams.get('site');if(site&&!registry.some(r=>r.domain===site))return Response.json({error:'UNKNOWN_CANONICAL_SITE'},{status:404});const rows=(site?registry.filter(r=>r.domain===site):registry).map(r=>connectionState(r.domain,{coverage:coverage.sites,coverageAt:coverage.generatedAt,adapters,records:completionRecords,facts,workflowInventory:workflows.rows.find(w=>w.site===r.domain)?{...workflows.rows.find(w=>w.site===r.domain),checkedAt:workflows.checkedAt}:null}));return Response.json({canonicalRef:facts.canonicalRef,sharedStandard:facts.sharedStandard,assembledAt:new Date().toISOString(),rows},{headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});}};

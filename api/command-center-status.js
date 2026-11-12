@@ -1,10 +1,7 @@
+import {workflowConnections,connectionFacts,sotCoverage,connectionAdapters} from './connection-data.js';
 import miningObservation from '../mining-provider-observation.json' with {type:'json'};
 import publicationAudit from '../publication-freshness.json' with {type:'json'};
-import workflowConnections from '../docs/rollout/workflow-connections.json' with {type:'json'};
 import {withPublicationFreshness} from '../lib/publication-freshness-view.mjs';
-import connectionFacts from '../docs/rollout/connection-registry.json' with {type:'json'};
-import sotCoverage from '../docs/completion/sot-coverage.json' with {type:'json'};
-import connectionAdapters from '../docs/rollout/adapters.json' with {type:'json'};
 import {withConnectionRegistry} from '../lib/connection-registry.mjs';
 import {withProductionScope} from '../lib/production-scope.mjs';
 import searchInventory from '../production-search-inventory.json' with {type:'json'};
