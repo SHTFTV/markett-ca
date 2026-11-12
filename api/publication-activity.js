@@ -43,8 +43,23 @@ export function miningMonitor(source,data,now=new Date()){
  if(age<=20)return null;
  return sanitizeEvent(source,{id:'monitor:automatic-discovery',site:source.site,status:'failed',checkedAt:now.toISOString(),title:observed?'Mining Minute automatic discovery stalled — no scheduled intake in 20 minutes; repair the existing GitHub workflow.':'Mining Minute automatic discovery has no verified heartbeat — inspect the existing GitHub workflow.',runUrl:data.monitor?.lastAutomaticRunUrl});
 }
+export async function iamLatest(fetcher=fetch){
+ const source={site:'industryarmymarketing.com',brand:'Industry Army Marketing'},checkedAt=new Date().toISOString();
+ try{
+  const r=await fetcher('https://www.industryarmymarketing.com/rss.xml',{redirect:'error',signal:AbortSignal.timeout(7000)});if(!r.ok)throw Error();
+  const xml=await r.text();if(xml.length>2097152||!xml.includes('<rss'))throw Error();
+  const value=(item,key)=>(item.match(new RegExp('<'+key+'>([\\s\\S]*?)</'+key+'>'))?.[1]??'').replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g,'$1').replace(/&amp;/g,'&').replace(/&apos;/g,"'").replace(/&quot;/g,'"');
+  const items=[...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map(m=>({title:value(m[1],'title'),url:value(m[1],'link'),date:Date.parse(value(m[1],'pubDate'))})).filter(x=>Number.isFinite(x.date)&&x.date<=Date.now()).sort((a,b)=>b.date-a.date);
+  const latest=items[0];if(!latest)throw Error();
+  const event=sanitizeEvent(source,{id:latest.url,site:source.site,status:'done',title:latest.title,url:latest.url,publishedAt:new Date(latest.date).toISOString(),verifiedAt:checkedAt});if(!event)throw Error();
+  const page=await fetcher(event.url,{redirect:'error',signal:AbortSignal.timeout(7000)});if(!page.ok||!page.headers.get('content-type')?.includes('text/html'))throw Error();
+  const html=await page.text();if(html.length>2097152||!html.includes(new URL(event.url).pathname))throw Error();
+  return {...source,status:'connected',checkedAt,events:[event]};
+ }catch{return {...source,status:'unavailable',checkedAt,events:[]};}
+}
 export async function activity(fetcher=fetch){
  const results=await Promise.all(SOURCES.map(async source=>{try{const data=await json(source,fetcher);const events=(Array.isArray(data.events)?data.events:[]).slice(-500).map(x=>sanitizeEvent(source,x)).filter(Boolean);const monitor=miningMonitor(source,data);if(monitor)events.push(monitor);return {site:source.site,brand:source.brand,status:'connected',checkedAt:new Date().toISOString(),events};}catch(e){console.warn('Public publication log',source.site,e.message==='not-connected'?'not-connected':'unavailable');return {site:source.site,brand:source.brand,status:e.message==='not-connected'?'not-connected':'unavailable',checkedAt:new Date().toISOString(),events:[]};}}));
+ results.push(await iamLatest(fetcher));
  const unique=new Map();for(const source of results)for(const e of source.events)unique.set(e.id,e);
  const events=[...unique.values()].sort((a,b)=>Date.parse(b.verifiedAt??b.checkedAt)-Date.parse(a.verifiedAt??a.checkedAt));
  return {schemaVersion:1,live:true,checkedAt:new Date().toISOString(),counts:{done:events.filter(e=>e.status==='done').length,failed:events.filter(e=>e.status==='failed').length},events:events.slice(0,500),sources:results.map(({events,...s})=>s),privacy:'Public publication results only; no private SOPs, prompts, credentials, approval links or internal logs.'};
