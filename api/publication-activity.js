@@ -32,7 +32,7 @@ export function roleAlertInputs(source,data){
 }
 export function sanitizeEvent(source,input){
  if(!input||input.withdrawn===true||input.correction===true||input.contentType==='correction'||['withdrawn','draft','held','blocked'].includes(input.publicationStatus)||!['done','failed'].includes(input.status)||input.site!==source.site)return null;
- const title=String(input.title??'').replace(/<[^>]*>/g,'').replace(/[\u0000-\u001f]/g,' ').trim().slice(0,180);if(!title)return null;
+ const title=String(input.title??'').replace(/<[^>]*>/g,'').replace(/[\u0000-\u001f]/g,' ').trim().slice(0,['source-reported-role-alert','controlled-role-alert-canary'].includes(input.receiptState)?600:180);if(!title)return null;
  const publishedAt=timestamp(input.publishedAt),verifiedAt=timestamp(input.verifiedAt),checkedAt=timestamp(input.checkedAt??input.verifiedAt);let url=null;
  if(input.status==='done'){
   if(!publishedAt||!verifiedAt||Date.parse(publishedAt)>Date.now())return null;
