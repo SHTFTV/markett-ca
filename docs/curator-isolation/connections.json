@@ -1,0 +1,434 @@
+{
+  "schemaVersion": 1,
+  "editorialPolicy": {
+    "rule": "Explicitly sponsored or paid-promotional items are excluded from publication queue and retained only as deduped exclusion records. Do not rescue the rejected sponsored item via primary validation.",
+    "origin": "Explicit user instruction November 12, 2026"
+  },
+  "sites": [
+    {
+      "site": "theminingminute.com",
+      "sources": [
+        {
+          "id": "resource-talks",
+          "name": "Resource Talks",
+          "officialCandidateUrl": "https://resourcetalks.com/",
+          "enabled": true,
+          "feedUrls": [
+            "https://resourcetalks.com/feed/"
+          ],
+          "identityTerms": [
+            "Resource Talks"
+          ],
+          "rights": "Metadata discovery only; no article, transcript or image reuse grant"
+        },
+        {
+          "id": "cameco-official",
+          "name": "Cameco official disclosure",
+          "officialCandidateUrl": "https://www.cameco.com/",
+          "feedUrls": [
+            "https://www.cameco.com/rss/news"
+          ],
+          "identityTerms": [
+            "Cameco"
+          ],
+          "enabled": true,
+          "rights": "Primary issuer discovery; per-asset rights and exact factual checks remain required"
+        }
+      ],
+      "excludedItems": [
+        {
+          "url": "https://resourcetalks.com/copper-stocks/prospect-generator-spins-out-mexico-projects-but-will-the-timing-work/",
+          "reason": "Exact source article explicitly marked SPONSORED CONTENT; user directs removal from queue, no rescue."
+        },
+        {
+          "url": "https://resourcetalks.com/copper-stocks/funded-to-build-a-new-copper-gold-mine-but-can-they-start-on-time/",
+          "reason": "Exact source article explicitly marked sponsored; excluded under user rule; no retry or rescue.",
+          "evidenceSha256": "e36e064106ea95595ee24ea3307f66ad233e95f7f9b97973a2720cefa08357d2"
+        },
+        {
+          "url": "https://resourcetalks.com/copper-stocks/growing-porphyry-discovery-in-bc-but-are-the-grades-really-there/",
+          "reason": "Exact source article explicitly marked sponsored; excluded under user rule; no retry or rescue.",
+          "evidenceSha256": "be3d20b5cb455af630ace1e94c2eeaa0d94f32289064fe519a38b4018bbabfd0"
+        }
+      ]
+    },
+    {
+      "site": "loveourlistings.com",
+      "sources": [
+        {
+          "id": "country-life",
+          "name": "Country Life",
+          "officialCandidateUrl": "https://www.countrylife.co.uk/",
+          "enabled": true,
+          "feedUrls": [
+            "https://www.countrylife.co.uk/feeds/tag/property"
+          ],
+          "identityTerms": [
+            "Country Life"
+          ],
+          "rights": "Metadata discovery only; no article, transcript or image reuse grant"
+        }
+      ]
+    },
+    {
+      "site": "weddings.io",
+      "sources": [
+        {
+          "id": "green-wedding-shoes",
+          "name": "Green Wedding Shoes",
+          "officialCandidateUrl": "https://greenweddingshoes.com/",
+          "enabled": true,
+          "feedUrls": [
+            "https://greenweddingshoes.com/feed/"
+          ],
+          "identityTerms": [
+            "Green Wedding Shoes"
+          ],
+          "rights": "Metadata discovery only; no article, transcript or image reuse grant"
+        }
+      ]
+    },
+    {
+      "site": "industryarmymarketing.com",
+      "sources": [
+        {
+          "id": "google-search-central",
+          "name": "Google Search Central",
+          "officialCandidateUrl": "https://developers.google.com/search/blog",
+          "enabled": true,
+          "feedUrls": [
+            "https://developers.google.com/search/blog/feeds/posts/default"
+          ],
+          "identityTerms": [
+            "Google Search"
+          ],
+          "rights": "Metadata discovery only; no article, transcript or image reuse grant",
+          "articlePathPattern": "^/search/blog/2026/"
+        }
+      ]
+    },
+    {
+      "site": "talc.tv",
+      "sources": [
+        {
+          "id": "wistia",
+          "name": "Wistia",
+          "officialCandidateUrl": "https://wistia.com/learn",
+          "enabled": true,
+          "feedUrls": [],
+          "identityTerms": [
+            "Wistia"
+          ],
+          "rights": "Metadata discovery only; no article, transcript or image reuse grant"
+        }
+      ]
+    },
+    {
+      "site": "eyespyr.com",
+      "sources": [
+        {
+          "id": "ftc-business-blog",
+          "name": "FTC Business Blog",
+          "officialCandidateUrl": "https://www.ftc.gov/business-guidance/blog",
+          "feedUrls": [
+            "https://www.ftc.gov/feeds/blog.xml"
+          ],
+          "identityTerms": [
+            "Federal Trade Commission"
+          ],
+          "enabled": true,
+          "rights": "Public discovery metadata only; factual attribution and exact applicability remain required",
+          "articlePathPattern": "^/business-guidance/blog/[0-9]{4}/[0-9]{2}/[^/]+$"
+        }
+      ]
+    },
+    {
+      "site": "estimators.io",
+      "sources": [
+        {
+          "id": "brian-potter-construction-physics",
+          "name": "Brian Potter Construction Physics",
+          "officialCandidateUrl": "https://www.construction-physics.com/",
+          "enabled": true,
+          "feedUrls": [
+            "https://www.construction-physics.com/feed"
+          ],
+          "identityTerms": [
+            "Construction Physics"
+          ],
+          "rights": "Metadata discovery only; no article, transcript or image reuse grant"
+        }
+      ]
+    },
+    {
+      "site": "buildershaus.com",
+      "sources": [
+        {
+          "id": "building-science-corporation",
+          "name": "Building Science Corporation",
+          "officialCandidateUrl": "https://buildingscience.com/",
+          "enabled": true,
+          "feedUrls": [],
+          "identityTerms": [
+            "Building Science"
+          ],
+          "rights": "Metadata discovery only; no article, transcript or image reuse grant",
+          "articlePathPattern": "^/documents/building-science-insights"
+        }
+      ]
+    },
+    {
+      "site": "plowwow.com",
+      "sources": [
+        {
+          "id": "snow-and-ice-management-association",
+          "name": "Snow and Ice Management Association",
+          "officialCandidateUrl": "https://resources.sima.org/",
+          "enabled": true,
+          "feedUrls": [
+            "https://resources.sima.org/blog/rss.xml"
+          ],
+          "identityTerms": [
+            "SIMA"
+          ],
+          "rights": "Metadata discovery only; no article, transcript or image reuse grant",
+          "articlePathPattern": "^/snow-and-ice-resource-center/[^/]+$"
+        }
+      ]
+    },
+    {
+      "site": "roofers.io",
+      "sources": [
+        {
+          "id": "roofing-contractor",
+          "name": "Roofing Contractor",
+          "officialCandidateUrl": "https://www.roofingcontractor.com/",
+          "enabled": true,
+          "feedUrls": [
+            "https://www.roofingcontractor.com/rss/articles"
+          ],
+          "identityTerms": [
+            "Roofing Contractor"
+          ],
+          "rights": "Metadata discovery only; no article, transcript or image reuse grant"
+        }
+      ]
+    },
+    {
+      "site": "kongtractors.com",
+      "sources": [
+        {
+          "id": "equipment-world",
+          "name": "Equipment World",
+          "officialCandidateUrl": "https://www.equipmentworld.com/",
+          "enabled": true,
+          "feedUrls": [
+            "https://www.equipmentworld.com/rss"
+          ],
+          "identityTerms": [
+            "Equipment World"
+          ],
+          "rights": "Metadata discovery only; no article, transcript or image reuse grant"
+        },
+        {
+          "id": "ditch-witch",
+          "name": "Ditch Witch",
+          "officialCandidateUrl": "https://www.ditchwitch.com/",
+          "feedUrls": [
+            "https://www.ditchwitch.com/feed/"
+          ],
+          "identityTerms": [
+            "Ditch Witch"
+          ],
+          "enabled": true,
+          "rights": "Discovery metadata only; no article/image reuse grant"
+        }
+      ]
+    },
+    {
+      "site": "steelstud.ca",
+      "sources": [
+        {
+          "id": "awci",
+          "name": "AWCI",
+          "officialCandidateUrl": "https://www.awci.org/",
+          "enabled": true,
+          "feedUrls": [
+            "https://www.awci.org/feed/"
+          ],
+          "identityTerms": [
+            "Association of the Wall and Ceiling Industry"
+          ],
+          "rights": "Metadata discovery only; no article, transcript or image reuse grant"
+        }
+      ]
+    },
+    {
+      "site": "treatments.tv",
+      "sources": [
+        {
+          "id": "cochrane",
+          "name": "Cochrane",
+          "officialCandidateUrl": "https://www.cochrane.org/",
+          "enabled": true,
+          "feedUrls": [],
+          "identityTerms": [
+            "Cochrane"
+          ],
+          "rights": "Metadata discovery only; no article, transcript or image reuse grant",
+          "articlePathPattern": "^/about-us/news/[^/]+$"
+        }
+      ]
+    },
+    {
+      "site": "videographers.io",
+      "sources": [
+        {
+          "id": "sony-electronics",
+          "name": "Sony Electronics",
+          "officialCandidateUrl": "https://sony.mediaroom.com/pressreleases",
+          "enabled": true,
+          "feedUrls": [
+            "https://sony.mediaroom.com/index.php?s=2429&pagetemplate=rss"
+          ],
+          "identityTerms": [
+            "Sony"
+          ],
+          "rights": "Metadata discovery only; no article, transcript or image reuse grant"
+        }
+      ]
+    },
+    {
+      "site": "caterers.tv",
+      "sources": [
+        {
+          "id": "foodservice-and-hospitality",
+          "name": "Foodservice and Hospitality",
+          "officialCandidateUrl": "https://www.foodserviceandhospitality.com/",
+          "enabled": true,
+          "feedUrls": [
+            "https://www.foodserviceandhospitality.com/feed/"
+          ],
+          "identityTerms": [
+            "Foodservice"
+          ],
+          "rights": "Metadata discovery only; no article, transcript or image reuse grant"
+        },
+        {
+          "id": "chef-michael-smith",
+          "name": "Chef Michael Smith",
+          "officialCandidateUrl": "https://chefmichaelsmith.com/",
+          "feedUrls": [
+            "https://chefmichaelsmith.com/feed/"
+          ],
+          "identityTerms": [
+            "Michael Smith"
+          ],
+          "enabled": true,
+          "rights": "Discovery metadata only; no article/image reuse grant"
+        },
+        {
+          "id": "bite-catering",
+          "name": "Bite Catering Couture",
+          "officialCandidateUrl": "https://www.bitecatering.net/blog",
+          "feedUrls": [],
+          "articlePathPattern": "^/blog/[^/]+$",
+          "identityTerms": [
+            "Bite",
+            "Catering"
+          ],
+          "enabled": true,
+          "rights": "First-party discovery only; no photo or article reuse grant"
+        }
+      ]
+    },
+    {
+      "site": "minews.tv",
+      "sources": [
+        {
+          "id": "insidexploration",
+          "name": "Insidexploration",
+          "officialCandidateUrl": "https://insidexploration.com/",
+          "enabled": true,
+          "feedUrls": [
+            "https://insidexploration.com/feed/"
+          ],
+          "identityState": "Identity or endpoint discovery pending; not an active feed",
+          "rosterProvenance": "Gemini conversation 8cf83900230fa8eb actually inspected 2026-11-12; recommendation not verified"
+        },
+        {
+          "id": "crux-investor",
+          "name": "Crux Investor",
+          "officialCandidateUrl": "https://www.cruxinvestor.com/",
+          "enabled": true,
+          "feedUrls": [
+            "https://feeds.transistor.fm/the-battery-show"
+          ],
+          "identityState": "Identity or endpoint discovery pending; not an active feed",
+          "rosterProvenance": "Gemini conversation 8cf83900230fa8eb actually inspected 2026-11-12; recommendation not verified",
+          "feedBindings": [
+            {
+              "feedUrl": "https://feeds.transistor.fm/the-battery-show",
+              "directoryRecord": "https://podcasts.apple.com/us/podcast/the-battery-show/id1754512565?uo=4",
+              "directoryTitle": "The Battery Show",
+              "directoryArtist": "Crux Investor",
+              "verifiedAt": "2026-11-12T23:38:00.866407+00:00",
+              "scope": "Exact public directory title/artist match; feed HTTP and metadata still need actual validation; no transcript or media reuse grant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "site": "insurancebrokers.io",
+      "sources": [
+        {
+          "id": "insurance-journal",
+          "name": "Insurance Journal",
+          "officialCandidateUrl": "https://www.insurancejournal.com/",
+          "enabled": true,
+          "feedUrls": [
+            "https://www.insurancejournal.com/feed/"
+          ],
+          "identityState": "Identity or endpoint discovery pending; not an active feed"
+        },
+        {
+          "id": "claims-journal",
+          "name": "Claims Journal",
+          "officialCandidateUrl": "https://www.claimsjournal.com/",
+          "enabled": true,
+          "feedUrls": [
+            "https://www.claimsjournal.com/feed/"
+          ],
+          "identityState": "Identity or endpoint discovery pending; not an active feed"
+        }
+      ]
+    },
+    {
+      "site": "financialadvisors.io",
+      "sources": [
+        {
+          "id": "kitces",
+          "name": "Kitces",
+          "officialCandidateUrl": "https://www.kitces.com/",
+          "enabled": true,
+          "feedUrls": [
+            "https://feeds.kitces.com/KitcesNerdsEyeView"
+          ],
+          "identityState": "Identity or endpoint discovery pending; not an active feed",
+          "articlePathPattern": "^/blog/[^/]+/$"
+        },
+        {
+          "id": "investmentnews",
+          "name": "InvestmentNews",
+          "officialCandidateUrl": "https://www.investmentnews.com/",
+          "enabled": true,
+          "feedUrls": [
+            "https://www.investmentnews.com/feed/"
+          ],
+          "identityState": "Identity or endpoint discovery pending; not an active feed"
+        }
+      ]
+    }
+  ]
+}
