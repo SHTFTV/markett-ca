@@ -94,16 +94,17 @@
       "site": "eyespyr.com",
       "sources": [
         {
-          "id": "axis-communications",
-          "name": "Axis Communications",
-          "officialCandidateUrl": "https://newsroom.axis.com/",
-          "enabled": true,
-          "feedUrls": [],
-          "identityTerms": [
-            "Axis"
+          "id": "ftc-business-blog",
+          "name": "FTC Business Blog",
+          "officialCandidateUrl": "https://www.ftc.gov/business-guidance/blog",
+          "feedUrls": [
+            "https://www.ftc.gov/feeds/blog.xml"
           ],
-          "rights": "Metadata discovery only; no article, transcript or image reuse grant",
-          "articlePathPattern": "^/(blog|news|press-release)/[^/]+$"
+          "identityTerms": [
+            "Federal Trade Commission"
+          ],
+          "enabled": true,
+          "rights": "Public discovery metadata only; factual attribution and exact applicability remain required"
         }
       ]
     },
@@ -156,7 +157,8 @@
           "identityTerms": [
             "SIMA"
           ],
-          "rights": "Metadata discovery only; no article, transcript or image reuse grant"
+          "rights": "Metadata discovery only; no article, transcript or image reuse grant",
+          "articlePathPattern": "^/snow-and-ice-resource-center/[^/]+$"
         }
       ]
     },
@@ -366,7 +368,8 @@
           "feedUrls": [
             "https://feeds.kitces.com/KitcesNerdsEyeView"
           ],
-          "identityState": "Identity or endpoint discovery pending; not an active feed"
+          "identityState": "Identity or endpoint discovery pending; not an active feed",
+          "articlePathPattern": "^/blog/[^/]+/$"
         },
         {
           "id": "investmentnews",

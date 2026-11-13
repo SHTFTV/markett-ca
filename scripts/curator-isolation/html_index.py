@@ -33,6 +33,7 @@ def collect(source,now):
                 if key:metadata[key]=html.unescape(attrs.get('content',''))
             dates=[metadata.get('article:published_time'),metadata.get('datePublished'),metadata.get('date')]
             dates+=re.findall(r'"datePublished"\s*:\s*"([^"]+)"',body)
+            dates+=re.findall(r'<time\b[^>]*datetime=["\']([^"\']+)["\']',body,re.I)
             stamp=None
             for value in dates:
                 if not value:continue

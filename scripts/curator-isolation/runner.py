@@ -57,8 +57,10 @@ def run(config, db_path, output, probe=guarded_probe, clock=time.time):
                 db.execute('INSERT OR REPLACE INTO publication_holds VALUES(?,?)',
                            (site['site'],site['publicationHold']))
             for source in site['sources']:
+                config_sha=hashlib.sha256(json.dumps(source,sort_keys=True).encode()).hexdigest()
                 prior=db.execute('SELECT attempt,next_attempt,receipt FROM source_state WHERE site=? AND source=?',
                                  (site['site'],source['id'])).fetchone()
+                if prior and json.loads(prior[2]).get('configSha256')!=config_sha:prior=None
                 if prior and prior[1]>clock():
                     results.append({'site':site['site'],'sourceId':source['id'],'status':'backoff',
                                     'nextAttemptEpoch':prior[1],'previousReceipt':json.loads(prior[2])})
@@ -71,6 +73,7 @@ def run(config, db_path, output, probe=guarded_probe, clock=time.time):
             except Exception as exc:
                 receipt={'status':'error','errors':[{'stage':'future','reason':type(exc).__name__}]};items=[]
             receipt.update(site=site['site'],sourceId=source['id'],runId=run_id)
+            receipt['configSha256']=hashlib.sha256(json.dumps(source,sort_keys=True).encode()).hexdigest()
             receipt['newItems']=0
             for item in items:
                 try:
@@ -104,6 +107,8 @@ def run(config, db_path, output, probe=guarded_probe, clock=time.time):
                  'scheduledContinuityVerified':False}
         (output/(site['site']+'.json')).write_text(json.dumps(handoff,indent=2)+'\n')
         report['sites'].append({'site':site['site'],'queuedMetadataItems':len(items),'latest':latest})
+        print('SITE_RECEIPT '+json.dumps({'site':site['site'],'queuedMetadataItems':len(items),
+              'latest':latest,'livePublicationVerified':False}),flush=True)
     (output/'discovery-report.json').write_text(json.dumps(report,indent=2)+'\n')
     db.close();return report
 

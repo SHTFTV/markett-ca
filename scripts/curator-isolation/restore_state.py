@@ -3,9 +3,18 @@ import io,json,os,urllib.request,zipfile
 from pathlib import Path
 repo=os.environ['GITHUB_REPOSITORY'];branch=os.environ['GITHUB_REF_NAME']
 headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'}
+class Redirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self,req,fp,code,msg,response_headers,newurl):
+        from urllib.parse import urlsplit
+        if urlsplit(newurl).scheme!='https':raise ValueError('HTTPS artifact redirect required')
+        result=super().redirect_request(req,fp,code,msg,response_headers,newurl)
+        if urlsplit(newurl).netloc!=urlsplit(req.full_url).netloc:
+            result.remove_header('Authorization')
+        return result
+opener=urllib.request.build_opener(Redirect())
 def get(url):
     request=urllib.request.Request(url,headers=headers)
-    with urllib.request.urlopen(request,timeout=30) as response:return response.read()
+    with opener.open(request,timeout=30) as response:return response.read()
 base='https://api.github.com/repos/'+repo
 artifacts=json.loads(get(base+'/actions/artifacts?name=curator-isolation-state&per_page=50'))['artifacts']
 artifact=next((a for a in artifacts if not a['expired'] and a.get('workflow_run',{}).get('head_branch')==branch),None)
