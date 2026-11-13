@@ -4,9 +4,11 @@ const add=(tag,text,parent=root)=>{const n=document.createElement(tag);if(text!=
 const date=value=>value&&Number.isFinite(Date.parse(value))?new Date(value).toLocaleString('en-US',{timeZone:'America/Los_Angeles'})+' Pacific':'unknown';
 function render(){if(!root)return;root.replaceChildren();
  if(!provider){add('p','Provider inventory unavailable. Current project count and mapping unknown.');return;}
- add('strong',provider.lastVerifiedProjectCount+' distinct Vercel projects · last verified '+date(provider.checkedAt));
+ add('strong',provider.lastVerifiedProjectCount+' distinct Vercel projects · last verified '+date(provider.projectCensusCheckedAt??provider.checkedAt));
  add('p','Source: '+provider.source+' · '+provider.freshness+' evidence. Refresh: '+provider.refresh.status+'. '+provider.refresh.nextAction);
  add('p',provider.lastVerifiedProjectCount+' distinct IDs were observed in the connected provider account, not inferred from domains. Project totals include test and duplicate-purpose projects; live sites and build categories are checked separately. The earlier headline used an older saved snapshot with no runtime provider refresh connection.');
+ add('p','Project census: '+(provider.projectCensusFreshness??provider.freshness)+' · '+(provider.projectCensusSource??provider.source)+'. Domain mappings retain their separate check date '+date(provider.checkedAt)+'.');
+ const censusList=add('details','');add('summary','Inspect all '+provider.lastVerifiedProjectCount+' provider projects',censusList);for(const p of provider.providerProjects??[])add('p',p.name+' · '+p.id,censusList);
  const all=add('details','');add('summary','Inspect '+provider.projects.length+' public production-domain bindings',all);
  for(const project of provider.projects){const item=add('details','',all);add('summary',project.name,item);add('p','Production label '+project.name,item);add('p','Bound domains: '+(project.domains?.join(', ')||'unknown'),item);add('p','GitHub repo: '+(project.repository??'unknown; canonical association needs recovery'),item);add('p','Latest provider build: '+(project.latestDeployment?.readyState??'unknown')+' · '+(project.latestDeployment?.target??'unknown')+' · '+date(project.latestDeployment?.createdAt),item);add('p','Mapping detail check '+date(project.mappingCheckedAt??provider.checkedAt),item);}
  if(!overview)return;

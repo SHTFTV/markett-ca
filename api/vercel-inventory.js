@@ -1,3 +1,5 @@
+import census from '../vercel-project-census.json' with {type:'json'};
+import {applyProjectCensus} from '../lib/project-census.mjs';
 import {reconcileMonitor} from '../lib/operations-monitor-runtime.mjs';import {collect} from './cloud-execution-status.js';import {completionRecords} from './completion-records.js';
 import wizardObservation from '../gsc-wizard-observation.json' with {type:'json'};
 import snapshot from '../vercel-provider-inventory.json' with {type:'json'};
@@ -24,7 +26,7 @@ export async function getInventory(){
  result.refresh.lastReceipt=stored.latest?{id:stored.latest.id,acceptedAt:stored.latest.completed_at,status:stored.latest.status,trigger:stored.latest.trigger_kind,durable:true}:null;
  result.refresh.nativeExecutionVerified=false;
  if(!stored.connected){result.refresh.storageStatus='unavailable';result.refresh.nextAction+=' Restore the existing operations-store connection; no successful durable refresh is inferred.';}
- return result;
+ return applyProjectCensus(result,census,now);
 }
 async function refreshInventory(request){
  let db;const id=randomUUID(),startedAt=new Date().toISOString(),trigger=request.headers.get('user-agent')?.startsWith('vercel-cron/')?'authenticated-cron-request':'manual-verification';
