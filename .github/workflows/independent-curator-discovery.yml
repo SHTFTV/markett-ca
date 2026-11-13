@@ -1,8 +1,10 @@
 name: Independent curator discovery
 on:
   push:
-    branches: [codex/independent-curator-discovery]
+    branches: [codex/independent-curator-discovery, main]
     paths: ['scripts/curator-isolation/**', 'docs/curator-isolation/**', '.github/workflows/independent-curator-discovery.yml']
+  schedule:
+    - cron: '7,22,37,52 * * * *'
 permissions:
   contents: read
   actions: read

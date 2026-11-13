@@ -15,10 +15,11 @@ new state plus eighteen per-site handoffs. Artifacts expire after 30 days; no cl
 of indefinite persistence follows. A missing artifact is explicitly reported as a new
 collection, not a successful continuation. The branch serializes runs.
 
-Current activation is branch-push only. This does not establish a native schedule or
-unattended publication. Default-branch integration belongs to the existing sole
-coordinator owner and must preserve the rejected production/database/scheduler actions.
-Do not merge or activate by treating a read-only discovery success as publishing approval.
+The independent job requests four native runs per hour, offset from the hour.
+Actual schedule delivery must be observed; deploying YAML alone is not schedule proof.
+It adds only new dedicated discovery paths and does not modify the existing
+coordinator, site publishers, production database or their held activation changes.
+Discovery scheduling does not establish unattended publication or publishing approval.
 
 Source metadata and identity matches are discovery evidence, never credentials or
 reuse rights. The exact source article, byline, claims, sponsorship, live duplicate
