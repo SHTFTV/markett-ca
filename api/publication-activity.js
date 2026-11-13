@@ -1,5 +1,6 @@
 // Public read-only projection. Fixed public sources; never load private operating records.
 const SOURCES=[
+ {site:'builders.ltd',brand:'Builders.ltd',url:'https://builders-ltd.vercel.app/api/alerts/',format:'site-role-alerts-v1'},
  {site:'insurancebrokers.io',brand:'InsuranceBrokers',url:'https://insurancebrokers.io/publication-results.json'},
  {site:'financialadvisors.io',brand:'FinancialAdvisors',url:'https://financialadvisors.io/publication-results.json'},
  {site:'gasfitter.ca',brand:'Gasfitter.ca',url:'https://www.gasfitter.ca/publication-results.json'},
@@ -23,6 +24,10 @@ function miningReceipt(input){
  let featuredImageUrl=null;try{const u=new URL(input.featuredImageUrl);if(u.protocol==='https:'&&u.hostname==='theminingminute.com'&&!u.username&&!u.password&&!u.port&&u.pathname.startsWith('/source-media/'))featuredImageUrl=u.href;}catch{}
  const runUrl=typeof input.runUrl==='string'&&/^https:\/\/github\.com\/SHTFTV\/theminingminute\.com\/actions\/runs\/\d+$/.test(input.runUrl)?input.runUrl:null;
  return {sourceDate:date(input.sourceDate),sourceEventDate:date(input.sourceEventDate),sourceEventDateStatus:date(input.sourceEventDate)?'Verified source event date':'Not independently established',featuredImageStatus:input.featuredImageStatus==='verified'&&featuredImageUrl?'verified':input.featuredImageStatus==='blocked'?'blocked':'unknown',featuredImageUrl,runUrl};
+}
+export function roleAlertInputs(source,data){
+ if(data?.site!==source.site||!Array.isArray(data.events))return [];
+ return data.events.filter(e=>e?.status==='failed'&&typeof e.id==='string'&&/^[A-Za-z0-9:._-]{1,180}$/.test(e.id)&&(!e.site||e.site===source.site)).map(e=>{const canary=e.canary===true&&e.synthetic===true;return {id:(canary?'role-canary:':'role-alert:')+e.id,site:source.site,status:'failed',title:e.title,checkedAt:e.at??e.checkedAt,runUrl:e.runUrl,incidentId:canary?null:e.id,probeRunId:canary?e.probeRunId??e.id:null,receiptState:canary?'controlled-role-alert-canary':'source-reported-role-alert',cause:canary?'Controlled delivery test; not an actual publication or production outage':null};});
 }
 export function sanitizeEvent(source,input){
  if(!input||input.withdrawn===true||input.correction===true||input.contentType==='correction'||['withdrawn','draft','held','blocked'].includes(input.publicationStatus)||!['done','failed'].includes(input.status)||input.site!==source.site)return null;
@@ -49,7 +54,7 @@ export function kitchenEditorialEvents(source,data){
 async function json(source,fetcher){
  let url=source.url;for(let hop=0;hop<3;hop++){
   const response=await fetcher(url,{redirect:'manual',signal:AbortSignal.timeout(7000),headers:{accept:'application/json'}});
-  if([301,302,307,308].includes(response.status)){const next=new URL(response.headers.get('location'),url);if(next.protocol!=='https:'||next.hostname.replace(/^www\./,'')!==source.site)throw new Error('unavailable');url=next.href;continue;}
+  if([301,302,307,308].includes(response.status)){const next=new URL(response.headers.get('location'),url);if(next.protocol!=='https:'||(next.hostname.replace(/^www\./,'')!==source.site&&next.hostname!==new URL(source.url).hostname))throw new Error('unavailable');url=next.href;continue;}
   if(!response.ok)throw new Error(response.status===404?'not-connected':'unavailable');
   const reader=response.body.getReader();let bytes=0;const chunks=[];while(true){const {done,value}=await reader.read();if(done)break;bytes+=value.byteLength;if(bytes>2097152){await reader.cancel();throw new Error('unavailable');}chunks.push(value);}
   const data=new Uint8Array(bytes);let offset=0;for(const chunk of chunks){data.set(chunk,offset);offset+=chunk.byteLength;}return JSON.parse(new TextDecoder().decode(data));
@@ -76,7 +81,7 @@ export async function iamLatest(fetcher=fetch){
  }catch{return {...source,status:'unavailable',checkedAt,events:[]};}
 }
 export async function activity(fetcher=fetch,{includeArchive=true,limit=500}={}){
- const results=await Promise.all(SOURCES.map(async source=>{try{const data=await json(source,fetcher);const events=source.format==='kitchen-editorial-v1'?kitchenEditorialEvents(source,data):(Array.isArray(data.events)?data.events:[]).slice(-500).map(x=>sanitizeEvent(source,x)).filter(Boolean);const monitor=miningMonitor(source,data);if(monitor)events.push(monitor);return {site:source.site,brand:source.brand,status:'connected',checkedAt:new Date().toISOString(),events};}catch(e){console.warn('Public publication log',source.site,e.message==='not-connected'?'not-connected':'unavailable');return {site:source.site,brand:source.brand,status:e.message==='not-connected'?'not-connected':'unavailable',checkedAt:new Date().toISOString(),events:[]};}}));
+ const results=await Promise.all(SOURCES.map(async source=>{try{const data=await json(source,fetcher);const events=source.format==='kitchen-editorial-v1'?kitchenEditorialEvents(source,data):(source.format==='site-role-alerts-v1'?roleAlertInputs(source,data):(Array.isArray(data.events)?data.events:[])).slice(-500).map(x=>sanitizeEvent(source,x)).filter(Boolean);const monitor=miningMonitor(source,data);if(monitor)events.push(monitor);return {site:source.site,brand:source.brand,status:'connected',checkedAt:new Date().toISOString(),events};}catch(e){console.warn('Public publication log',source.site,e.message==='not-connected'?'not-connected':'unavailable');return {site:source.site,brand:source.brand,status:e.message==='not-connected'?'not-connected':'unavailable',checkedAt:new Date().toISOString(),events:[]};}}));
  if(!results.some(s=>s.site==='industryarmymarketing.com'&&s.status==='connected'))results.push(await iamLatest(fetcher));
  let archive={connected:false,events:[]};if(includeArchive&&fetcher===fetch){try{archive=await (await import('../lib/publication-receipt-store.mjs')).readPublications({limit});}catch{}}
  const unique=new Map();for(const e of archive.events??[]){const source=SOURCES.find(s=>s.site===e.site);const clean=source&&sanitizeEvent(source,e);if(clean)unique.set(clean.site+'|'+clean.url,clean);}

@@ -1,0 +1,11 @@
+# Builders owner-alert pull reader
+
+Canonical site ID: `builders.ltd`. Existing public reader: `https://markett-ca.vercel.app/api/publication-activity`. The registered source is `https://builders-ltd.vercel.app/api/alerts/`; current binding evidence comes from `https://builders-ltd.vercel.app/api/watchdog/`. These slash-terminated paths avoid a redirect-only response. The preview origin is explicitly authorized for this existing project; arbitrary aliases are rejected. No new publisher, credential, mail or Slack channel is created.
+
+Source payload: `{site:"builders.ltd",events:[...]}`. Each failed incident needs a stable `id`, `title`, HTTPS `runUrl` and current ISO `at` (or `checkedAt`). Controlled canary events must additionally have both `synthetic:true` and `canary:true`. The reader projects incident IDs as `builders.ltd:role-alert:<source-id>` and canary IDs as `builders.ltd:role-canary:<source-id>`. Dates become `checkedAt`; no publication date or live post is invented. Private fields are not mirrored.
+
+The coordinator reads the current watchdog `incident.id` and `probe.runId` or `probe.id`, then requires both exact corresponding alert events in the reader, including normalized ID, status, title and run URL. All expected source events must be within twenty minutes. A missing event, unrelated incident, mismatched probe, stale timestamp or unavailable endpoint stays unverified. The current controlled-silence ID identifies a scenario; it is not a unique provider execution ID. The delivery report explicitly preserves that scope.
+
+A match proves the authorized reader received the source incident and controlled-canary events. It does not prove the human read them, a push notification was delivered, the Vercel cron actually ran, all Four Roles passed, or an article was published. Those require their own actual provider/runtime/release evidence. The raw `/api/roles/` observations are not silently promoted to complete shared role receipts.
+
+The existing fleet coordinator watchdog is management freshness monitoring and has `independentSiteWatchdog:false`. It cannot be inherited as Builders' or JunkRemoval's independent watchdog. A site-owned external runtime may use this event contract after its endpoint and origin are verified and individually registered. JunkRemoval is not registered by this Builders change.
