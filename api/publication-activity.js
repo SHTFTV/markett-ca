@@ -1,5 +1,6 @@
 // Public read-only projection. Fixed public sources; never load private operating records.
 const SOURCES=[
+ {site:'junkremoval.ltd',brand:'JunkRemoval.ltd',url:'https://junkremoval-ltd.vercel.app/api/alerts/',format:'site-role-alerts-v1'},
  {site:'builders.ltd',brand:'Builders.ltd',url:'https://builders-ltd.vercel.app/api/alerts/',format:'site-role-alerts-v1'},
  {site:'insurancebrokers.io',brand:'InsuranceBrokers',url:'https://insurancebrokers.io/publication-results.json'},
  {site:'financialadvisors.io',brand:'FinancialAdvisors',url:'https://financialadvisors.io/publication-results.json'},
