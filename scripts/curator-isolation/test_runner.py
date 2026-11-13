@@ -4,6 +4,14 @@ import runner
 from screening import exclusion_reason
 
 class IsolationTests(unittest.TestCase):
+    def test_unknown_date_does_not_abort_any_site_handoff(self):
+        config={'sites':[{'site':site,'sources':[{'id':'source','name':'Source'}]}for site in ['first.example','second.example']]}
+        def probe(s,now):return {'status':'fetched','feeds':[]},[{'url':'https://source.example/undated','sourcePublishedAt':None,'title':'Undated'}]
+        with tempfile.TemporaryDirectory()as tmp:
+            report=runner.run(config,Path(tmp)/'state.sqlite',Path(tmp)/'out',probe=probe)
+            self.assertEqual(len(report['sites']),2)
+            self.assertTrue(all(s['latest'] is None for s in report['sites']))
+
     def test_sponsored_item_is_removed_and_not_requeued_after_restart(self):
         config={'sites':[{'site':'test.example','sources':[{'id':'source','name':'Source'}],
                           'excludedItems':[{'url':'https://source.example/paid','reason':'Explicitly sponsored; user exclusion'}]}]}

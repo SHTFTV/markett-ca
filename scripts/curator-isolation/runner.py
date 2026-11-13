@@ -126,7 +126,9 @@ def run(config, db_path, output, probe=guarded_probe, clock=time.time):
         dated=[]
         for item in active_items:
             try:
-                stamp=datetime.datetime.fromisoformat(item['sourcePublishedAt'].replace('Z','+00:00'))
+                value=item.get('sourcePublishedAt')
+                if not isinstance(value,str):continue
+                stamp=datetime.datetime.fromisoformat(value.replace('Z','+00:00'))
                 if stamp.tzinfo and stamp<=datetime.datetime.fromisoformat(now):dated.append((stamp,item))
             except (KeyError,TypeError,ValueError):pass
         latest=max(dated,key=lambda pair:pair[0])[1] if dated else None

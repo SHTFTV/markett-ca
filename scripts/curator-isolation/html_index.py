@@ -34,6 +34,9 @@ def collect(source,now):
             dates=[metadata.get('article:published_time'),metadata.get('datePublished'),metadata.get('date')]
             dates+=re.findall(r'"datePublished"\s*:\s*"([^"]+)"',body)
             dates+=re.findall(r'<time\b[^>]*datetime=["\']([^"\']+)["\']',body,re.I)
+            for value in re.findall(r'<p\s+class=["\']gargardate["\']>([^<]+)</p>',body):
+                try:dates.append(datetime.datetime.strptime(value,'%A, %B %d, %Y').replace(tzinfo=datetime.timezone.utc).isoformat())
+                except ValueError:pass
             stamp=None
             for value in dates:
                 if not value:continue
