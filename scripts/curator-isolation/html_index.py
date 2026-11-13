@@ -45,8 +45,11 @@ def collect(source,now):
                     if not d.tzinfo:d=d.replace(tzinfo=datetime.timezone.utc)
                     if d<=datetime.datetime.fromisoformat(now):stamp=d.isoformat();break
                 except ValueError:pass
+            headings=re.findall(r'<h1\b[^>]*>(.*?)</h1>',body,re.I|re.S)
+            page_titles=re.findall(r'<title[^>]*>(.*?)</title>',body,re.I|re.S)
+            fallback=html.unescape(re.sub('<[^>]+>',' ',(headings or page_titles or [''])[0])).strip()
             items.append({'id':hashlib.sha256(final.encode()).hexdigest(),'sourceId':source['id'],
-                         'title':metadata.get('og:title')or title,'url':final,'sourcePublishedAt':stamp,
+                         'title':metadata.get('og:title')or title or fallback,'url':final,'sourcePublishedAt':stamp,
                          'sourcePageSha256':hashlib.sha256(data).hexdigest(),'indexUrl':effective,
                          'publicationEligible':False,'requires':'Exact facts, originality, site policy, prior-publication dedupe and per-asset rights review'})
         except Exception as exc:receipt['errors'].append({'url':href,'reason':str(exc)[:180]})
