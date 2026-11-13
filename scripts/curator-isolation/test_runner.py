@@ -1,8 +1,23 @@
 import json, tempfile, unittest
 from pathlib import Path
 import runner
+from screening import exclusion_reason
 
 class IsolationTests(unittest.TestCase):
+    def test_sponsored_item_is_removed_and_not_requeued_after_restart(self):
+        config={'sites':[{'site':'test.example','sources':[{'id':'source','name':'Source'}],
+                          'excludedItems':[{'url':'https://source.example/paid','reason':'Explicitly sponsored; user exclusion'}]}]}
+        def probe(s,now):
+            return {'status':'fetched','feeds':[]},[{'url':'https://source.example/'+path,'sourceId':'source','title':path}for path in ['paid','independent']]
+        with tempfile.TemporaryDirectory()as tmp:
+            db=Path(tmp)/'state.sqlite';out=Path(tmp)/'out'
+            runner.run(config,db,out,probe=probe);runner.run(config,db,out,probe=probe)
+            state=runner.connect(db)
+            self.assertEqual(state.execute('SELECT count(*) FROM items').fetchone()[0],1)
+            self.assertEqual(state.execute('SELECT count(*) FROM excluded_items').fetchone()[0],1)
+            state.close()
+        self.assertIsNotNone(exclusion_reason({'title':'Paid partnership: a project'},{}))
+
     def test_malformed_source_is_caught_before_batch_boundary(self):
         receipt,items=runner.guarded_probe({'id':'bad','name':'bad','enabled':True,'officialCandidateUrl':'file:///etc/passwd'},'now')
         self.assertEqual(receipt['status'],'error');self.assertEqual(items,[])

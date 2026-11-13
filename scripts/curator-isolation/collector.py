@@ -54,7 +54,9 @@ def parse(data,feed,source):
   except ValueError:continue
   if date and (not date.tzinfo or date>datetime.datetime.now(datetime.timezone.utc)+datetime.timedelta(minutes=5)):continue
   key=hashlib.sha256(url.encode()).hexdigest()
-  items.append({'id':key,'sourceId':source['id'],'title':title[:350],'url':url,'sourcePublishedAt':date.isoformat() if date else None,'feedUrl':feed,'publicationEligible':False,'requires':'Exact source facts, accessible authorized text/transcript, attribution, duplicate and media/rights review'})
+  disclosure_text=' '.join([title,n.findtext('description') or '',n.findtext('{http://purl.org/rss/1.0/modules/content/}encoded') or '']+[x.text or '' for x in n.findall('category')])
+  sponsored=bool(re.search(r'(?:⚠|<strong>|<b>|^|\b)(?:\s|<[^>]*>)*(?:sponsored content|paid partnership|paid promotion|advertorial)\b',disclosure_text,re.I))
+  items.append({'id':key,'sourceId':source['id'],'title':title[:350],'url':url,'sourcePublishedAt':date.isoformat() if date else None,'feedUrl':feed,'commercialDisclosure':'explicit-sponsored-or-paid-promotion' if sponsored else 'not-screened-on-exact-article','publicationEligible':False,'requires':'Exact source facts, accessible authorized text/transcript, attribution, duplicate and media/rights review'})
  return items
 def identity_match(source,value):
  terms=source.get('identityTerms',[source['name'].split('/')[0].strip()]);norm=lambda v:re.sub('[^a-z0-9]','',unicodedata.normalize('NFKD',v).encode('ascii','ignore').decode().lower());return all(norm(t) in norm(value) for t in terms)

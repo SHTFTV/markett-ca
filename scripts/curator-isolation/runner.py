@@ -6,6 +6,7 @@ SQLite commits each result separately so a failed source/site cannot roll back p
 import concurrent.futures, datetime, hashlib, json, sqlite3, time
 from pathlib import Path
 import collector
+from screening import exclusion_reason
 
 def canonical_url(value):
     from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
@@ -22,6 +23,8 @@ def connect(path):
       CREATE TABLE IF NOT EXISTS items(site TEXT, source TEXT, fingerprint TEXT, record TEXT,
         first_seen TEXT, PRIMARY KEY(site,fingerprint));
       CREATE TABLE IF NOT EXISTS publication_holds(site TEXT PRIMARY KEY, reason TEXT);
+      CREATE TABLE IF NOT EXISTS excluded_items(site TEXT, fingerprint TEXT, record TEXT, reason TEXT,
+        excluded_at TEXT, PRIMARY KEY(site,fingerprint));
       CREATE TABLE IF NOT EXISTS runs(id TEXT PRIMARY KEY, started TEXT, completed TEXT, trigger TEXT);
     ''')
     return db
@@ -56,6 +59,12 @@ def run(config, db_path, output, probe=guarded_probe, clock=time.time):
             if site.get('publicationHold'):
                 db.execute('INSERT OR REPLACE INTO publication_holds VALUES(?,?)',
                            (site['site'],site['publicationHold']))
+            for fingerprint,record in db.execute('SELECT fingerprint,record FROM items WHERE site=?',(site['site'],)).fetchall():
+                reason=exclusion_reason(json.loads(record),site)
+                if reason:
+                    db.execute('INSERT OR IGNORE INTO excluded_items VALUES(?,?,?,?,?)',
+                               (site['site'],fingerprint,record,reason,now))
+                    db.execute('DELETE FROM items WHERE site=? AND fingerprint=?',(site['site'],fingerprint))
             for source in site['sources']:
                 config_sha=hashlib.sha256(json.dumps(source,sort_keys=True).encode()).hexdigest()
                 prior=db.execute('SELECT attempt,next_attempt,receipt FROM source_state WHERE site=? AND source=?',
@@ -78,10 +87,23 @@ def run(config, db_path, output, probe=guarded_probe, clock=time.time):
             for item in items:
                 try:
                     url=canonical_url(item['url']);fingerprint=hashlib.sha256(url.encode()).hexdigest()
-                    item.update(canonicalSourceUrl=url,sourceName=source['name'],publicationEligible=False)
+                    item.update(canonicalSourceUrl=url,sourceId=source['id'],sourceName=source['name'],publicationEligible=False)
+                    reason=exclusion_reason(item,site)
+                    if reason:
+                        db.execute('INSERT OR IGNORE INTO excluded_items VALUES(?,?,?,?,?)',
+                                   (site['site'],fingerprint,json.dumps(item),reason,now))
+                        db.execute('DELETE FROM items WHERE site=? AND fingerprint=?',(site['site'],fingerprint))
+                        receipt['excludedItems']=receipt.get('excludedItems',0)+1
+                        continue
+                    if db.execute('SELECT 1 FROM excluded_items WHERE site=? AND fingerprint=?',(site['site'],fingerprint)).fetchone():
+                        receipt['previouslyExcludedItems']=receipt.get('previouslyExcludedItems',0)+1
+                        continue
                     cur=db.execute('INSERT OR IGNORE INTO items VALUES(?,?,?,?,?)',
                         (site['site'],source['id'],fingerprint,json.dumps(item),now))
                     receipt['newItems']+=cur.rowcount
+                    if not cur.rowcount:
+                        db.execute('UPDATE items SET record=? WHERE site=? AND fingerprint=? AND source=?',
+                                   (json.dumps(item),site['site'],fingerprint,source['id']))
                 except Exception as exc:
                     receipt.setdefault('itemErrors',[]).append(type(exc).__name__+': '+str(exc)[:100])
             failures=0 if receipt.get('status') in ('fetched','html-index-fetched') else (prior[0] if prior else 0)+1
@@ -91,6 +113,7 @@ def run(config, db_path, output, probe=guarded_probe, clock=time.time):
             db.commit()
             results.append(receipt)
             print(site['site'],source['name'],receipt.get('status'),receipt['newItems'],flush=True)
+            print('SOURCE_RECEIPT '+json.dumps(receipt),flush=True)
     db.execute('UPDATE runs SET completed=? WHERE id=?',
                (datetime.datetime.now(datetime.timezone.utc).isoformat(),run_id));db.commit()
     report={'runId':run_id,'trigger':trigger,'scheduledContinuityVerified':False,
@@ -98,10 +121,18 @@ def run(config, db_path, output, probe=guarded_probe, clock=time.time):
             'publicationCount':0,'sources':results,'sites':[]}
     for site in config['sites']:
         items=[json.loads(x[0]) for x in db.execute('SELECT record FROM items WHERE site=?',(site['site'],))]
-        dated=[i for i in items if i.get('sourcePublishedAt') and i['sourcePublishedAt']<=now]
-        latest=max(dated,key=lambda i:i['sourcePublishedAt']) if dated else None
+        active_ids={s['id']for s in site['sources']if s.get('enabled',True)}
+        active_items=[i for i in items if i.get('sourceId') in active_ids]
+        dated=[]
+        for item in active_items:
+            try:
+                stamp=datetime.datetime.fromisoformat(item['sourcePublishedAt'].replace('Z','+00:00'))
+                if stamp.tzinfo and stamp<=datetime.datetime.fromisoformat(now):dated.append((stamp,item))
+            except (KeyError,TypeError,ValueError):pass
+        latest=max(dated,key=lambda pair:pair[0])[1] if dated else None
         handoff={**site,'observedAt':now,'sourceReceipts':[r for r in results if r['site']==site['site']],
                  'queuedMetadataItems':len(items),'latestDatedDiscoveryItem':latest,
+                 'excludedItems':[{'record':json.loads(r[0]),'reason':r[1]}for r in db.execute('SELECT record,reason FROM excluded_items WHERE site=?',(site['site'],))],
                  'livePublicationVerified':False,'publicationEligible':False,
                  'nextAction':'Existing sole writer validates exact facts, original writing, site policy, duplicates and media rights; retains all production holds.',
                  'scheduledContinuityVerified':False}

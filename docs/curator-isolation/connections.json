@@ -1,5 +1,9 @@
 {
   "schemaVersion": 1,
+  "editorialPolicy": {
+    "rule": "Explicitly sponsored or paid-promotional items are excluded from publication queue and retained only as deduped exclusion records. Do not rescue the rejected sponsored item via primary validation.",
+    "origin": "Explicit user instruction November 12, 2026"
+  },
   "sites": [
     {
       "site": "theminingminute.com",
@@ -16,6 +20,25 @@
             "Resource Talks"
           ],
           "rights": "Metadata discovery only; no article, transcript or image reuse grant"
+        },
+        {
+          "id": "cameco-official",
+          "name": "Cameco official disclosure",
+          "officialCandidateUrl": "https://www.cameco.com/",
+          "feedUrls": [
+            "https://www.cameco.com/rss/news"
+          ],
+          "identityTerms": [
+            "Cameco"
+          ],
+          "enabled": true,
+          "rights": "Primary issuer discovery; per-asset rights and exact factual checks remain required"
+        }
+      ],
+      "excludedItems": [
+        {
+          "url": "https://resourcetalks.com/copper-stocks/prospect-generator-spins-out-mexico-projects-but-will-the-timing-work/",
+          "reason": "Exact source article explicitly marked SPONSORED CONTENT; user directs removal from queue, no rescue."
         }
       ]
     },
@@ -292,6 +315,19 @@
           ],
           "enabled": true,
           "rights": "Discovery metadata only; no article/image reuse grant"
+        },
+        {
+          "id": "bite-catering",
+          "name": "Bite Catering Couture",
+          "officialCandidateUrl": "https://www.bitecatering.net/blog",
+          "feedUrls": [],
+          "articlePathPattern": "^/blog/[^/]+$",
+          "identityTerms": [
+            "Bite",
+            "Catering"
+          ],
+          "enabled": true,
+          "rights": "First-party discovery only; no photo or article reuse grant"
         }
       ]
     },
