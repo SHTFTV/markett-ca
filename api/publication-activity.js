@@ -1,5 +1,7 @@
 // Public read-only projection. Fixed public sources; never load private operating records.
 const SOURCES=[
+ {site:'insurancebrokers.io',brand:'InsuranceBrokers',url:'https://insurancebrokers.io/publication-results.json'},
+ {site:'financialadvisors.io',brand:'FinancialAdvisors',url:'https://financialadvisors.io/publication-results.json'},
  {site:'gasfitter.ca',brand:'Gasfitter.ca',url:'https://www.gasfitter.ca/publication-results.json'},
  {site:'kitchencabinets.io',brand:'KitchenCabinets.io',url:'https://kitchencabinets.io/operations/editorial-release.json',format:'kitchen-editorial-v1'},
  {site:'industryarmymarketing.com',brand:'Industry Army Marketing',url:'https://www.industryarmymarketing.com/publication-results.json'},
