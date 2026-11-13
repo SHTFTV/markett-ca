@@ -42,8 +42,21 @@ def guarded_probe(source, now):
                 'status':'error','checkedAt':now,'items':0,'feeds':[],
                 'errors':[{'stage':'adapter','reason':type(exc).__name__+': '+str(exc)[:180]}]}, []
 
-def run(config, db_path, output, probe=guarded_probe, clock=time.time):
+def run(config, db_path, output, probe=guarded_probe, clock=time.time, preflight_path=None):
     output = Path(output); output.mkdir(parents=True, exist_ok=True)
+    policy_digest=None
+    if preflight_path:
+        import operation_preflight
+        policy_digest=operation_preflight.audit(preflight_path,config,output)
+    def permitted_probe(site,source,now):
+        if preflight_path:
+            register,digest=operation_preflight.load(preflight_path)
+            if digest!=policy_digest:raise ValueError('PREFLIGHT_CHANGED_DURING_RUN')
+            result=operation_preflight.evaluate(register,site['site'],'public_metadata_fetch',
+                      {'sourceId':source['id']},['public-network:GET'])
+            if result['status']!='verified-for-independent-read-only-discovery':
+                raise ValueError('SOURCE_PREFLIGHT_'+result['status'].upper())
+        return probe(source,now)
     db = connect(db_path)
     now = datetime.datetime.now(datetime.timezone.utc).isoformat()
     run_id = now
@@ -74,7 +87,7 @@ def run(config, db_path, output, probe=guarded_probe, clock=time.time):
                     results.append({'site':site['site'],'sourceId':source['id'],'status':'backoff',
                                     'nextAttemptEpoch':prior[1],'previousReceipt':json.loads(prior[2])})
                     continue
-                futures[pool.submit(probe,source,now)]=(site,source,prior)
+                futures[pool.submit(permitted_probe,site,source,now)]=(site,source,prior)
         db.commit()
         for future in concurrent.futures.as_completed(futures):
             site,source,prior=futures[future]
@@ -147,5 +160,5 @@ def run(config, db_path, output, probe=guarded_probe, clock=time.time):
 
 if __name__=='__main__':
     import argparse
-    p=argparse.ArgumentParser();p.add_argument('--config',required=True);p.add_argument('--db',required=True);p.add_argument('--output',required=True)
-    args=p.parse_args();run(json.loads(Path(args.config).read_text()),args.db,args.output)
+    p=argparse.ArgumentParser();p.add_argument('--config',required=True);p.add_argument('--db',required=True);p.add_argument('--output',required=True);p.add_argument('--preflight',required=True)
+    args=p.parse_args();run(json.loads(Path(args.config).read_text()),args.db,args.output,preflight_path=args.preflight)

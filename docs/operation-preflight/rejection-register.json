@@ -1,0 +1,496 @@
+{
+  "schemaVersion": 1,
+  "version": "2026-11-12.rejection-preflight.1",
+  "status": "additive-operational-preflight; not the held shared website standard v3",
+  "canonicalRef": "https://github.com/SHTFTV/markett-ca/blob/main/docs/operation-preflight/rejection-register.json",
+  "rule": "Capture actual rejection evidence, exact operation/resource/permission scope and remediation before future attempts. Never transfer approval between sites, repos, secrets, environments or manifests. Do not retry or bypass a held action. Failed/missing preflight blocks only the affected operation; independent permitted work and working publishers continue. A preflight pass never suppresses provider/automatic review or guarantees approval.",
+  "authorizedIndependentSites": [
+    "theminingminute.com",
+    "loveourlistings.com",
+    "weddings.io",
+    "industryarmymarketing.com",
+    "talc.tv",
+    "eyespyr.com",
+    "estimators.io",
+    "buildershaus.com",
+    "plowwow.com",
+    "roofers.io",
+    "kongtractors.com",
+    "steelstud.ca",
+    "treatments.tv",
+    "videographers.io",
+    "caterers.tv",
+    "minews.tv",
+    "insurancebrokers.io",
+    "financialadvisors.io"
+  ],
+  "cases": [
+    {
+      "id": "minews-persistent-main-writes",
+      "site": "minews.tv",
+      "operation": "unattended_repository_write",
+      "resource": {
+        "provider": "github",
+        "repository": "SHTFTV/minews.tv",
+        "branch": "main"
+      },
+      "requestedPermissions": [
+        "contents:write",
+        "persistent-schedule",
+        "unattended-main-push"
+      ],
+      "state": "rejected-held",
+      "reason": "Persistent GitHub Actions schedule, contents:write and unattended main pushes were not specifically authorized; reviewer treated contents:write as a broad unattended mutation surface despite fixed git-add paths. General working-roles authorization did not cover this exact persistent scope.",
+      "evidence": {
+        "kind": "owner-retained-review-package",
+        "ref": "https://github.com/SHTFTV/minews.tv",
+        "sourceThread": "01a1d105-4d47-7ae0-90f4-ad84a0a3cd5d",
+        "localRef": "minews-tv-build/outputs/approval-package/REVIEW.md",
+        "heldCommit": "7b4c26dce602ee3738c21964d0e01c22143d7f78"
+      },
+      "repair": [
+        "Preserve disabled writer; do not reset main to held old commit",
+        "Prepare exact refreshed workflow on current main with concurrency, paths, retry and no unrelated rights",
+        "Require resource-specific authorization for persistent contents:write/main push before enabling",
+        "Public read-only discovery may continue independently"
+      ],
+      "requiredPreflight": [
+        "repository-and-branch-match",
+        "manifest-digest-match",
+        "exact-persistent-write-authorization",
+        "current-main-preserved",
+        "single-writer-lease",
+        "bounded-retry",
+        "test-failure-followed-by-success"
+      ],
+      "verificationReceipt": null
+    },
+    {
+      "id": "lawyers-production-secret-scope",
+      "site": "lawyersadvice.co",
+      "operation": "production_secret_change",
+      "resource": {
+        "provider": "vercel",
+        "projectId": "prj_lsMlzLmqFddwpIP932iTMpbTqQmM",
+        "environment": "production",
+        "credentialRef": "existing-preview-database-credential; exact private secret identity remains in owning provider record"
+      },
+      "requestedPermissions": [
+        "persistent-production-database-access"
+      ],
+      "state": "rejected-held",
+      "reason": "Adding the existing preview database credential to production expands persistent production access; the reviewed authorization did not cover that exact secret configuration.",
+      "evidence": {
+        "kind": "actual-owner-rejection-report",
+        "sourceThread": "01a1d0cb-be0e-7863-91c7-02df9aefe516",
+        "messageId": "msg_007fb25c9a9cf8ea016af65bb0963887d0a970688f10f962ab",
+        "ref": "https://github.com/SHTFTV/lawyersadvice-co/pull/1"
+      },
+      "repair": [
+        "Retain preview-only credential scope",
+        "Prepare exact project, environment, secret identity, database grants and rollback",
+        "Require approval of this credential promotion independently of frontend release",
+        "Verify production call and separately matched durable receipt only after approved configuration"
+      ],
+      "requiredPreflight": [
+        "exact-project-environment-secret-match",
+        "credential-scope-not-inferred-from-preview",
+        "least-database-grants",
+        "verified-TLS",
+        "no-secret-value-in-register",
+        "exact-persistent-production-authorization"
+      ],
+      "verificationReceipt": null
+    },
+    {
+      "id": "shared-v3-release",
+      "site": "shared",
+      "operation": "portfolio_standard_release",
+      "resource": {
+        "provider": "github-vercel",
+        "repository": "SHTFTV/markett-ca",
+        "branch": "main",
+        "project": "existing-markett-ca",
+        "fileCount": 30,
+        "policyDigest": "39ccb5789bbbf6be80ce4241e7c2094e5a61ef6c5616b47be54e126bcfd3682b"
+      },
+      "requestedPermissions": [
+        "upload-portfolio-code",
+        "public-endpoint-workflow-release",
+        "portfolio-inventory-policy-release",
+        "existing-project-deploy"
+      ],
+      "state": "rejected-held",
+      "reason": "Large unreviewed code and portfolio-operations payload, including public endpoints, workflows and site inventory, without trusted authorization for this exact release/destination.",
+      "evidence": {
+        "kind": "exact-owner-approval-package",
+        "sourceThread": "01a1cd31-94d8-7953-8cdf-b06711e855e5",
+        "localRef": "enforce-site-operating-standard/outputs/APPROVAL-READY-IAM-STANDARD-V3.json",
+        "patchSha256": "86be752ec84395787960708178cad8a88d32c1303fd05ec642bf2b3567dcad15"
+      },
+      "repair": [
+        "Keep v3 bundle and canonical policy activation held",
+        "Review exact thirty-file manifest and corrected patch",
+        "Reconcile newer main without overwriting it",
+        "Obtain exact release/destination authorization, then preview and deployment verification"
+      ],
+      "requiredPreflight": [
+        "exact-release-manifest-digest",
+        "trusted-exact-release-authorization",
+        "current-main-preserved",
+        "public-private-boundary-review",
+        "preview-verification",
+        "production-endpoint-verification"
+      ],
+      "verificationReceipt": null
+    },
+    {
+      "id": "mining-generated-production-update",
+      "site": "theminingminute.com",
+      "operation": "production_content_release",
+      "resource": {
+        "provider": "github",
+        "repository": "SHTFTV/theminingminute.com",
+        "branch": "main",
+        "generatedFileCount": 43
+      },
+      "requestedPermissions": [
+        "production-generated-content-update"
+      ],
+      "state": "rejected-held",
+      "reason": "Automatic approval review rejected the production update because it included 43 generated files. The owner began narrowing it to duplicate record, discovery feeds/pages and redirect; current approval remains unresolved.",
+      "evidence": {
+        "kind": "actual-owner-rejection-report",
+        "sourceThread": "01a1c680-2f17-7af3-9b2e-ed457934d13e",
+        "messageId": "msg_090c5bfd19918038016af60ae0e01487d09fe69cfbc08b5194",
+        "ref": "https://github.com/SHTFTV/theminingminute.com"
+      },
+      "repair": [
+        "Do not replay the rejected broad generated-file update",
+        "Review a minimal exact diff and article-data/config invariants",
+        "Preserve sole writer and current main",
+        "Resolve exact review before any held production update; continue independent source work"
+      ],
+      "requiredPreflight": [
+        "exact-generated-file-manifest",
+        "minimal-diff-reviewed",
+        "article-data-invariants",
+        "source-and-media-checks",
+        "current-main-preserved",
+        "single-writer-lease",
+        "resource-specific-release-review"
+      ],
+      "verificationReceipt": null
+    },
+    {
+      "id": "lawyers-private-sot-share",
+      "site": "lawyersadvice.co",
+      "operation": "public_operational_document_access",
+      "resource": {
+        "provider": "vercel",
+        "site": "lawyersadvice.co",
+        "documentClass": "private-site-SOT",
+        "transport": "temporary-share-link"
+      },
+      "requestedPermissions": [
+        "temporary-share-access-to-private-operational-document"
+      ],
+      "state": "rejected-held",
+      "reason": "Automatic review rejected testing a private SOT URL through a temporary share link, citing possible disclosure of operational configuration.",
+      "evidence": {
+        "kind": "actual-owner-rejection-report",
+        "sourceThread": "01a1d0cb-be0e-7863-91c7-02df9aefe516",
+        "messageId": "msg_007fb25c9a9cf8ea016af65c13c01c87d0904a9ee37738f2d0"
+      },
+      "repair": [
+        "Do not request private SOT through public temporary share",
+        "Inspect configured output boundaries using source and build evidence",
+        "Keep private operational contents out of public audit projection"
+      ],
+      "requiredPreflight": [
+        "document-public-private-classification",
+        "authorized-access-path",
+        "public-projection-redaction",
+        "no-secret-or-private-strategy-disclosure"
+      ],
+      "verificationReceipt": null
+    }
+  ],
+  "approvals": [],
+  "siteApplicability": [
+    {
+      "site": "theminingminute.com",
+      "repository": "SHTFTV/theminingminute.com",
+      "specificHeldCases": [
+        "mining-generated-production-update"
+      ],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "loveourlistings.com",
+      "repository": "SHTFTV/loveourlistings.com",
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "weddings.io",
+      "repository": "SHTFTV/weddings.io",
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "industryarmymarketing.com",
+      "repository": "SHTFTV/industryarmymarketing.com",
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "talc.tv",
+      "repository": "SHTFTV/talc.tv",
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "eyespyr.com",
+      "repository": "SHTFTV/eyespyr.com",
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "estimators.io",
+      "repository": "SHTFTV/estimators-io",
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "buildershaus.com",
+      "repository": "SHTFTV/buildershaus-com",
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "plowwow.com",
+      "repository": "SHTFTV/plowwow.com",
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "roofers.io",
+      "repository": null,
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "kongtractors.com",
+      "repository": "SHTFTV/kongtractors.com",
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "steelstud.ca",
+      "repository": "SHTFTV/steelstud-ca",
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "treatments.tv",
+      "repository": "SHTFTV/siteground-migrations",
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "videographers.io",
+      "repository": "SHTFTV/siteground-migrations",
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "caterers.tv",
+      "repository": "SHTFTV/caterers-tv",
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "minews.tv",
+      "repository": "SHTFTV/minews.tv",
+      "specificHeldCases": [
+        "minews-persistent-main-writes"
+      ],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "insurancebrokers.io",
+      "repository": "SHTFTV/insurancebrokers.io",
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    },
+    {
+      "site": "financialadvisors.io",
+      "repository": "SHTFTV/siteground-migrations",
+      "specificHeldCases": [],
+      "analogueChecks": {
+        "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
+        "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
+        "production_content_release": "Required before production publishing; respect sole writer and exact reviewed artifact",
+        "portfolio_standard_release": "Shared v3 case applies only to the actual central release; consumers must not pretend its pending version is deployed",
+        "public_operational_document_access": "Check classification and exact access before any operational document exposure"
+      },
+      "publisherRuntimeRegisterConsumption": "not-verified",
+      "existingPublisherLoadedSotVersion": null,
+      "existingPublisherLoadedSotCommit": null
+    }
+  ]
+}
