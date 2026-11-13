@@ -13,3 +13,8 @@ const result={schemaVersion:1,doesNotGrantPermissions:true,sourceCommit:process.
 fs.mkdirSync('lib/generated',{recursive:true});
 fs.writeFileSync('lib/generated/approved-policy-digests.mjs','// Build-generated public versions and hashes only.\nexport default '+JSON.stringify(result,null,2)+';\n');
 console.log('Generated public approved-policy digests; private policy contents were not exported');
+
+// Keep raw policy inputs build-only; never publish their contents as static assets.
+if(process.env.VERCEL === '1'){
+ for(const file of [standardPath,registerPath,'scripts/operation-preflight-manifest.mjs'])fs.rmSync(file,{force:true});
+}
