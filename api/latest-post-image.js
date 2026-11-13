@@ -1,6 +1,10 @@
 const host=u=>u.hostname.replace(/^www\./,'');
 const decode=s=>s.replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'");
 export function featuredImage(html,article){
+ // Article image is the published feature; og:image may be a branded social card.
+ const imageUrl=value=>{try{const u=new URL(typeof value==='string'?value:value?.url??value?.contentUrl,article);return u.protocol==='https:'&&!u.username&&!u.password&&!u.port?u.href:null;}catch{return null;}};
+ const visit=node=>{if(!node||typeof node!=='object')return null;if(Array.isArray(node)){for(const item of node){const found=visit(item);if(found)return found;}return null;}const types=[node['@type']].flat();if(types.some(t=>['Article','NewsArticle','BlogPosting'].includes(t))){for(const candidate of [node.image].flat()){const found=imageUrl(candidate);if(found)return found;}}return visit(node['@graph']);};
+ for(const script of html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)){try{const found=visit(JSON.parse(script[1]));if(found)return found;}catch{}}
  const tags=html.match(/<meta\b[^>]*>/gi)??[];
  for(const name of ['og:image','twitter:image'])for(const tag of tags){
   const attrs=Object.fromEntries([...tag.matchAll(/([\w:-]+)\s*=\s*(["'])(.*?)\2/gs)].map(m=>[m[1].toLowerCase(),decode(m[3])]));
