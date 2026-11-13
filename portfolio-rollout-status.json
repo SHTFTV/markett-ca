@@ -6,7 +6,7 @@
       "domain": "theminingminute.com",
       "registryKind": "historical-inventory",
       "firstSeenAt": "2026-11-12T05:47:43.869Z",
-      "lastCheckAt": "2026-11-13T02:10:53.060Z",
+      "lastCheckAt": "2026-11-13T06:40:38.188Z",
       "source": {
         "repository": "SHTFTV/theminingminute.com",
         "sourceCommit": "d3341516e57b1b485af5f34204d0699fd150ca02",
@@ -14,59 +14,51 @@
         "requiredRuleVersion": 2
       },
       "probe": {
-        "checkedAt": "2026-11-13T02:10:52.738Z",
+        "checkedAt": "2026-11-13T06:40:37.791Z",
         "sourceUrl": "https://theminingminute.com/publishing-status.json",
         "status": "nothing-new",
         "trigger": null,
-        "runUrl": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43349515989",
+        "runUrl": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43379424001",
         "scope": "Actual publisher status only; does not certify any role."
       },
       "roles": [
         {
           "role": "worker",
-          "status": "running",
-          "attempts": 8,
-          "nextAttemptAt": "2026-11-13T06:26:53.060Z",
-          "lease": {
-            "runId": "43380290739",
-            "claimedAt": "2026-11-13T06:40:36.278Z",
-            "expiresAt": "2026-11-13T06:50:36.278Z"
-          },
+          "status": "blocked",
+          "attempts": 9,
+          "nextAttemptAt": "2026-11-13T12:40:38.188Z",
+          "lease": null,
           "blocker": "Producer worker reports verified. Shared current source/runtime evidence contract remains incomplete.",
           "producerObservation": {
             "reportedStatus": "verified",
             "ttlMs": 1200000,
-            "observedAt": "2026-11-13T02:05:27.213353+00:00",
-            "runRef": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43349515989",
+            "observedAt": "2026-11-13T06:33:40.032352+00:00",
+            "runRef": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43379424001",
             "trigger": "workflow_dispatch",
-            "loadedRevision": 29,
-            "loadedHash": "0dcdce6868b964ee681c95fa7852b30f735c713cf8fb30334473ea559cd52ed5",
+            "loadedRevision": 30,
+            "loadedHash": "94f3b130f49ba514a1e1eeb9ce5d91cbccae7ca6c894bc288239627b062f7b2a",
             "issues": [],
             "executionProvider": "github-actions",
             "scope": "Producer-reported role observation; shared acceptance and independent provider verification remain required."
           },
-          "lastAttemptAt": "2026-11-13T02:10:53.060Z",
+          "lastAttemptAt": "2026-11-13T06:40:38.188Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "running",
-          "attempts": 8,
-          "nextAttemptAt": "2026-11-13T06:26:53.060Z",
-          "lease": {
-            "runId": "43380290739",
-            "claimedAt": "2026-11-13T06:40:36.279Z",
-            "expiresAt": "2026-11-13T06:50:36.279Z"
-          },
+          "status": "blocked",
+          "attempts": 9,
+          "nextAttemptAt": "2026-11-13T12:40:38.188Z",
+          "lease": null,
           "blocker": "Producer visual-checker reports attention. 53 page card/icon/canonical checks failed; 14 existing source briefs remain below native1600x900; no upscale permitted",
           "producerObservation": {
             "reportedStatus": "attention",
             "ttlMs": 1200000,
-            "observedAt": "2026-11-13T02:05:13.466Z",
-            "runRef": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43349504049",
-            "trigger": "schedule",
-            "loadedRevision": 29,
-            "loadedHash": "0dcdce6868b964ee681c95fa7852b30f735c713cf8fb30334473ea559cd52ed5",
+            "observedAt": "2026-11-13T06:24:15.757Z",
+            "runRef": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43378317522",
+            "trigger": "workflow_dispatch",
+            "loadedRevision": 30,
+            "loadedHash": "94f3b130f49ba514a1e1eeb9ce5d91cbccae7ca6c894bc288239627b062f7b2a",
             "issues": [
               "53 page card/icon/canonical checks failed",
               "14 existing source briefs remain below native1600x900; no upscale permitted"
@@ -74,59 +66,52 @@
             "executionProvider": "github-actions",
             "scope": "Producer-reported role observation; shared acceptance and independent provider verification remain required."
           },
-          "lastAttemptAt": "2026-11-13T02:10:53.060Z",
+          "lastAttemptAt": "2026-11-13T06:40:38.188Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "running",
-          "attempts": 8,
-          "nextAttemptAt": "2026-11-13T06:26:53.060Z",
-          "lease": {
-            "runId": "43380290739",
-            "claimedAt": "2026-11-13T06:40:36.279Z",
-            "expiresAt": "2026-11-13T06:50:36.279Z"
-          },
-          "blocker": "Producer supervisor reports attention. Latest actual publisher run failure; older deployed success cannot clear it; Latest deployed publisher run not completed successfully",
+          "status": "blocked",
+          "attempts": 9,
+          "nextAttemptAt": "2026-11-13T12:40:38.188Z",
+          "lease": null,
+          "blocker": "Producer supervisor reports attention. Role loaded a different SOT version; Role loaded a different SOT hash; Latest role workflow failure; older success cannot clear it",
           "producerObservation": {
             "reportedStatus": "attention",
             "ttlMs": 1200000,
-            "observedAt": "2026-11-13T02:04:37.718477+00:00",
-            "runRef": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43348879595",
-            "trigger": "workflow_dispatch",
-            "loadedRevision": 29,
-            "loadedHash": "0dcdce6868b964ee681c95fa7852b30f735c713cf8fb30334473ea559cd52ed5",
+            "observedAt": "2026-11-13T06:32:44Z",
+            "runRef": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43378820038",
+            "trigger": null,
+            "loadedRevision": null,
+            "loadedHash": null,
             "issues": [
-              "Latest actual publisher run failure; older deployed success cannot clear it",
-              "Latest deployed publisher run not completed successfully"
+              "Role loaded a different SOT version",
+              "Role loaded a different SOT hash",
+              "Latest role workflow failure; older success cannot clear it"
             ],
             "executionProvider": "github-actions",
             "scope": "Producer-reported role observation; shared acceptance and independent provider verification remain required."
           },
-          "lastAttemptAt": "2026-11-13T02:10:53.060Z",
+          "lastAttemptAt": "2026-11-13T06:40:38.188Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "running",
-          "attempts": 8,
-          "nextAttemptAt": "2026-11-13T06:26:53.060Z",
-          "lease": {
-            "runId": "43380290739",
-            "claimedAt": "2026-11-13T06:40:36.279Z",
-            "expiresAt": "2026-11-13T06:50:36.279Z"
-          },
-          "blocker": "Producer independent-watchdog reports attention. supervisor loaded a different or unknown SOT; supervisor has not verified its actual run; Actual external-watchdog alert delivery remains pending; Actual external-watchdog alert delivery unverified Same GitHub provider cannot prove external detection of GitHub scheduler silence.",
+          "status": "blocked",
+          "attempts": 9,
+          "nextAttemptAt": "2026-11-13T12:40:38.188Z",
+          "lease": null,
+          "blocker": "Producer independent-watchdog reports attention. publisher has not verified its actual run; supervisor has not verified its actual run; Actual external-watchdog alert delivery remains pending; Actual external-watchdog alert delivery unverified Same GitHub provider cannot prove external detection of GitHub scheduler silence.",
           "producerObservation": {
             "reportedStatus": "attention",
             "ttlMs": 1200000,
-            "observedAt": "2026-11-13T02:05:02.293Z",
+            "observedAt": "2026-11-13T06:30:02.385Z",
             "runRef": null,
             "trigger": "managed-scheduler",
-            "loadedRevision": 29,
-            "loadedHash": "0dcdce6868b964ee681c95fa7852b30f735c713cf8fb30334473ea559cd52ed5",
+            "loadedRevision": 30,
+            "loadedHash": "94f3b130f49ba514a1e1eeb9ce5d91cbccae7ca6c894bc288239627b062f7b2a",
             "issues": [
-              "supervisor loaded a different or unknown SOT",
+              "publisher has not verified its actual run",
               "supervisor has not verified its actual run",
               "Actual external-watchdog alert delivery remains pending",
               "Actual external-watchdog alert delivery unverified"
@@ -134,18 +119,106 @@
             "executionProvider": "github-actions",
             "scope": "Producer-reported role observation; shared acceptance and independent provider verification remain required."
           },
-          "lastAttemptAt": "2026-11-13T02:10:53.060Z",
+          "lastAttemptAt": "2026-11-13T06:40:38.188Z",
           "receipt": null
         }
       ],
       "connectionRegistryRef": "https://github.com/SHTFTV/markett-ca/blob/main/docs/rollout/connection-registry.json",
-      "owner": "01a1c680-2f17-7af3-9b2e-ed457934d13e"
+      "owner": "01a1c680-2f17-7af3-9b2e-ed457934d13e",
+      "ownerDelivery": {
+        "status": "unverified",
+        "route": "authorized-command-center-pull-reader",
+        "observedAt": "2026-11-13T06:40:38.186Z",
+        "deliveryRef": null,
+        "incidentId": null,
+        "probeRunId": null,
+        "expectedIds": [
+          "theminingminute.com:role-canary:sot-26",
+          "theminingminute.com:role-canary:sot-27",
+          "theminingminute.com:role-canary:sot-28",
+          "theminingminute.com:role-canary:sot-29",
+          "theminingminute.com:role-canary:sot-30",
+          "theminingminute.com:role-alert:visual",
+          "theminingminute.com:role-alert:supervisor",
+          "theminingminute.com:role-alert:watchdog"
+        ],
+        "deliveredIds": [
+          "theminingminute.com:role-canary:sot-26",
+          "theminingminute.com:role-canary:sot-27",
+          "theminingminute.com:role-canary:sot-28",
+          "theminingminute.com:role-canary:sot-29",
+          "theminingminute.com:role-canary:sot-30",
+          "theminingminute.com:role-alert:visual",
+          "theminingminute.com:role-alert:supervisor",
+          "theminingminute.com:role-alert:watchdog"
+        ],
+        "matchedEvents": [
+          {
+            "id": "theminingminute.com:role-canary:sot-26",
+            "status": "failed",
+            "runUrl": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43164164906",
+            "title": "Monitoring canary: stale/missing heartbeat detected; test only, publisher continues",
+            "sourceAt": "2026-11-12T05:53:06.312874+00:00"
+          },
+          {
+            "id": "theminingminute.com:role-canary:sot-27",
+            "status": "failed",
+            "runUrl": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43166854062",
+            "title": "Monitoring canary: stale/missing heartbeat detected; test only, publisher continues",
+            "sourceAt": "2026-11-12T06:16:48.862919+00:00"
+          },
+          {
+            "id": "theminingminute.com:role-canary:sot-28",
+            "status": "failed",
+            "runUrl": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43168945431",
+            "title": "Monitoring canary: stale/missing heartbeat detected; test only, publisher continues",
+            "sourceAt": "2026-11-12T06:34:46.441247+00:00"
+          },
+          {
+            "id": "theminingminute.com:role-canary:sot-29",
+            "status": "failed",
+            "runUrl": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43328072522",
+            "title": "Monitoring canary: stale/missing heartbeat detected; test only, publisher continues",
+            "sourceAt": "2026-11-12T23:22:03.536699+00:00"
+          },
+          {
+            "id": "theminingminute.com:role-canary:sot-30",
+            "status": "failed",
+            "runUrl": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43353421899",
+            "title": "Monitoring canary: stale/missing heartbeat detected; test only, publisher continues",
+            "sourceAt": "2026-11-13T02:37:48.997422+00:00"
+          },
+          {
+            "id": "theminingminute.com:role-alert:visual",
+            "status": "failed",
+            "runUrl": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43378317522",
+            "title": "Visual checker: 53 page card/icon/canonical checks failed; 14 existing source briefs remain below native1600x900; no upscale permitted",
+            "sourceAt": "2026-11-13T06:33:44.730940+00:00"
+          },
+          {
+            "id": "theminingminute.com:role-alert:supervisor",
+            "status": "failed",
+            "runUrl": "https://github.com/SHTFTV/theminingminute.com/actions/runs/43378820038",
+            "title": "Publisher supervisor: Role loaded a different SOT version; Role loaded a different SOT hash; Latest role workflow failure; older success cannot clear it",
+            "sourceAt": "2026-11-13T06:33:44.730940+00:00"
+          },
+          {
+            "id": "theminingminute.com:role-alert:watchdog",
+            "status": "failed",
+            "runUrl": null,
+            "title": "Independent watchdog: publisher has not verified its actual run; supervisor has not verified its actual run; Actual external-watchdog alert delivery remains pending; Actu",
+            "sourceAt": "2026-11-13T06:33:44.730940+00:00"
+          }
+        ],
+        "ownerReadVerified": false,
+        "scope": "Actual normalized source alerts matched in the authorized Command Center reader; no owner-read or push-channel assertion."
+      }
     },
     {
       "domain": "loveourlistings.com",
       "registryKind": "historical-inventory",
       "firstSeenAt": "2026-11-12T05:47:43.869Z",
-      "lastCheckAt": "2026-11-13T02:10:53.334Z",
+      "lastCheckAt": "2026-11-13T06:40:39.026Z",
       "source": {
         "repository": "SHTFTV/loveourlistings.com",
         "sourceCommit": "729c9805240ba7a51f274d7d0e9ba50ebca8e8fd",
@@ -153,44 +226,40 @@
         "requiredRuleVersion": 2
       },
       "probe": {
-        "checkedAt": "2026-11-13T02:10:53.277Z",
+        "checkedAt": "2026-11-13T06:40:38.606Z",
         "sourceUrl": "https://www.loveourlistings.com/publishing-status.json",
         "status": "no-eligible-content",
-        "trigger": "schedule",
+        "trigger": "workflow_dispatch",
         "runUrl": null,
         "scope": "Actual publisher status only; does not certify any role."
       },
       "roles": [
         {
           "role": "worker",
-          "status": "running",
-          "attempts": 8,
-          "nextAttemptAt": "2026-11-13T06:26:53.333Z",
-          "lease": {
-            "runId": "43380290739",
-            "claimedAt": "2026-11-13T06:40:36.279Z",
-            "expiresAt": "2026-11-13T06:50:36.279Z"
-          },
-          "blocker": "Canonical role proof incomplete. No usable exact-source featured photo: Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; No usable exact-source featured photo: Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; No usable exact-source featured photo: Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; No usable exact-source featured photo: Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Original labeled illustration preview prepared; actual desktop and phone visual QA required before publication; No usable exact-source featured photo: Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Source expressly restricts reproduction; review required; Qualifying native2500x1667 listing photograph is explicitly limited by its IDX source to personal, non-commercial use; commercial/editorial reuse permission or an unrestricted exact-property original is required.",
-          "lastAttemptAt": "2026-11-13T02:10:53.333Z",
+          "status": "blocked",
+          "attempts": 9,
+          "nextAttemptAt": "2026-11-13T12:40:39.025Z",
+          "lease": null,
+          "blocker": "Canonical role proof incomplete. Editorial correction: Revised editorial copy awaits exact desktop and phone layout QA; Original labeled illustration preview prepared; actual desktop and phone visual QA required before publication; Original labeled illustration preview prepared; actual desktop and phone visual QA required before publication",
+          "lastAttemptAt": "2026-11-13T06:40:39.025Z",
           "receipt": {
             "check": "role:worker",
             "site": "loveourlistings.com",
             "repository": "SHTFTV/loveourlistings.com",
-            "sourceCommit": "5b2604474f2aec5fea350cdaffabf5ac2237992b",
+            "sourceCommit": "23c3d804aab89002cdaee4c2229c2c2cc75948eb",
             "status": "failed",
             "environment": "production",
-            "observedAt": "2026-11-12T23:51:16.555589+00:00",
+            "observedAt": "2026-11-13T06:36:11.863215+00:00",
             "actorId": "loveourlistings-publisher-workflow",
             "executionProvider": "GitHub Actions",
             "schedulerIdentity": ".github/workflows/property-publisher.yml",
             "trigger": "managed-scheduler",
             "loadedHash": "73dbdf754a779b3f6f3d902f592221f640884819e4350bbb1b153f5c9612ffcd",
-            "runRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43332265984",
-            "proofRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43332265984",
+            "runRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43379806195",
+            "proofRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43379806195",
             "durableQueueRef": "https://github.com/SHTFTV/loveourlistings.com/blob/main/operations/publisher-state.json",
             "leaseRef": "https://github.com/SHTFTV/loveourlistings.com/blob/main/.github/workflows/property-publisher.yml",
-            "isolationRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43332265984",
+            "isolationRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43379806195",
             "failureIsolationRef": null,
             "boundedRetryRef": "https://github.com/SHTFTV/loveourlistings.com/blob/main/operations/site-sop.json",
             "deduplicationRef": "https://github.com/SHTFTV/loveourlistings.com/blob/main/operations/prior-posts.json",
@@ -214,21 +283,16 @@
           "producerObservation": {
             "reportedStatus": "failed",
             "ttlMs": 1200000,
-            "observedAt": "2026-11-12T23:51:16.555589+00:00",
-            "runRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43332265984",
-            "trigger": "schedule",
+            "observedAt": "2026-11-13T06:36:11.863215+00:00",
+            "runRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43379806195",
+            "trigger": "workflow_dispatch",
             "loadedRevision": 13,
             "loadedHash": "73dbdf754a779b3f6f3d902f592221f640884819e4350bbb1b153f5c9612ffcd",
-            "sourceCommit": "5b2604474f2aec5fea350cdaffabf5ac2237992b",
+            "sourceCommit": "23c3d804aab89002cdaee4c2229c2c2cc75948eb",
             "issues": [
-              "No usable exact-source featured photo: Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling",
-              "No usable exact-source featured photo: Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling",
-              "No usable exact-source featured photo: Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling",
-              "No usable exact-source featured photo: Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling",
+              "Editorial correction: Revised editorial copy awaits exact desktop and phone layout QA",
               "Original labeled illustration preview prepared; actual desktop and phone visual QA required before publication",
-              "No usable exact-source featured photo: Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling; Native source image must support1600x900 without upscaling",
-              "Source expressly restricts reproduction; review required",
-              "Qualifying native2500x1667 listing photograph is explicitly limited by its IDX source to personal, non-commercial use; commercial/editorial reuse permission or an unrestricted exact-property original is required."
+              "Original labeled illustration preview prepared; actual desktop and phone visual QA required before publication"
             ],
             "executionProvider": "GitHub Actions",
             "scope": "Producer-reported actual role result; failed/held/stale/source-mismatched evidence stays red."
@@ -236,31 +300,27 @@
         },
         {
           "role": "visual-checker",
-          "status": "running",
-          "attempts": 8,
-          "nextAttemptAt": "2026-11-13T06:26:53.333Z",
-          "lease": {
-            "runId": "43380290739",
-            "claimedAt": "2026-11-13T06:40:36.279Z",
-            "expiresAt": "2026-11-13T06:50:36.279Z"
-          },
-          "blocker": "Canonical role proof incomplete. published-archive/we-love-mansions-2026-11-10-c92607805f: native-below1600x900",
-          "lastAttemptAt": "2026-11-13T02:10:53.333Z",
+          "status": "blocked",
+          "attempts": 9,
+          "nextAttemptAt": "2026-11-13T12:40:39.026Z",
+          "lease": null,
+          "blocker": "Canonical role proof incomplete. Fresh actual production role execution and attributable runtime identity required; chat/configuration is not execution",
+          "lastAttemptAt": "2026-11-13T06:40:39.026Z",
           "receipt": {
             "check": "role:visual-checker",
             "site": "loveourlistings.com",
             "repository": "SHTFTV/loveourlistings.com",
-            "sourceCommit": "e9ab167d80cb91fefba97ca92b7ccf95475a22e2",
-            "status": "failed",
+            "sourceCommit": "3bc4fa40e4568cd232a043bb0917113463e6d775",
+            "status": "passed",
             "environment": "production",
-            "observedAt": "2026-11-12T23:39:07.661Z",
+            "observedAt": "2026-11-13T06:26:32.828Z",
             "actorId": "loveourlistings-visual-workflow",
             "executionProvider": "GitHub Actions",
             "schedulerIdentity": ".github/workflows/role-visual.yml",
             "trigger": "managed-scheduler",
             "loadedHash": "73dbdf754a779b3f6f3d902f592221f640884819e4350bbb1b153f5c9612ffcd",
-            "runRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43330583054",
-            "proofRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43330583054/artifacts/13995106466",
+            "runRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43378666099",
+            "proofRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43378666099/artifacts/14015860998",
             "durableQueueRef": null,
             "leaseRef": null,
             "isolationRef": null,
@@ -269,8 +329,8 @@
             "deduplicationRef": null,
             "writerLeaseRef": null,
             "liveResultRef": null,
-            "desktopRenderRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43330583054/artifacts/13993833859",
-            "phoneRenderRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43330583054/artifacts/13993833859",
+            "desktopRenderRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43378666099/artifacts/14015731251",
+            "phoneRenderRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43378666099/artifacts/14015731251",
             "checkedWorkerRunRef": null,
             "failureDetectionRef": null,
             "checkedSupervisorRunRef": null,
@@ -280,56 +340,50 @@
             "synthetic": false,
             "loadedRevision": 13,
             "pageUrls": [
-              "https://www.loveourlistings.com/journal/we-love-mansions-2026-11-12-16be7cdfc9/",
+              "https://www.loveourlistings.com/",
               "https://www.loveourlistings.com/journal/",
-              "https://www.loveourlistings.com/"
+              "https://www.loveourlistings.com/journal/we-love-mansions-2026-11-10-fd1a1ec29d/"
             ],
             "holds": [],
             "unresolvedFailures": []
           },
           "producerObservation": {
-            "reportedStatus": "failed",
+            "reportedStatus": "passed",
             "ttlMs": 1200000,
-            "observedAt": "2026-11-12T23:39:07.661Z",
-            "runRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43330583054/artifacts/13995106466",
+            "observedAt": "2026-11-13T06:26:32.828Z",
+            "runRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43378666099/artifacts/14015860998",
             "trigger": "workflow_dispatch",
             "loadedRevision": 13,
             "loadedHash": "73dbdf754a779b3f6f3d902f592221f640884819e4350bbb1b153f5c9612ffcd",
-            "sourceCommit": "e9ab167d80cb91fefba97ca92b7ccf95475a22e2",
-            "issues": [
-              "published-archive/we-love-mansions-2026-11-10-c92607805f: native-below1600x900"
-            ],
+            "sourceCommit": "3bc4fa40e4568cd232a043bb0917113463e6d775",
+            "issues": [],
             "executionProvider": "GitHub Actions",
             "scope": "Producer-reported actual role result; failed/held/stale/source-mismatched evidence stays red."
           }
         },
         {
           "role": "supervisor",
-          "status": "running",
-          "attempts": 8,
-          "nextAttemptAt": "2026-11-13T06:26:53.333Z",
-          "lease": {
-            "runId": "43380290739",
-            "claimedAt": "2026-11-13T06:40:36.279Z",
-            "expiresAt": "2026-11-13T06:50:36.279Z"
-          },
-          "blocker": "Canonical role proof incomplete. publisher-item-check-valves-held; intake-continues; some-source-feeds-failed; visual-check-failed-stale-or-missing",
-          "lastAttemptAt": "2026-11-13T02:10:53.333Z",
+          "status": "blocked",
+          "attempts": 9,
+          "nextAttemptAt": "2026-11-13T12:40:39.026Z",
+          "lease": null,
+          "blocker": "Canonical role proof incomplete. publisher-item-check-valves-held; intake-continues; verified-publication-older-than-two-hours-inspect-intake-and-queue; some-source-feeds-failed",
+          "lastAttemptAt": "2026-11-13T06:40:39.026Z",
           "receipt": {
             "check": "role:supervisor",
             "site": "loveourlistings.com",
             "repository": "SHTFTV/loveourlistings.com",
-            "sourceCommit": "5b2604474f2aec5fea350cdaffabf5ac2237992b",
+            "sourceCommit": "23c3d804aab89002cdaee4c2229c2c2cc75948eb",
             "status": "failed",
             "environment": "production",
-            "observedAt": "2026-11-12T23:49:57.342520+00:00",
+            "observedAt": "2026-11-13T06:31:25.003915+00:00",
             "actorId": "loveourlistings-supervisor-workflow",
             "executionProvider": "GitHub Actions",
             "schedulerIdentity": ".github/workflows/role-supervisor.yml",
             "trigger": "managed-scheduler",
             "loadedHash": "73dbdf754a779b3f6f3d902f592221f640884819e4350bbb1b153f5c9612ffcd",
-            "runRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43332105381",
-            "proofRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43332105381/artifacts/13995621974",
+            "runRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43379264392",
+            "proofRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43379264392/artifacts/14016181604",
             "durableQueueRef": null,
             "leaseRef": null,
             "isolationRef": null,
@@ -340,7 +394,7 @@
             "liveResultRef": null,
             "desktopRenderRef": null,
             "phoneRenderRef": null,
-            "checkedWorkerRunRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43332040265",
+            "checkedWorkerRunRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43379208602",
             "failureDetectionRef": null,
             "checkedSupervisorRunRef": null,
             "failureInjectionRef": null,
@@ -356,16 +410,16 @@
           "producerObservation": {
             "reportedStatus": "failed",
             "ttlMs": 1200000,
-            "observedAt": "2026-11-12T23:49:57.342520+00:00",
-            "runRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43332105381/artifacts/13995621974",
+            "observedAt": "2026-11-13T06:31:25.003915+00:00",
+            "runRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43379264392/artifacts/14016181604",
             "trigger": "workflow_dispatch",
             "loadedRevision": 13,
             "loadedHash": "73dbdf754a779b3f6f3d902f592221f640884819e4350bbb1b153f5c9612ffcd",
-            "sourceCommit": "5b2604474f2aec5fea350cdaffabf5ac2237992b",
+            "sourceCommit": "23c3d804aab89002cdaee4c2229c2c2cc75948eb",
             "issues": [
               "publisher-item-check-valves-held; intake-continues",
-              "some-source-feeds-failed",
-              "visual-check-failed-stale-or-missing"
+              "verified-publication-older-than-two-hours-inspect-intake-and-queue",
+              "some-source-feeds-failed"
             ],
             "executionProvider": "GitHub Actions",
             "scope": "Producer-reported actual role result; failed/held/stale/source-mismatched evidence stays red."
@@ -373,24 +427,20 @@
         },
         {
           "role": "independent-watchdog",
-          "status": "running",
-          "attempts": 8,
-          "nextAttemptAt": "2026-11-13T06:26:53.334Z",
-          "lease": {
-            "runId": "43380290739",
-            "claimedAt": "2026-11-13T06:40:36.279Z",
-            "expiresAt": "2026-11-13T06:50:36.279Z"
-          },
-          "blocker": "Canonical role proof incomplete. supervisor-reports-unresolved-failures",
-          "lastAttemptAt": "2026-11-13T02:10:53.334Z",
+          "status": "blocked",
+          "attempts": 9,
+          "nextAttemptAt": "2026-11-13T12:40:39.026Z",
+          "lease": null,
+          "blocker": "Canonical role proof incomplete. supervisor-reports-unresolved-failures; actual-owner-alert-delivery-unverified",
+          "lastAttemptAt": "2026-11-13T06:40:39.026Z",
           "receipt": {
             "check": "role:independent-watchdog",
             "site": "loveourlistings.com",
             "repository": "SHTFTV/loveourlistings.com",
-            "sourceCommit": "8e37dfc9f2cd21ea7b7ca22d29f7ee9399910e91",
+            "sourceCommit": "3bc4fa40e4568cd232a043bb0917113463e6d775",
             "status": "failed",
             "environment": "production",
-            "observedAt": "2026-11-12T23:45:37.478Z",
+            "observedAt": "2026-11-13T06:30:37.516Z",
             "actorId": "loveourlistings-independent-vercel-watchdog",
             "executionProvider": "Vercel Functions / Cron",
             "schedulerIdentity": "Vercel Cron Jobs: /api/role-watchdog",
@@ -410,10 +460,10 @@
             "phoneRenderRef": null,
             "checkedWorkerRunRef": null,
             "failureDetectionRef": null,
-            "checkedSupervisorRunRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43330588557",
+            "checkedSupervisorRunRef": "https://github.com/SHTFTV/loveourlistings.com/actions/runs/43378052603",
             "failureInjectionRef": "https://vercel.com/colins-projects-208e3ca1/loveourlistings-com/logs",
             "recoveryRef": "https://vercel.com/colins-projects-208e3ca1/loveourlistings-com/logs",
-            "ownerDeliveryRef": "https://markett-ca.vercel.app/api/publication-activity",
+            "ownerDeliveryRef": null,
             "synthetic": false,
             "workerAndSupervisorSilentDetection": true,
             "loadedRevision": 13,
@@ -424,14 +474,15 @@
           "producerObservation": {
             "reportedStatus": "failed",
             "ttlMs": 1200000,
-            "observedAt": "2026-11-12T23:45:37.478Z",
+            "observedAt": "2026-11-13T06:30:37.516Z",
             "runRef": "https://vercel.com/colins-projects-208e3ca1/loveourlistings-com/logs",
             "trigger": "managed-scheduler",
             "loadedRevision": 13,
             "loadedHash": "73dbdf754a779b3f6f3d902f592221f640884819e4350bbb1b153f5c9612ffcd",
-            "sourceCommit": "8e37dfc9f2cd21ea7b7ca22d29f7ee9399910e91",
+            "sourceCommit": "3bc4fa40e4568cd232a043bb0917113463e6d775",
             "issues": [
-              "supervisor-reports-unresolved-failures"
+              "supervisor-reports-unresolved-failures",
+              "actual-owner-alert-delivery-unverified"
             ],
             "executionProvider": "Vercel Functions / Cron",
             "scope": "Producer-reported actual role result; failed/held/stale/source-mismatched evidence stays red."
@@ -439,13 +490,47 @@
         }
       ],
       "connectionRegistryRef": "https://github.com/SHTFTV/markett-ca/blob/main/docs/rollout/connection-registry.json",
-      "owner": "01a1cd58-b22d-79a1-9ae3-f01cc892ea5a"
+      "owner": "01a1cd58-b22d-79a1-9ae3-f01cc892ea5a",
+      "ownerDelivery": {
+        "status": "delivered",
+        "route": "authorized-command-center-pull-reader",
+        "observedAt": "2026-11-13T06:40:39.024Z",
+        "deliveryRef": "command-center-pull:7af68cc171d7d0a21ab9563200851694b96cfa9cb5c703d0493b54a7c5495f66",
+        "incidentId": "loveourlistings.com:four-roles:8ffa784416aa321cc14c9879",
+        "probeRunId": "ad26a1b7-6cbe-4099-94e6-81a0ebe3c198",
+        "expectedIds": [
+          "loveourlistings.com:role-alert:watchdog:loveourlistings.com:four-roles:8ffa784416aa321cc14c9879",
+          "loveourlistings.com:role-canary:ad26a1b7-6cbe-4099-94e6-81a0ebe3c198"
+        ],
+        "deliveredIds": [
+          "loveourlistings.com:role-alert:watchdog:loveourlistings.com:four-roles:8ffa784416aa321cc14c9879",
+          "loveourlistings.com:role-canary:ad26a1b7-6cbe-4099-94e6-81a0ebe3c198"
+        ],
+        "matchedEvents": [
+          {
+            "id": "loveourlistings.com:role-alert:watchdog:loveourlistings.com:four-roles:8ffa784416aa321cc14c9879",
+            "status": "failed",
+            "runUrl": "https://vercel.com/colins-projects-208e3ca1/loveourlistings-com/logs",
+            "title": "Watchdog: supervisor-reports-unresolved-failures; actual-owner-alert-delivery-unverified",
+            "sourceAt": "2026-11-13T06:30:37.516Z"
+          },
+          {
+            "id": "loveourlistings.com:role-canary:ad26a1b7-6cbe-4099-94e6-81a0ebe3c198",
+            "status": "failed",
+            "runUrl": "https://vercel.com/colins-projects-208e3ca1/loveourlistings-com/logs",
+            "title": "Monitoring canary: controlled heartbeat silence detected and restored; test only, publisher continues",
+            "sourceAt": "2026-11-13T06:30:37.516Z"
+          }
+        ],
+        "ownerReadVerified": false,
+        "scope": "Actual normalized source alerts matched in the authorized Command Center reader; no owner-read or push-channel assertion."
+      }
     },
     {
       "domain": "weddings.io",
       "registryKind": "historical-inventory",
       "firstSeenAt": "2026-11-12T05:47:43.869Z",
-      "lastCheckAt": "2026-11-13T02:10:53.357Z",
+      "lastCheckAt": "2026-11-13T06:40:39.039Z",
       "source": {
         "repository": "SHTFTV/weddings.io",
         "sourceCommit": "4f05989261b0f07c6659ba9aafe353a1e62e0e83",
@@ -456,58 +541,42 @@
       "roles": [
         {
           "role": "worker",
-          "status": "running",
-          "attempts": 8,
-          "nextAttemptAt": "2026-11-13T06:26:53.357Z",
-          "lease": {
-            "runId": "43380290739",
-            "claimedAt": "2026-11-13T06:40:36.279Z",
-            "expiresAt": "2026-11-13T06:50:36.279Z"
-          },
+          "status": "blocked",
+          "attempts": 9,
+          "nextAttemptAt": "2026-11-13T12:40:39.039Z",
+          "lease": null,
           "blocker": "Existing site owner must connect actual worker execution adapter; no replacement publisher or activation attempted.",
-          "lastAttemptAt": "2026-11-13T02:10:53.357Z",
+          "lastAttemptAt": "2026-11-13T06:40:39.039Z",
           "receipt": null
         },
         {
           "role": "visual-checker",
-          "status": "running",
-          "attempts": 8,
-          "nextAttemptAt": "2026-11-13T06:26:53.357Z",
-          "lease": {
-            "runId": "43380290739",
-            "claimedAt": "2026-11-13T06:40:36.279Z",
-            "expiresAt": "2026-11-13T06:50:36.279Z"
-          },
+          "status": "blocked",
+          "attempts": 9,
+          "nextAttemptAt": "2026-11-13T12:40:39.039Z",
+          "lease": null,
           "blocker": "Existing site owner must connect actual visual-checker execution adapter; no replacement publisher or activation attempted.",
-          "lastAttemptAt": "2026-11-13T02:10:53.357Z",
+          "lastAttemptAt": "2026-11-13T06:40:39.039Z",
           "receipt": null
         },
         {
           "role": "supervisor",
-          "status": "running",
-          "attempts": 8,
-          "nextAttemptAt": "2026-11-13T06:26:53.357Z",
-          "lease": {
-            "runId": "43380290739",
-            "claimedAt": "2026-11-13T06:40:36.279Z",
-            "expiresAt": "2026-11-13T06:50:36.279Z"
-          },
+          "status": "blocked",
+          "attempts": 9,
+          "nextAttemptAt": "2026-11-13T12:40:39.039Z",
+          "lease": null,
           "blocker": "Existing site owner must connect actual supervisor execution adapter; no replacement publisher or activation attempted.",
-          "lastAttemptAt": "2026-11-13T02:10:53.357Z",
+          "lastAttemptAt": "2026-11-13T06:40:39.039Z",
           "receipt": null
         },
         {
           "role": "independent-watchdog",
-          "status": "running",
-          "attempts": 8,
-          "nextAttemptAt": "2026-11-13T06:26:53.357Z",
-          "lease": {
-            "runId": "43380290739",
-            "claimedAt": "2026-11-13T06:40:36.279Z",
-            "expiresAt": "2026-11-13T06:50:36.279Z"
-          },
+          "status": "blocked",
+          "attempts": 9,
+          "nextAttemptAt": "2026-11-13T12:40:39.039Z",
+          "lease": null,
           "blocker": "Existing site owner must connect actual independent-watchdog execution adapter; no replacement publisher or activation attempted.",
-          "lastAttemptAt": "2026-11-13T02:10:53.357Z",
+          "lastAttemptAt": "2026-11-13T06:40:39.039Z",
           "receipt": null
         }
       ],
@@ -12063,9 +12132,10 @@
     "trigger": "push",
     "sourceCommit": "285b7ae2418b17fdcc22112a3c1e47d1efb1aca2",
     "startedAt": "2026-11-13T06:40:23.916Z",
-    "completedAt": null,
-    "status": "running",
-    "scope": "Portfolio management and evidence adapters; never a replacement site publisher or a fifth site role."
+    "completedAt": "2026-11-13T06:40:39.042Z",
+    "status": "completed-with-evidence-gaps",
+    "scope": "Portfolio management and evidence adapters; never a replacement site publisher or a fifth site role.",
+    "processedSites": 3
   },
   "summary": {
     "inventory": 205,
