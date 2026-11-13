@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "2026-11-12.rejection-preflight.1",
+  "version": "2026-11-13.rejection-preflight.2",
   "status": "additive-operational-preflight; not the held shared website standard v3",
   "canonicalRef": "https://github.com/SHTFTV/markett-ca/blob/main/docs/operation-preflight/rejection-register.json",
   "rule": "Capture actual rejection evidence, exact operation/resource/permission scope and remediation before future attempts. Never transfer approval between sites, repos, secrets, environments or manifests. Do not retry or bypass a held action. Failed/missing preflight blocks only the affected operation; independent permitted work and working publishers continue. A preflight pass never suppresses provider/automatic review or guarantees approval.",
@@ -214,6 +214,46 @@
         "no-secret-or-private-strategy-disclosure"
       ],
       "verificationReceipt": null
+    },
+    {
+      "id": "private-policy-production-bundle",
+      "site": "shared",
+      "operation": "private_policy_production_bundle",
+      "state": "rejected-held",
+      "resource": {
+        "provider": "github-vercel",
+        "repository": "SHTFTV/markett-ca",
+        "branch": "main",
+        "function": "api/operation-preflight-manifest.js",
+        "configurationPath": "vercel.json",
+        "privateFileManifest": [
+          "docs/completion/OPERATING-STANDARD.md",
+          "docs/operation-preflight/rejection-register.json"
+        ]
+      },
+      "requestedPermissions": [
+        "include private operational policy files in public production function bundle"
+      ],
+      "reason": "This still stages private policy and rejection-register files for inclusion in a public production function bundle, risking sensitive-data exposure; no explicit approval covers that export and a digest-at-build-time design is safer.",
+      "evidence": {
+        "kind": "actual-tool-auto-review-rejection",
+        "tool": "github_create_tree",
+        "observedAt": "2026-11-13",
+        "exactAction": "vercel.json functions[api/operation-preflight-manifest.js].includeFiles targeting both private canonical files"
+      },
+      "repair": [
+        "Keep the rejected private-file runtime bundle held; do not export through an indirect route",
+        "Generate public version/hash data at build time",
+        "Bundle only the generated digest module in the read-only endpoint",
+        "Verify the actual public response and matching canonical digests"
+      ],
+      "requiredPreflight": [
+        "exact-bundled-file-manifest",
+        "no-private-policy-content-in-public-runtime-bundle",
+        "build-time-digest-generation",
+        "actual-live-digest-verification"
+      ],
+      "verificationReceipt": null
     }
   ],
   "approvals": [],
@@ -222,7 +262,8 @@
       "site": "theminingminute.com",
       "repository": "SHTFTV/theminingminute.com",
       "specificHeldCases": [
-        "mining-generated-production-update"
+        "mining-generated-production-update",
+        "private-policy-production-bundle"
       ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
@@ -238,7 +279,9 @@
     {
       "site": "loveourlistings.com",
       "repository": "SHTFTV/loveourlistings.com",
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
@@ -253,7 +296,9 @@
     {
       "site": "weddings.io",
       "repository": "SHTFTV/weddings.io",
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
@@ -268,7 +313,9 @@
     {
       "site": "industryarmymarketing.com",
       "repository": "SHTFTV/industryarmymarketing.com",
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
@@ -283,7 +330,9 @@
     {
       "site": "talc.tv",
       "repository": "SHTFTV/talc.tv",
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
@@ -298,7 +347,9 @@
     {
       "site": "eyespyr.com",
       "repository": "SHTFTV/eyespyr.com",
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
@@ -313,7 +364,9 @@
     {
       "site": "estimators.io",
       "repository": "SHTFTV/estimators-io",
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
@@ -328,7 +381,9 @@
     {
       "site": "buildershaus.com",
       "repository": "SHTFTV/buildershaus-com",
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
@@ -343,7 +398,9 @@
     {
       "site": "plowwow.com",
       "repository": "SHTFTV/plowwow.com",
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
@@ -358,7 +415,9 @@
     {
       "site": "roofers.io",
       "repository": null,
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
@@ -373,7 +432,9 @@
     {
       "site": "kongtractors.com",
       "repository": "SHTFTV/kongtractors.com",
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
@@ -388,7 +449,9 @@
     {
       "site": "steelstud.ca",
       "repository": "SHTFTV/steelstud-ca",
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
@@ -403,7 +466,9 @@
     {
       "site": "treatments.tv",
       "repository": "SHTFTV/siteground-migrations",
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
@@ -418,7 +483,9 @@
     {
       "site": "videographers.io",
       "repository": "SHTFTV/siteground-migrations",
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
@@ -433,7 +500,9 @@
     {
       "site": "caterers.tv",
       "repository": "SHTFTV/caterers-tv",
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
@@ -449,7 +518,8 @@
       "site": "minews.tv",
       "repository": "SHTFTV/minews.tv",
       "specificHeldCases": [
-        "minews-persistent-main-writes"
+        "minews-persistent-main-writes",
+        "private-policy-production-bundle"
       ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
@@ -465,7 +535,9 @@
     {
       "site": "insurancebrokers.io",
       "repository": "SHTFTV/insurancebrokers.io",
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
@@ -480,7 +552,9 @@
     {
       "site": "financialadvisors.io",
       "repository": "SHTFTV/siteground-migrations",
-      "specificHeldCases": [],
+      "specificHeldCases": [
+        "private-policy-production-bundle"
+      ],
       "analogueChecks": {
         "unattended_repository_write": "Required before any new persistent repository writer; no permission inferred from source discovery or another site",
         "production_secret_change": "Required before any production secret promotion/change; no credential permission granted by this register",
