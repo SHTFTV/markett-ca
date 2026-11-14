@@ -675,10 +675,38 @@
     {
       "id": "dentist.ltd",
       "domain": "dentist.ltd",
-      "status": "running",
+      "status": "blocked",
       "attempts": 1,
-      "gsc": null,
-      "bing": null
+      "gsc": {
+        "status": "blocked",
+        "propertyVerified": null,
+        "checkedAt": "2026-11-14T09:19:24.946Z",
+        "reason": "Google API credential not configured"
+      },
+      "bing": {
+        "status": "blocked",
+        "propertyVerified": null,
+        "checkedAt": "2026-11-14T09:19:24.946Z",
+        "reason": "Bing API credential not configured"
+      },
+      "latestAttempt": {
+        "at": "2026-11-14T09:19:24.946Z",
+        "gsc": {
+          "status": "blocked",
+          "propertyVerified": null,
+          "checkedAt": "2026-11-14T09:19:24.946Z",
+          "reason": "Google API credential not configured"
+        },
+        "bing": {
+          "status": "blocked",
+          "propertyVerified": null,
+          "checkedAt": "2026-11-14T09:19:24.946Z",
+          "reason": "Bing API credential not configured"
+        }
+      },
+      "blocker": "Google: configure existing authorized Search Console and Site Verification runtime access. Bing: configure existing authorized Webmaster API runtime access.",
+      "checkedAt": "2026-11-14T09:19:24.946Z",
+      "retryAt": "2026-11-14T15:19:23.720Z"
     },
     {
       "id": "dentists.ltd",
@@ -1660,18 +1688,15 @@
     }
   ],
   "runtime": {
-    "status": "running",
+    "status": "blocked",
     "currentSite": "dentist.ltd",
     "action": "Read Google and Bing ownership and sitemap status",
     "startedAt": "2026-11-14T09:19:23.720Z",
-    "heartbeatAt": "2026-11-14T09:19:23.720Z",
+    "heartbeatAt": "2026-11-14T09:19:24.946Z",
     "runUrl": "https://github.com/SHTFTV/markett-ca/actions/runs/43579991774",
     "nextExpectedRunAt": "2026-11-14T09:30:00.000Z",
-    "lease": {
-      "id": "40104db9-8681-4f67-80af-1f33aa57b681",
-      "expiresAt": "2026-11-14T09:22:23.720Z"
-    },
-    "blocker": null
+    "lease": null,
+    "blocker": "Google: configure existing authorized Search Console and Site Verification runtime access. Bing: configure existing authorized Webmaster API runtime access."
   },
   "alerts": [
     {
