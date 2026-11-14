@@ -747,10 +747,38 @@
     {
       "id": "drywallers.io",
       "domain": "drywallers.io",
-      "status": "running",
+      "status": "blocked",
       "attempts": 1,
-      "gsc": null,
-      "bing": null
+      "gsc": {
+        "status": "blocked",
+        "propertyVerified": null,
+        "checkedAt": "2026-11-14T20:30:36.273Z",
+        "reason": "Google API credential not configured"
+      },
+      "bing": {
+        "status": "blocked",
+        "propertyVerified": null,
+        "checkedAt": "2026-11-14T20:30:36.273Z",
+        "reason": "Bing API credential not configured"
+      },
+      "latestAttempt": {
+        "at": "2026-11-14T20:30:36.273Z",
+        "gsc": {
+          "status": "blocked",
+          "propertyVerified": null,
+          "checkedAt": "2026-11-14T20:30:36.273Z",
+          "reason": "Google API credential not configured"
+        },
+        "bing": {
+          "status": "blocked",
+          "propertyVerified": null,
+          "checkedAt": "2026-11-14T20:30:36.273Z",
+          "reason": "Bing API credential not configured"
+        }
+      },
+      "blocker": "Google: configure existing authorized Search Console and Site Verification runtime access. Bing: configure existing authorized Webmaster API runtime access.",
+      "checkedAt": "2026-11-14T20:30:36.273Z",
+      "retryAt": "2026-11-15T02:30:35.211Z"
     },
     {
       "id": "drywallers.org",
@@ -1716,18 +1744,15 @@
     }
   ],
   "runtime": {
-    "status": "running",
+    "status": "blocked",
     "currentSite": "drywallers.io",
     "action": "Read Google and Bing ownership and sitemap status",
     "startedAt": "2026-11-14T20:30:35.211Z",
-    "heartbeatAt": "2026-11-14T20:30:35.211Z",
+    "heartbeatAt": "2026-11-14T20:30:36.273Z",
     "runUrl": "https://github.com/SHTFTV/markett-ca/actions/runs/43637844825",
     "nextExpectedRunAt": "2026-11-14T20:45:00.000Z",
-    "lease": {
-      "id": "f6ca8be3-ca41-4e9f-b1bc-a6a0a9608fef",
-      "expiresAt": "2026-11-14T20:33:35.211Z"
-    },
-    "blocker": null
+    "lease": null,
+    "blocker": "Google: configure existing authorized Search Console and Site Verification runtime access. Bing: configure existing authorized Webmaster API runtime access."
   },
   "alerts": [
     {
