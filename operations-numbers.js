@@ -8,12 +8,12 @@ if(root){
   try{
    const [r,db,host,provider]=await Promise.all([fetch('/api/command-center-status',{cache:'no-store'}),fetch('/api/operations-state',{cache:'no-store'}),fetch('/hosting-counts.json',{cache:'no-store'}),fetch('/api/vercel-inventory',{cache:'no-store'})]);
    if(!r.ok)throw Error();const s=await r.json(),state=db.ok?await db.json():null,hosting=host.ok?await host.json():null,vercel=provider.ok?await provider.json():null;
-   root.replaceChildren();node('h2','Portfolio numbers',root);node('p',s.counts.knownSites+' reconciled domain records · '+date(s.assembledAt)+' · publication day uses Pacific time. Dated audit evidence is separate from cloud event connectivity.',root);
+   root.replaceChildren();node('h2','Portfolio numbers',root);node('p',s.counts.knownSites+' domains in verified Vercel route scope · '+date(s.assembledAt)+' · publication day uses Pacific time. Dated audit evidence is separate from cloud event connectivity.',root);
    const rows=s.rows,taskRows=state?.sites?.flatMap(x=>x.tasks??[])??null,build=k=>rows.filter(x=>x.build?.status===k).length,known=s.counts.knownSites;
    const cards=node('div','',root);cards.style.cssText='display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:14px';
    const scope=s.productionScope,account=s.search.accountInventory;
    const values=[
-    [scope.verifiedRoutedSites,'Vercel production sites','Canonical READY site + HTTP200 Vercel route; dated checks '+date(scope.routingOldestAt)+' to '+date(scope.routingCheckedAt)],
+    [scope.verifiedRoutedSites,'Verified Vercel routes','Canonical READY site + HTTP200 Vercel route; dated checks '+date(scope.routingOldestAt)+' to '+date(scope.routingCheckedAt)],
     [scope.rawProjects,'Raw Vercel projects','Includes preview/test projects; provider census '+date(scope.checkedAt)],
     [scope.readyAttachedCanonicalSites,'READY sites attached','Deployment + custom binding; routing is checked separately'],
     [scope.migrationBacklog,'Migration backlog','Registry records outside verified Vercel route scope; inspect the scope selector'],
@@ -23,8 +23,8 @@ if(root){
     [scope.migration.verifiedCutovers,'Receipted Vercel cutovers','Deduplicated verified cutover receipts; project creation does not increment'],
     [scope.migration.verifiedNetlifyDeletions,'Receipted Netlify deletions','Provider-confirmed absence only; Vercel routing does not prove deletion'],
     [s.countDefinitions?.ownedAccounts?.combinedUniqueOwnedDomains??'Unknown','Registrar account domains','Dated account inventory · '+date(s.countDefinitions?.ownedAccounts?.checkedAt)],
-    [s.counts.httpResponding,'Production HTTP200','Within the verified Vercel scope'],
-    [s.counts.automaticPublishersWithReceipts,'Native auto publishers proven','Matched scheduled publication receipts; configuration is separate'],
+    [s.counts.httpResponding,'Census HTTPS200','Dated verified Vercel scope; all-domain homepage checks are separate'],
+    [s.counts.automaticPublishersWithReceipts,'Schedule-triggered publishers proven','Matched schedule-triggered publication receipts; recovery-triggered evidence is shown per site'],
     [s.counts.continuousBotsVerified,'Continuous workers proven','Requires actual current runtime evidence'],
     [s.counts.publicationsToday,'Verified posts today','Distinct live URLs in production scope · Pacific day'],
     [s.counts.needsAttention,'Production sites needing attention','Search setup is displayed separately and does not block launch'],
