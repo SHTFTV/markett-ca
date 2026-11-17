@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-17T12:45:47.253Z",
+  "checkedAt": "2026-11-17T21:24:06.683Z",
   "thresholdSeconds": 7200,
   "source": "Bounded actual live feeds/articles; no heartbeat or lastmod substitution",
   "rows": [
@@ -1357,7 +1357,7 @@
     },
     {
       "domain": "growers.ltd",
-      "checkedAt": "2026-11-13T06:40:25.625Z",
+      "checkedAt": "2026-11-17T21:23:56.682Z",
       "lastPublication": null,
       "errors": [],
       "noEligibleContentEvidence": null,
@@ -1370,7 +1370,7 @@
     },
     {
       "domain": "haltmrna.com",
-      "checkedAt": "2026-11-13T09:32:42.273Z",
+      "checkedAt": "2026-11-17T21:23:56.683Z",
       "lastPublication": null,
       "errors": [],
       "noEligibleContentEvidence": null,
@@ -1383,7 +1383,7 @@
     },
     {
       "domain": "hardscapes.io",
-      "checkedAt": "2026-11-13T09:32:42.273Z",
+      "checkedAt": "2026-11-17T21:23:56.683Z",
       "lastPublication": null,
       "errors": [],
       "noEligibleContentEvidence": null,
@@ -1396,12 +1396,25 @@
     },
     {
       "domain": "healthwealthhome.com",
-      "checkedAt": "2026-11-13T09:32:42.273Z",
+      "checkedAt": "2026-11-17T21:23:56.683Z",
       "lastPublication": null,
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.healthwealthhome.com/rss.xml",
+          "code": "HTTP_404"
+        },
+        {
+          "url": "https://www.healthwealthhome.com/feed.xml",
+          "code": "HTTP_404"
+        },
+        {
+          "url": "https://www.healthwealthhome.com/feed/",
+          "code": "HTTP_404"
+        }
+      ],
       "noEligibleContentEvidence": null,
       "scope": "Bounded live publication metadata audit; not publishing automation or indexing proof.",
-      "blocker": "Live site/publication access failed: SOURCE_UNAVAILABLE",
+      "blocker": "No verifiable publication time found within bounded same-site feed/article checks. Recover the actual site program/feed; this is unknown, not proof nothing was published.",
       "publicationAgeSeconds": null,
       "thresholdSeconds": 7200,
       "status": "unknown-publication-time",
@@ -1409,7 +1422,7 @@
     },
     {
       "domain": "hibarinsulation.ca",
-      "checkedAt": "2026-11-13T09:32:42.273Z",
+      "checkedAt": "2026-11-17T21:23:56.683Z",
       "lastPublication": null,
       "errors": [],
       "noEligibleContentEvidence": null,
@@ -1422,12 +1435,21 @@
     },
     {
       "domain": "hibarinsulation.com",
-      "checkedAt": "2026-11-13T09:32:42.273Z",
+      "checkedAt": "2026-11-17T21:23:56.683Z",
       "lastPublication": null,
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.hibarinsulation.com/rss.xml",
+          "code": "HTTP_404"
+        },
+        {
+          "url": "https://www.hibarinsulation.com/feed/",
+          "code": "HTTP_404"
+        }
+      ],
       "noEligibleContentEvidence": null,
       "scope": "Bounded live publication metadata audit; not publishing automation or indexing proof.",
-      "blocker": "Live site/publication access failed: SOURCE_UNAVAILABLE",
+      "blocker": "No verifiable publication time found within bounded same-site feed/article checks. Recover the actual site program/feed; this is unknown, not proof nothing was published.",
       "publicationAgeSeconds": null,
       "thresholdSeconds": 7200,
       "status": "unknown-publication-time",
@@ -1435,20 +1457,28 @@
     },
     {
       "domain": "homestagers.io",
-      "checkedAt": "2026-11-13T09:32:42.273Z",
-      "lastPublication": null,
+      "checkedAt": "2026-11-17T21:23:58.352Z",
+      "lastPublication": {
+        "url": "https://homestagers.io/news/show-a-rooms-options-without-inventing-capacity",
+        "publishedAt": "2026-11-13T05:26:22.000Z",
+        "title": "Show a room's options without inventing its capacity",
+        "dateSource": "article-jsonld-datePublished",
+        "verifiedAt": "2026-11-17T21:23:58.352Z",
+        "httpStatus": 200,
+        "verification": "Actual same-site article HTTP200 plus publication date from article/feed; no dateModified/lastmod/heartbeat used."
+      },
       "errors": [],
       "noEligibleContentEvidence": null,
       "scope": "Bounded live publication metadata audit; not publishing automation or indexing proof.",
-      "blocker": "Live site/publication access failed: SOURCE_UNAVAILABLE",
-      "publicationAgeSeconds": null,
+      "blocker": "Publication is older than target unless current metadata proves otherwise; inspect actual owning publisher/queue for eligibility and failures.",
+      "publicationAgeSeconds": 403056,
       "thresholdSeconds": 7200,
-      "status": "unknown-publication-time",
+      "status": "older-than-two-hours",
       "heartbeatIsPublication": false
     },
     {
       "domain": "hookliftbin.com",
-      "checkedAt": "2026-11-13T09:32:42.512Z",
+      "checkedAt": "2026-11-17T21:23:58.781Z",
       "lastPublication": null,
       "errors": [],
       "noEligibleContentEvidence": null,
@@ -1461,13 +1491,13 @@
     },
     {
       "domain": "hotwatertankinstallation.ca",
-      "checkedAt": "2026-11-13T09:32:52.275Z",
+      "checkedAt": "2026-11-17T21:23:59.414Z",
       "lastPublication": {
         "url": "https://hotwatertankinstallation.ca/blog/rheem-xg50t12dm40uo-powered-damper-service-planning",
         "publishedAt": "2026-11-10T01:44:49.000Z",
         "title": "Rheem XG50T12DM40UO: identify the system before arranging service",
         "dateSource": "article-jsonld-datePublished",
-        "verifiedAt": "2026-11-13T09:32:52.275Z",
+        "verifiedAt": "2026-11-17T21:23:59.414Z",
         "httpStatus": 200,
         "verification": "Actual same-site article HTTP200 plus publication date from article/feed; no dateModified/lastmod/heartbeat used."
       },
@@ -1475,14 +1505,14 @@
       "noEligibleContentEvidence": null,
       "scope": "Bounded live publication metadata audit; not publishing automation or indexing proof.",
       "blocker": "Publication is older than target unless current metadata proves otherwise; inspect actual owning publisher/queue for eligibility and failures.",
-      "publicationAgeSeconds": 287283,
+      "publicationAgeSeconds": 675550,
       "thresholdSeconds": 7200,
       "status": "older-than-two-hours",
       "heartbeatIsPublication": false
     },
     {
       "domain": "hpoa.ca",
-      "checkedAt": "2026-11-13T09:32:52.275Z",
+      "checkedAt": "2026-11-17T21:23:59.750Z",
       "lastPublication": null,
       "errors": [],
       "noEligibleContentEvidence": null,
@@ -1495,13 +1525,13 @@
     },
     {
       "domain": "hvacr.news",
-      "checkedAt": "2026-11-13T09:32:52.511Z",
+      "checkedAt": "2026-11-17T21:23:59.786Z",
       "lastPublication": {
         "url": "https://hvacr.news/news/automated-logic-logical-solutions-agreement/",
         "publishedAt": "2026-11-09T21:30:49.990Z",
         "title": "Automated Logic signs agreement for Texas controls dealer",
         "dateSource": "article-jsonld-datePublished",
-        "verifiedAt": "2026-11-13T09:32:52.511Z",
+        "verifiedAt": "2026-11-17T21:23:59.786Z",
         "httpStatus": 200,
         "verification": "Actual same-site article HTTP200 plus publication date from article/feed; no dateModified/lastmod/heartbeat used."
       },
@@ -1514,14 +1544,14 @@
       "noEligibleContentEvidence": null,
       "scope": "Bounded live publication metadata audit; not publishing automation or indexing proof.",
       "blocker": "Publication is older than target unless current metadata proves otherwise; inspect actual owning publisher/queue for eligibility and failures.",
-      "publicationAgeSeconds": 302522,
+      "publicationAgeSeconds": 690789,
       "thresholdSeconds": 7200,
       "status": "older-than-two-hours",
       "heartbeatIsPublication": false
     },
     {
       "domain": "hvacr.tv",
-      "checkedAt": "2026-11-13T09:32:52.513Z",
+      "checkedAt": "2026-11-17T21:23:59.813Z",
       "lastPublication": null,
       "errors": [
         {
