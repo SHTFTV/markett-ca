@@ -83,3 +83,24 @@ window.addEventListener('vercel-provider-inventory',event=>{providerInventory=ev
 
 
 $('current-scope-filter')?.addEventListener('change',render);
+
+function renderActionBoard(){
+ const root=$('action-rows');if(!root||!data)return;root.replaceChildren();
+ const q=$('action-filter').value.trim().toLowerCase(), seen=new Map();
+ for(const row of [...data.rows,...(data.migrationBacklog??[])])seen.set(row.domain,row);
+ const rows=[...seen.values()].filter(r=>r.domain.includes(q)).sort((a,b)=>priorityRank(a.domain)-priorityRank(b.domain)||a.domain.localeCompare(b.domain));
+ for(const r of rows){
+ const tr=node('tr',null,root),site=node('td',null,tr),link=node('a',r.domain,site);link.href='https://'+r.domain;link.target='_blank';link.rel='noopener';
+ node('td',r.operationally_complete?'Verified complete':r.status==='red'?'Needs action':r.status==='orange'?'Delayed':r.automaticReceipt?'Automatic post verified':'Unverified / incomplete',tr);
+ const p=r.latestObservedPublication??r.lastPublication;node('td',p?.publishedAt?time(p.publishedAt):'Unknown',tr);
+ const action=node('td',r.nextAction??'Recover source and verify sole publisher.',tr);
+ const issue=r.issues?.[0];if(issue?.title)node('small',issue.title,action);
+ const open=node('td',null,tr);
+ if(p?.url){const a=node('a','Post ↗',open);a.href=p.url;a.target='_blank';a.rel='noopener';}
+ const detail=node('button','Details',open);detail.onclick=()=>showRoles(r);
+ if(r.lastAttempt?.runUrl){const a=node('a','Run ↗',open);a.href=r.lastAttempt.runUrl;a.target='_blank';a.rel='noopener';}
+ }
+ $('action-summary').textContent=rows.length+' sites · evidence assembled '+time(data.assembledAt)+' · registry '+time(data.registrySnapshotAt);
+}
+$('action-filter')?.addEventListener('input',renderActionBoard);
+window.addEventListener('ops-overview',renderActionBoard);
