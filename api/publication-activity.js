@@ -1,5 +1,6 @@
 // Public read-only projection. Fixed public sources; never load private operating records.
 const SOURCES=[
+ {site:'kongtractors.com',brand:'Kong Tractors',url:'https://kongtractors.com/feed.xml',format:'kong-journal-rss-v1'},
  {site:'junkremoval.ltd',brand:'JunkRemoval.ltd',url:'https://junkremoval-ltd.vercel.app/api/alerts/',format:'site-role-alerts-v1'},
  {site:'builders.ltd',brand:'Builders.ltd',url:'https://builders-ltd.vercel.app/api/alerts/',format:'site-role-alerts-v1'},
  {site:'insurancebrokers.io',brand:'InsuranceBrokers',url:'https://insurancebrokers.io/publication-results.json'},
@@ -81,8 +82,23 @@ export async function iamLatest(fetcher=fetch){
   return {...source,status:'connected',checkedAt,events:[event]};
  }catch{return {...source,status:'unavailable',checkedAt,events:[]};}
 }
+// Kong's retained publisher exposes RSS, not publication-results.json.
+// Verify the two newest dated entries against their actual canonical article pages.
+export async function kongJournal(source,fetcher=fetch){
+ const checkedAt=new Date().toISOString();
+ const read=async url=>{const r=await fetcher(url,{redirect:'error',signal:AbortSignal.timeout(7000)});if(!r.ok)throw Error('unavailable');const reader=r.body.getReader();let bytes=0;const chunks=[];while(true){const {done,value}=await reader.read();if(done)break;bytes+=value.byteLength;if(bytes>2097152){await reader.cancel();throw Error('unavailable');}chunks.push(value);}const data=new Uint8Array(bytes);let offset=0;for(const c of chunks){data.set(c,offset);offset+=c.byteLength;}return {text:new TextDecoder().decode(data),type:r.headers.get('content-type')??''};};
+ const value=(item,key)=>(item.match(new RegExp('<'+key+'>([\\s\\S]*?)</'+key+'>'))?.[1]??'').replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g,'$1').replace(/&amp;/g,'&').replace(/&apos;/g,"'").replace(/&quot;/g,'"').trim();
+ try{
+  const feed=await read(source.url);if(!feed.text.includes('<rss'))throw Error('unavailable');
+  const entries=[...feed.text.matchAll(/<item>([\s\S]*?)<\/item>/g)].map(m=>({title:value(m[1],'title'),url:value(m[1],'link'),publishedAt:value(m[1],'pubDate')})).map(p=>sanitizeEvent(source,{...p,site:source.site,id:p.url,status:'done',verifiedAt:checkedAt,receiptState:'independently-http-and-discovery-verified'})).filter(Boolean).sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt)).slice(0,2);
+  if(!entries.length)throw Error('unavailable');
+  const events=await Promise.all(entries.map(async e=>{if(!/^https:\/\/kongtractors\.com\/blog\/[a-z0-9-]+\.html$/.test(e.url))throw Error('unavailable');const page=await read(e.url);const canonical=[...page.text.matchAll(/<link\b[^>]*>/gi)].filter(m=>/\brel\s*=\s*["']canonical["']/i.test(m[0])).map(m=>m[0].match(/\bhref\s*=\s*["']([^"']+)["']/i)?.[1]);const h1=page.text.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1]?.replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&apos;/g,"'").replace(/&quot;/g,'"').trim();if(!page.type.includes('text/html')||canonical.length!==1||canonical[0]!==e.url||h1!==e.title)throw Error('unavailable');return e;}));
+  return {site:source.site,brand:source.brand,status:'connected',checkedAt,events};
+ }catch{return {site:source.site,brand:source.brand,status:'unavailable',checkedAt,events:[]};}
+}
+
 export async function activity(fetcher=fetch,{includeArchive=true,limit=500}={}){
- const results=await Promise.all(SOURCES.map(async source=>{try{const data=await json(source,fetcher);const events=source.format==='kitchen-editorial-v1'?kitchenEditorialEvents(source,data):(source.format==='site-role-alerts-v1'?roleAlertInputs(source,data):(Array.isArray(data.events)?data.events:[])).slice(-500).map(x=>sanitizeEvent(source,x)).filter(Boolean);const monitor=miningMonitor(source,data);if(monitor)events.push(monitor);return {site:source.site,brand:source.brand,status:'connected',checkedAt:new Date().toISOString(),events};}catch(e){console.warn('Public publication log',source.site,e.message==='not-connected'?'not-connected':'unavailable');return {site:source.site,brand:source.brand,status:e.message==='not-connected'?'not-connected':'unavailable',checkedAt:new Date().toISOString(),events:[]};}}));
+ const results=await Promise.all(SOURCES.map(async source=>{if(source.format==='kong-journal-rss-v1')return kongJournal(source,fetcher);try{const data=await json(source,fetcher);const events=source.format==='kitchen-editorial-v1'?kitchenEditorialEvents(source,data):(source.format==='site-role-alerts-v1'?roleAlertInputs(source,data):(Array.isArray(data.events)?data.events:[])).slice(-500).map(x=>sanitizeEvent(source,x)).filter(Boolean);const monitor=miningMonitor(source,data);if(monitor)events.push(monitor);return {site:source.site,brand:source.brand,status:'connected',checkedAt:new Date().toISOString(),events};}catch(e){console.warn('Public publication log',source.site,e.message==='not-connected'?'not-connected':'unavailable');return {site:source.site,brand:source.brand,status:e.message==='not-connected'?'not-connected':'unavailable',checkedAt:new Date().toISOString(),events:[]};}}));
  if(!results.some(s=>s.site==='industryarmymarketing.com'&&s.status==='connected'))results.push(await iamLatest(fetcher));
  let archive={connected:false,events:[]};if(includeArchive&&fetcher===fetch){try{archive=await (await import('../lib/publication-receipt-store.mjs')).readPublications({limit});}catch{}}
  const unique=new Map();for(const e of archive.events??[]){const source=SOURCES.find(s=>s.site===e.site);const clean=source&&sanitizeEvent(source,e);if(clean)unique.set(clean.site+'|'+clean.url,clean);}
