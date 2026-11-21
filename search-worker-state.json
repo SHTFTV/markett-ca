@@ -1431,10 +1431,38 @@
     {
       "id": "homestagers.io",
       "domain": "homestagers.io",
-      "status": "running",
+      "status": "blocked",
       "attempts": 1,
-      "gsc": null,
-      "bing": null
+      "gsc": {
+        "status": "blocked",
+        "propertyVerified": null,
+        "checkedAt": "2026-11-21T19:48:08.823Z",
+        "reason": "Google API credential not configured"
+      },
+      "bing": {
+        "status": "blocked",
+        "propertyVerified": null,
+        "checkedAt": "2026-11-21T19:48:08.823Z",
+        "reason": "Bing API credential not configured"
+      },
+      "latestAttempt": {
+        "at": "2026-11-21T19:48:08.823Z",
+        "gsc": {
+          "status": "blocked",
+          "propertyVerified": null,
+          "checkedAt": "2026-11-21T19:48:08.823Z",
+          "reason": "Google API credential not configured"
+        },
+        "bing": {
+          "status": "blocked",
+          "propertyVerified": null,
+          "checkedAt": "2026-11-21T19:48:08.823Z",
+          "reason": "Bing API credential not configured"
+        }
+      },
+      "blocker": "Google: configure existing authorized Search Console and Site Verification runtime access. Bing: configure existing authorized Webmaster API runtime access.",
+      "checkedAt": "2026-11-21T19:48:08.823Z",
+      "retryAt": "2026-11-22T01:48:07.638Z"
     },
     {
       "id": "hookliftbin.com",
@@ -2248,18 +2276,15 @@
     }
   ],
   "runtime": {
-    "status": "running",
+    "status": "blocked",
     "currentSite": "homestagers.io",
     "action": "Read Google and Bing ownership and sitemap status",
     "startedAt": "2026-11-21T19:48:07.638Z",
-    "heartbeatAt": "2026-11-21T19:48:07.638Z",
+    "heartbeatAt": "2026-11-21T19:48:08.823Z",
     "runUrl": "https://github.com/SHTFTV/markett-ca/actions/runs/44942855083",
     "nextExpectedRunAt": "2026-11-21T20:00:00.000Z",
-    "lease": {
-      "id": "00ea9d7d-2943-4dde-82c6-d24408c9a005",
-      "expiresAt": "2026-11-21T19:51:07.638Z"
-    },
-    "blocker": null
+    "lease": null,
+    "blocker": "Google: configure existing authorized Search Console and Site Verification runtime access. Bing: configure existing authorized Webmaster API runtime access."
   },
   "alerts": [
     {
