@@ -1683,10 +1683,38 @@
     {
       "id": "insurancebrokers.io",
       "domain": "insurancebrokers.io",
-      "status": "running",
+      "status": "blocked",
       "attempts": 1,
-      "gsc": null,
-      "bing": null
+      "gsc": {
+        "status": "blocked",
+        "propertyVerified": null,
+        "checkedAt": "2026-11-23T21:54:44.460Z",
+        "reason": "Google API credential not configured"
+      },
+      "bing": {
+        "status": "blocked",
+        "propertyVerified": null,
+        "checkedAt": "2026-11-23T21:54:44.460Z",
+        "reason": "Bing API credential not configured"
+      },
+      "latestAttempt": {
+        "at": "2026-11-23T21:54:44.460Z",
+        "gsc": {
+          "status": "blocked",
+          "propertyVerified": null,
+          "checkedAt": "2026-11-23T21:54:44.460Z",
+          "reason": "Google API credential not configured"
+        },
+        "bing": {
+          "status": "blocked",
+          "propertyVerified": null,
+          "checkedAt": "2026-11-23T21:54:44.460Z",
+          "reason": "Bing API credential not configured"
+        }
+      },
+      "blocker": "Google: configure existing authorized Search Console and Site Verification runtime access. Bing: configure existing authorized Webmaster API runtime access.",
+      "checkedAt": "2026-11-23T21:54:44.460Z",
+      "retryAt": "2026-11-24T03:54:43.077Z"
     },
     {
       "id": "interiordesigners.io",
@@ -2444,18 +2472,15 @@
     }
   ],
   "runtime": {
-    "status": "running",
+    "status": "blocked",
     "currentSite": "insurancebrokers.io",
     "action": "Read Google and Bing ownership and sitemap status",
     "startedAt": "2026-11-23T21:54:43.077Z",
-    "heartbeatAt": "2026-11-23T21:54:43.077Z",
+    "heartbeatAt": "2026-11-23T21:54:44.460Z",
     "runUrl": "https://github.com/SHTFTV/markett-ca/actions/runs/45274391934",
     "nextExpectedRunAt": "2026-11-23T22:00:00.000Z",
-    "lease": {
-      "id": "66cb0144-852a-45cf-815b-4625d47dd557",
-      "expiresAt": "2026-11-23T21:57:43.077Z"
-    },
-    "blocker": null
+    "lease": null,
+    "blocker": "Google: configure existing authorized Search Console and Site Verification runtime access. Bing: configure existing authorized Webmaster API runtime access."
   },
   "alerts": [
     {
